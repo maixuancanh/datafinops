@@ -29,11 +29,12 @@ export default function DemoPage() {
       </header>
 
       <section className="container demo-hero">
-        <span className="eyebrow">Guided sandbox · synthetic portfolio</span>
-        <h1 className="section-title">DataFinOps command center</h1>
+        <span className="eyebrow">Guided TxLINE sandbox · synthetic World Cup 2026 portfolio</span>
+        <h1 className="section-title">TxLINE World Cup 2026 spend command center</h1>
         <p className="lead">
-          A buyer-facing walkthrough of the operating loop: portfolio exposure, optimization
-          opportunities, governed proposals, renewal risk, and finance-grade evidence.
+          A buyer-facing walkthrough for sportsbook ops, fan apps, sponsor activations, and
+          prediction-market settlement teams: fixture coverage, odds/scores replay, governed savings
+          proposals, renewal risk, and finance-grade proof packs.
         </p>
         <div className="safety-strip">
           {safetyClaims.map((claim) => (
@@ -61,8 +62,8 @@ export default function DemoPage() {
 
       <section className="container section demo-layout">
         <article className="panel-card">
-          <span className="eyebrow">Proposal queue</span>
-          <h2>Approval-ready savings candidates</h2>
+          <span className="eyebrow">TxLINE proposal queue</span>
+          <h2>Approval-ready World Cup savings candidates</h2>
           {proposalQueue.map((proposal) => (
             <div className="queue-item" key={proposal.id}>
               <div>
@@ -81,8 +82,8 @@ export default function DemoPage() {
         </article>
 
         <aside className="panel-card">
-          <span className="eyebrow">Renewal radar</span>
-          <h2>Risks to clear before commitment dates</h2>
+          <span className="eyebrow">World Cup renewal radar</span>
+          <h2>Risks to clear before match-critical commitment dates</h2>
           {renewalRisks.map((risk) => (
             <div className="risk-item" key={risk.label}>
               <div>
@@ -102,12 +103,13 @@ export default function DemoPage() {
       <section className="container section">
         <div className="section-header">
           <div>
-            <span className="eyebrow">Launch points</span>
-            <h2 className="section-title">Open the product surfaces buyers ask about.</h2>
+            <span className="eyebrow">TxLINE launch points</span>
+            <h2 className="section-title">Open the World Cup product surfaces buyers ask about.</h2>
           </div>
           <p>
             Each module links to an existing sandbox workspace page, so the demo feels like a real
-            product without requiring live customer data.
+            TxLINE product without requiring live customer data, production tokens, or funded
+            wallets.
           </p>
         </div>
         <div className="card-grid">
@@ -127,8 +129,10 @@ export default function DemoPage() {
       <section className="container section">
         <div className="cta-band">
           <div>
-            <span className="eyebrow">Evidence checklist</span>
-            <h2 className="section-title">What finance and security can inspect.</h2>
+            <span className="eyebrow">TxLINE evidence checklist</span>
+            <h2 className="section-title">
+              What finance, security, and settlement teams can inspect.
+            </h2>
           </div>
           <div>
             {evidenceChecks.map((check) => (
