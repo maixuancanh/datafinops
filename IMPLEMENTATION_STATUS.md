@@ -10,7 +10,7 @@ Use `git log --oneline -- ideawithsol/datafinops` for the current HEAD-specific 
 - Dossier/spec readiness: ready; requirement checklist 27/27.
 - Code/build readiness: T001-T110 are implemented and verified with local and GitHub evidence.
 - Local runtime readiness: Docker-free Windows native runtime scripts and quickstart evidence exist for sandbox mode.
-- Deterministic demo readiness: sandbox demo probe evidence exists; final rendered video remains only as safe local artifact/probe evidence, not a production demo claim.
+- Deterministic demo readiness: sandbox demo probe evidence exists, and `apps/console` now has a commercial landing page plus guided `/demo` sandbox walkthrough; this is not a production deployment claim.
 - Staging deployment readiness: manifests are present but not deployed as a running public service.
 - Production/live integration readiness: not ready; live-write remains disabled.
 - Commercial/customer readiness: not ready; customer-specific rights, finance, security, and operating approvals remain external gates.
@@ -62,6 +62,12 @@ Docker is not required for this Windows run. The repo uses native PostgreSQL 16,
 - `scripts/check-native-dependencies.ps1`
 - `scripts/stop-native-dependencies.ps1`
 - `scripts/quickstart.ps1`
+
+Commercial web demo:
+
+- `/`: buyer-facing SaaS landing page for DataFinOps Commercial V1.
+- `/demo`: guided sandbox command center with synthetic KPIs, proposal queue, renewal risk, evidence checklist, and links into existing workspace modules.
+- Safety posture remains sandbox-only: no auth/billing/live-write/funded-wallet requirement for the demo.
 
 Acceptance evidence is archived under:
 

@@ -9,6 +9,12 @@ Use `git log --oneline -- ideawithsol/datafinops` for the current HEAD-specific 
 
 DataFinOps Commercial V1 is implemented with Docker-free Windows runtime support. The task ledger is 110/110 complete.
 
+The console app also includes a sellable sandbox web demo:
+
+- `/`: commercial SaaS landing page for buyer demos.
+- `/demo`: guided sandbox command center linking into portfolio, scenarios, proposals, savings, renewals, usage, and administration.
+- Demo copy explicitly states sandbox-only, non-custodial, no private signing material, and live-write disabled.
+
 The local CI workflow structure is implemented in `.github/workflows/ci.yml`. The aggregate job is named `Required aggregate gate`, uses `if: always()`, depends on contracts, quality, tests, build, security, solver-parity, and evidence, and calls `scripts/assert-ci-results.mjs`.
 
 Fresh T005 proof is in `artifacts/implementation/T005-ci-gates-local.json` and `artifacts/implementation/T005-ci-gates-github.json`:
