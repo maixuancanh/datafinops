@@ -23,6 +23,8 @@ External GitHub proof probe is in `artifacts/implementation/T005-ci-gates-github
 
 Remote and GitHub-plan evidence is in `artifacts/implementation/T005-remote-discovery.md`. A private GitHub repo has been created and pushed, but GitHub returns `Upgrade to GitHub Pro or make this repository public to enable this feature` when configuring or reading branch protection/rulesets for the private repo.
 
+Latest GitHub Actions evidence on `main` commit `2458a3a`: `DataFinOps CI` run `29187284719` passed and `DataFinOps Security` run `29187284720` passed. This proves the CI workflow is green on GitHub, but not merge blocking.
+
 ## Runtime And Verification
 
 Docker was intentionally bypassed for this Windows machine. Native runtime scripts are present:
