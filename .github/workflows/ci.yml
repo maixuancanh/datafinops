@@ -58,6 +58,8 @@ jobs:
       redis:
         image: redis:8.4-alpine
         ports: ['6379:6379']
+    env:
+      TEST_DATABASE_URL: postgresql://datafinops:test-only@127.0.0.1:55432/datafinops
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

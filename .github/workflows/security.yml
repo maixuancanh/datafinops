@@ -56,6 +56,7 @@ jobs:
           scan-ref: .
           severity: CRITICAL,HIGH
           exit-code: '1'
+          version: v0.72.0
 
   provenance-policy:
     runs-on: ubuntu-24.04
