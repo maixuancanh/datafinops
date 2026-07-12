@@ -1,164 +1,174 @@
 export const navItems = [
-  { label: 'Product', href: '#product' },
-  { label: 'Demo', href: '/demo' },
-  { label: 'Security', href: '#security' },
+  { label: 'World Cup control', href: '#product' },
+  { label: 'TxLINE demo', href: '/demo' },
+  { label: 'Proofs', href: '#security' },
   { label: 'Pilot', href: '#pilot' },
 ] as const;
 
 export const heroMetrics = [
-  { label: 'Managed annualized spend', value: '$18.4M', detail: 'synthetic TxLINE portfolio' },
-  { label: 'Projected avoidable spend', value: '$2.7M', detail: 'policy-safe optimization' },
-  { label: 'Renewals at risk', value: '14', detail: 'next 45 days' },
-  { label: 'Evidence readiness', value: '97%', detail: 'audit pack coverage' },
+  { label: 'World Cup fixture windows', value: '104', detail: 'synthetic 2026 coverage plan' },
+  { label: 'TxLINE feeds monitored', value: '3.8M', detail: 'odds and score events replayed' },
+  { label: 'Avoidable data spend', value: '$2.7M', detail: 'policy-safe feed optimization' },
+  {
+    label: 'Settlement proof readiness',
+    value: '97%',
+    detail: 'replay and validation pack coverage',
+  },
 ] as const;
 
 export const buyerPains = [
   {
-    title: 'Rights spend is scattered',
-    body: 'Pricing, usage, fixture coverage, latency commitments, renewals, and approvals usually live in different tools.',
+    title: 'World Cup data spend spikes fast',
+    body: 'Sportsbooks, fan apps, sponsor activations, and prediction desks buy overlapping fixture, odds, score, and latency packages under pressure.',
   },
   {
-    title: 'Optimization is hard to trust',
-    body: 'Finance teams need deterministic replay, exact money math, and evidence before approving subscription changes.',
+    title: 'TxLINE changes need proof',
+    body: 'Finance and ops teams need deterministic replay of fixtures, live odds SSE, live scores SSE, and validation proofs before approving feed changes.',
   },
   {
-    title: 'Execution risk is expensive',
-    body: 'A missed entitlement, wrong network, stale approval, or unsigned proposal can turn savings into incidents.',
+    title: 'Settlement errors are visible',
+    body: 'A stale score, missing odds snapshot, bad entitlement, or unsigned settlement envelope can turn a savings move into a public incident.',
   },
 ] as const;
 
 export const operatingLoop = [
   {
     step: '01',
-    title: 'Ingest verified portfolio state',
-    body: 'Normalize pricing, usage, subscriptions, fixture requirements, revenue, cost centers, and entitlement evidence.',
+    title: 'Map World Cup coverage',
+    body: 'Normalize teams, fixture windows, markets, sponsor triggers, fan surfaces, latency tiers, and TxLINE feed entitlements.',
   },
   {
     step: '02',
-    title: 'Optimize within policy',
-    body: 'Run deterministic scenario analysis while preserving hard requirements and surfacing conflicts instead of hiding them.',
+    title: 'Replay TxLINE evidence',
+    body: 'Run historical fixture replay with live odds and score streams so every optimization keeps settlement-critical data intact.',
   },
   {
     step: '03',
-    title: 'Approve with audit-grade context',
-    body: 'Freeze proposal hashes, policy versions, approval graphs, rationale, expiry, and material-change invalidation.',
+    title: 'Approve spend moves safely',
+    body: 'Freeze proposal hashes, fixture snapshots, policy versions, approval graphs, and material-change invalidation before execution.',
   },
   {
     step: '04',
-    title: 'Verify savings and renewal risk',
-    body: 'Track realized savings, entitlement mismatches, renewal windows, and evidence bundles for finance sign-off.',
+    title: 'Prove savings and settlement readiness',
+    body: 'Track realized savings, feed coverage gaps, validation proofs, renewal windows, and finance-ready evidence bundles.',
   },
 ] as const;
 
 export const demoModules = [
   {
-    title: 'Portfolio control room',
-    metric: '$18.4M managed',
-    body: 'View current commitments, coverage, latency classes, regions, and cost-center exposure.',
+    title: 'World Cup portfolio control room',
+    metric: '104 fixture windows',
+    body: 'View committed TxLINE fixture, odds, score, latency, market, sponsor, and regional coverage.',
     href: '/portfolio',
   },
   {
-    title: 'Optimization scenarios',
+    title: 'TxLINE optimization scenarios',
     metric: '$2.7M opportunity',
-    body: 'Compare current state with candidate configurations and see every hard/soft requirement consequence.',
+    body: 'Compare feed-tier moves against hard settlement, fan-experience, and sponsor-trigger requirements.',
     href: '/scenarios',
   },
   {
-    title: 'Governed proposals',
+    title: 'Governed settlement proposals',
     metric: '6 pending',
-    body: 'Review proposal hashes, approval graph state, policy reasons, expiry, and transaction safety checks.',
+    body: 'Review proposal hashes, replay windows, approval graph state, fixture proofs, and transaction safety checks.',
     href: '/proposals/demo-proposal-001',
   },
   {
-    title: 'Savings evidence',
+    title: 'Replay-backed savings evidence',
     metric: '97% ready',
-    body: 'Inspect realized savings, baseline versions, replay evidence, and finance export status.',
+    body: 'Inspect realized savings, baseline versions, TxLINE replay evidence, and finance export status.',
     href: '/savings',
   },
   {
-    title: 'Renewal risk radar',
+    title: 'World Cup renewal risk radar',
     metric: '14 at risk',
-    body: 'Prioritize expiring commitments, missing requirements, approval delays, and entitlement mismatches.',
+    body: 'Prioritize expiring fixture commitments, missing score proofs, approval delays, and entitlement mismatches.',
     href: '/renewals',
   },
   {
-    title: 'Usage and metering',
+    title: 'TxLINE usage and metering',
     metric: '42 workspaces',
-    body: 'Track platform meters, managed spend, optimizer runs, integration coverage, and enterprise usage.',
+    body: 'Track odds/scores event volume, optimizer runs, replay coverage, and team-level World Cup data consumption.',
     href: '/usage',
   },
 ] as const;
 
 export const proposalQueue = [
   {
-    id: 'PR-2048',
-    title: 'Consolidate premium football feed coverage',
+    id: 'WC26-2048',
+    title: 'Consolidate duplicate odds feeds for group-stage fixtures',
     impact: '$410K projected annual savings',
     state: 'Approval required',
-    risk: 'Signer separation pending',
+    risk: 'TxLINE odds replay complete; signer separation pending',
   },
   {
-    id: 'PR-2052',
-    title: 'Move low-latency fixtures to regional tier',
+    id: 'WC26-2052',
+    title: 'Downgrade stale low-latency tier outside live match windows',
     impact: '$185K projected annual savings',
     state: 'Eligible',
-    risk: 'Entitlement verifier green',
+    risk: 'Fixture snapshot and scores validation green',
   },
   {
-    id: 'PR-2055',
-    title: 'Retire duplicate basketball data pack',
+    id: 'WC26-2055',
+    title: 'Block sponsor-trigger settlement without score proof',
     impact: '$96K projected annual savings',
     state: 'Blocked',
-    risk: 'Hard requirement conflict',
+    risk: 'Missing TxLINE live scores replay for knockout scenario',
   },
 ] as const;
 
 export const renewalRisks = [
-  { label: 'Premium football feed', due: '12 days', reason: 'approval delay', severity: 'High' },
   {
-    label: 'Historical odds archive',
+    label: 'World Cup knockout odds bundle',
+    due: '12 days',
+    reason: 'approval delay',
+    severity: 'High',
+  },
+  {
+    label: 'Historical TxLINE odds archive',
     due: '21 days',
-    reason: 'missing entitlement evidence',
+    reason: 'missing replay entitlement evidence',
     severity: 'Medium',
   },
   {
-    label: 'Latency add-on APAC',
+    label: 'Fan-app APAC latency add-on',
     due: '37 days',
-    reason: 'fixture coverage mismatch',
+    reason: 'fixture coverage mismatch for late matches',
     severity: 'Medium',
   },
 ] as const;
 
 export const evidenceChecks = [
-  'Deterministic optimizer replay',
-  'Proposal material-input hash',
-  'Policy and approval graph snapshot',
-  'Non-custodial transaction envelope',
+  'TxLINE fixture snapshot hash',
+  'Live odds SSE replay coverage',
+  'Live scores SSE replay coverage',
+  'On-chain/stat validation proof',
+  'Settlement envelope and proposal hash',
   'Savings baseline and finance export',
 ] as const;
 
 export const pilotPackages = [
   {
-    name: 'Executive demo',
+    name: 'World Cup executive demo',
     price: '1 week',
-    body: 'Walk through a synthetic portfolio, risks, proposals, and savings evidence with your buying committee.',
+    body: 'Walk sportsbook, fan-app, sponsor, and prediction-market stakeholders through a synthetic TxLINE World Cup portfolio.',
   },
   {
-    name: 'Sandbox pilot',
+    name: 'TxLINE sandbox pilot',
     price: '30 days',
-    body: 'Load sample portfolio structures and validate governance, optimizer replay, and evidence packs.',
+    body: 'Validate fixture coverage, odds/scores replay, governance, optimizer replay, and settlement evidence packs.',
   },
   {
-    name: 'Enterprise assessment',
+    name: 'Settlement-readiness assessment',
     price: 'Custom',
-    body: 'Map controls, data sources, security posture, and production-readiness gates before live integrations.',
+    body: 'Map controls, data sources, score/odds proof policy, security posture, and production-readiness gates.',
   },
 ] as const;
 
 export const safetyClaims = [
   'Sandbox demo data only',
-  'No private signing material',
-  'No server-side signing',
+  'No real TxLINE token required',
+  'No funded wallet required',
   'Live-write disabled by default',
-  'No funded-wallet workflow',
+  'Replay proofs are synthetic',
 ] as const;

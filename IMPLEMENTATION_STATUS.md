@@ -1,7 +1,7 @@
 # DataFinOps Implementation Status
 
-Updated: 2026-07-12
-Branch: `main`
+Updated: 2026-07-13
+Branch: `codex/txline-worldcup-positioning`
 Recent evidence commits: `6b82c03c`, `c09457a8`, `b5e24172`, `29bf8a1b`, `9dcb383e`, and `81a1f733`.
 Use `git log --oneline -- ideawithsol/datafinops` for the current HEAD-specific commit list.
 
@@ -10,7 +10,7 @@ Use `git log --oneline -- ideawithsol/datafinops` for the current HEAD-specific 
 - Dossier/spec readiness: ready; requirement checklist 27/27.
 - Code/build readiness: T001-T110 are implemented and verified with local and GitHub evidence.
 - Local runtime readiness: Docker-free Windows native runtime scripts and quickstart evidence exist for sandbox mode.
-- Deterministic demo readiness: sandbox demo probe evidence exists, and `apps/console` now has a commercial landing page plus guided `/demo` sandbox walkthrough; this is not a production deployment claim.
+- Deterministic demo readiness: sandbox demo probe evidence exists, and `apps/console` now has a TxLINE World Cup 2026 commercial landing page plus guided `/demo` sandbox walkthrough; this is not a production deployment claim.
 - Staging deployment readiness: manifests are present but not deployed as a running public service.
 - Production/live integration readiness: not ready; live-write remains disabled.
 - Commercial/customer readiness: not ready; customer-specific rights, finance, security, and operating approvals remain external gates.
@@ -65,9 +65,9 @@ Docker is not required for this Windows run. The repo uses native PostgreSQL 16,
 
 Commercial web demo:
 
-- `/`: buyer-facing SaaS landing page for DataFinOps Commercial V1.
-- `/demo`: guided sandbox command center with synthetic KPIs, proposal queue, renewal risk, evidence checklist, and links into existing workspace modules.
-- Safety posture remains sandbox-only: no auth/billing/live-write/funded-wallet requirement for the demo.
+- `/`: buyer-facing SaaS landing page for DataFinOps Commercial V1, explicitly positioned around TxLINE World Cup 2026 fixture coverage, odds/scores replay, governed savings proposals, and settlement proof readiness.
+- `/demo`: guided sandbox command center with synthetic World Cup fixture KPIs, TxLINE proposal queue, renewal risk, evidence checklist, and links into existing workspace modules.
+- Safety posture remains sandbox-only: no auth/billing/live-write/funded-wallet requirement and no real TxLINE token requirement for the demo.
 
 Acceptance evidence is archived under:
 

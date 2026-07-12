@@ -1,7 +1,7 @@
 # DataFinOps Commercial V1 Handoff
 
-Updated: 2026-07-12
-Branch: `main`
+Updated: 2026-07-13
+Branch: `codex/txline-worldcup-positioning`
 Recent evidence commits: `6b82c03c`, `c09457a8`, `b5e24172`, `29bf8a1b`, `9dcb383e`, and `81a1f733`.
 Use `git log --oneline -- ideawithsol/datafinops` for the current HEAD-specific commit list.
 
@@ -9,11 +9,11 @@ Use `git log --oneline -- ideawithsol/datafinops` for the current HEAD-specific 
 
 DataFinOps Commercial V1 is implemented with Docker-free Windows runtime support. The task ledger is 110/110 complete.
 
-The console app also includes a sellable sandbox web demo:
+The console app also includes a sellable sandbox web demo, now positioned specifically for TxLINE World Cup 2026:
 
-- `/`: commercial SaaS landing page for buyer demos.
-- `/demo`: guided sandbox command center linking into portfolio, scenarios, proposals, savings, renewals, usage, and administration.
-- Demo copy explicitly states sandbox-only, non-custodial, no private signing material, and live-write disabled.
+- `/`: commercial SaaS landing page for TxLINE World Cup 2026 fixture coverage, odds/scores replay, governed savings proposals, and settlement proof readiness.
+- `/demo`: guided sandbox command center linking into portfolio, scenarios, proposals, savings, renewals, usage, and administration through a World Cup fixture/feed/settlement operating story.
+- Demo copy explicitly states sandbox-only, no real TxLINE token required, no funded wallet required, replay proofs are synthetic, and live-write disabled.
 
 The local CI workflow structure is implemented in `.github/workflows/ci.yml`. The aggregate job is named `Required aggregate gate`, uses `if: always()`, depends on contracts, quality, tests, build, security, solver-parity, and evidence, and calls `scripts/assert-ci-results.mjs`.
 

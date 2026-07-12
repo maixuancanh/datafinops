@@ -31,12 +31,13 @@ export default function HomePage() {
 
       <section className="container hero">
         <div>
-          <span className="eyebrow">Sandbox SaaS demo · live-write disabled</span>
-          <h1>Commercial control for data-rights spend.</h1>
+          <span className="eyebrow">TxLINE sandbox · World Cup 2026 · live-write disabled</span>
+          <h1>FinOps control for World Cup 2026 TxLINE data spend.</h1>
           <p className="lead">
-            DataFinOps turns TxLINE pricing, usage, entitlements, renewals, approvals, and savings
-            evidence into one governed operating loop — ready for executive demos and buyer pilots
-            without touching funded wallets or production credentials.
+            DataFinOps turns TxLINE fixture snapshots, live odds streams, live score streams,
+            validation proofs, renewals, approvals, and savings evidence into one governed operating
+            loop for sportsbook ops, fan apps, sponsor activations, and prediction-market settlement
+            teams.
           </p>
           <div className="hero-actions">
             <a className="button" href="/demo">
@@ -46,7 +47,7 @@ export default function HomePage() {
               className="button-secondary"
               href="mailto:sales@datafinops.example?subject=DataFinOps%20pilot"
             >
-              Book pilot conversation
+              Book World Cup pilot
             </a>
           </div>
           <div className="safety-strip" aria-label="Safety posture">
@@ -60,8 +61,8 @@ export default function HomePage() {
 
         <aside className="hero-card" aria-label="Commercial demo metrics">
           <div className="terminal-header">
-            <span>Sandbox portfolio</span>
-            <span>Evidence pack ready</span>
+            <span>TxLINE World Cup portfolio</span>
+            <span>Replay proof pack ready</span>
           </div>
           <div className="metric-grid">
             {heroMetrics.map((metric) => (
@@ -81,12 +82,15 @@ export default function HomePage() {
       <section className="container section" id="product">
         <div className="section-header">
           <div>
-            <span className="eyebrow">Why buyers care</span>
-            <h2 className="section-title">Stop running data spend from spreadsheets.</h2>
+            <span className="eyebrow">Why TxLINE buyers care</span>
+            <h2 className="section-title">
+              Stop running World Cup data commitments from spreadsheets.
+            </h2>
           </div>
           <p>
-            The demo focuses on the executive story: find savings, preserve requirements, prevent
-            unsafe execution, and give finance an audit trail they can defend.
+            The demo focuses on the World Cup 2026 operating story: control data spend, preserve
+            fixture and settlement requirements, prevent unsafe feed changes, and give finance an
+            audit trail tied to TxLINE replay evidence.
           </p>
         </div>
         <div className="card-grid">
@@ -102,8 +106,10 @@ export default function HomePage() {
       <section className="container section">
         <div className="section-header">
           <div>
-            <span className="eyebrow">Operating loop</span>
-            <h2 className="section-title">From portfolio state to approved savings.</h2>
+            <span className="eyebrow">TxLINE operating loop</span>
+            <h2 className="section-title">
+              From fixture coverage to approved savings and settlement proof.
+            </h2>
           </div>
         </div>
         <div className="loop-grid">
@@ -120,11 +126,13 @@ export default function HomePage() {
       <section className="container section" id="security">
         <div className="cta-band">
           <div>
-            <span className="eyebrow">Commercial-safe sandbox</span>
-            <h2 className="section-title">Demo the workflow, not risky execution.</h2>
+            <span className="eyebrow">Commercial-safe TxLINE sandbox</span>
+            <h2 className="section-title">Demo World Cup proof workflows, not risky execution.</h2>
             <p className="lead">
-              This web demo is designed for sales and pilot conversations. It uses synthetic data,
-              public/unfunded references, deterministic replay, and non-custodial proposal flows.
+              This web demo is designed for sales and pilot conversations. It uses synthetic World
+              Cup fixtures, simulated TxLINE odds/scores replay, public/unfunded references, and
+              non-custodial proposal flows. No real TxLINE token, funded wallet, or production
+              credential is required.
             </p>
           </div>
           <a className="button-secondary" href="/policies">
@@ -136,8 +144,10 @@ export default function HomePage() {
       <section className="container section" id="pilot">
         <div className="section-header">
           <div>
-            <span className="eyebrow">Pilot packaging</span>
-            <h2 className="section-title">A buyer-ready path from demo to assessment.</h2>
+            <span className="eyebrow">World Cup pilot packaging</span>
+            <h2 className="section-title">
+              A buyer-ready path from TxLINE demo to settlement assessment.
+            </h2>
           </div>
         </div>
         <div className="card-grid">
@@ -153,8 +163,8 @@ export default function HomePage() {
 
       <footer className="footer">
         <div className="container">
-          DataFinOps sandbox demo · no live spend · no public deployment claim · live-write disabled
-          by default.
+          DataFinOps TxLINE World Cup 2026 sandbox demo · no live spend · no public deployment claim
+          · live-write disabled by default.
         </div>
       </footer>
     </main>
