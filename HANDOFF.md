@@ -1,29 +1,31 @@
 # DataFinOps Commercial V1 Handoff
 
 Updated: 2026-07-12
-Branch: `codex/datafinops-commercial-v1`
+Branch: `main`
 Recent evidence commits: `6b82c03c`, `c09457a8`, `b5e24172`, `29bf8a1b`, `9dcb383e`, and `81a1f733`.
 Use `git log --oneline -- ideawithsol/datafinops` for the current HEAD-specific commit list.
 
 ## Current State
 
-DataFinOps Commercial V1 is locally implemented with Docker-free Windows runtime support. The task ledger is 109/110 complete: T001-T004 and T006-T110 are checked and have local evidence; T005 remains unchecked because the final acceptance sentence requires proof that a failed required GitHub check blocks merge.
+DataFinOps Commercial V1 is implemented with Docker-free Windows runtime support. The task ledger is 110/110 complete.
 
 The local CI workflow structure is implemented in `.github/workflows/ci.yml`. The aggregate job is named `Required aggregate gate`, uses `if: always()`, depends on contracts, quality, tests, build, security, solver-parity, and evidence, and calls `scripts/assert-ci-results.mjs`.
 
-Fresh local T005 proof is in `artifacts/implementation/T005-ci-gates-local.json`:
+Fresh T005 proof is in `artifacts/implementation/T005-ci-gates-local.json` and `artifacts/implementation/T005-ci-gates-github.json`:
 
 - local structural tests: 5 passed
 - aggregate uses `always()`: true
 - failed required job fails aggregate: true
 - git remote configured: true
-- branch protection verified: false
+- GitHub branch protection requires `Required aggregate gate`
+- failing PR proof blocked merge: true
+- fixed aggregate proof unblocked merge: true
 
-External GitHub proof probe is in `artifacts/implementation/T005-ci-gates-github.json`. It now sees `origin` as `https://github.com/maixuancanh/datafinops.git` and repository `maixuancanh/datafinops`; it is expected to fail until branch protection/rulesets require `Required aggregate gate`.
+External GitHub proof probe is in `artifacts/implementation/T005-ci-gates-github.json`. It sees `origin` as `https://github.com/maixuancanh/datafinops.git`, repository `maixuancanh/datafinops`, required status check `Required aggregate gate`, PR #1 failing-run proof, and PR #1 fixed-run/merge proof.
 
-Remote and GitHub-plan evidence is in `artifacts/implementation/T005-remote-discovery.md`. A private GitHub repo has been created and pushed, but GitHub returns `Upgrade to GitHub Pro or make this repository public to enable this feature` when configuring or reading branch protection/rulesets for the private repo.
+Remote and GitHub-plan evidence is in `artifacts/implementation/T005-remote-discovery.md`. The repo was created private, then changed to public after explicit user permission so branch protection could be configured.
 
-Latest GitHub Actions evidence on `main` commit `2458a3a`: `DataFinOps CI` run `29187284719` passed and `DataFinOps Security` run `29187284720` passed. This proves the CI workflow is green on GitHub, but not merge blocking.
+Latest merge-protection proof: PR #1 failed at commit `83c5b8e` with `tests=failure` and `Required aggregate gate=failure`, observed merge state `BLOCKED`; after fix commit `7eefdc0`, `Required aggregate gate` passed, observed merge state `CLEAN`, and the PR merged as `24f4900`.
 
 ## Runtime And Verification
 
@@ -46,32 +48,10 @@ Local `pnpm test:integration` requires PostgreSQL listening on `127.0.0.1:55432`
 
 Safety state remains unchanged: no live spend, no public deploy, no funded wallet, and no live-write enablement.
 
-## Remaining Task
-
-T005 is the only remaining task:
-
-`Configure CI aggregate gates for contracts, lint, type, tests, build, security, SBOM, solver parity, and evidence in .github/workflows/ci.yml; prove any failed job blocks merge.`
-
-To close it honestly, resolve the GitHub private-repo branch-protection/ruleset plan blocker, then verify branch protection/ruleset requires the `Required aggregate gate` status check. A complete proof should include:
-
-1. Git remote URL and target protected branch.
-2. Branch protection or ruleset evidence requiring `Required aggregate gate`.
-3. A deliberately failing required CI job on a PR or test branch.
-4. GitHub showing merge blocked by the required check.
-5. A passing rerun or fixed commit showing the aggregate gate can unblock.
-6. Archived evidence under `artifacts/implementation/`.
-7. T005 marked `[X]` only after the external proof exists.
-
-Do not fabricate this with local tests. The current local proof is useful, but it does not prove GitHub merge blocking.
-
-## Next Exact Command
-
-After branch protection/rulesets are available for the private repo, or after explicit permission to make the repo public:
+## Final Verification Command
 
 ```powershell
 git -C D:\superteam\ideawithsol\datafinops remote -v
 gh repo view --json nameWithOwner,url
 powershell -NoProfile -ExecutionPolicy Bypass -File D:\superteam\ideawithsol\datafinops\scripts\verify-ci-gate-github.ps1
 ```
-
-Then inspect or configure branch protection for the target branch and archive the proof.

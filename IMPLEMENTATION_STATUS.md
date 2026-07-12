@@ -1,26 +1,26 @@
 # DataFinOps Implementation Status
 
 Updated: 2026-07-12
-Branch: `codex/datafinops-commercial-v1`
+Branch: `main`
 Recent evidence commits: `6b82c03c`, `c09457a8`, `b5e24172`, `29bf8a1b`, `9dcb383e`, and `81a1f733`.
 Use `git log --oneline -- ideawithsol/datafinops` for the current HEAD-specific commit list.
 
 ## Current Classification
 
 - Dossier/spec readiness: ready; requirement checklist 27/27.
-- Code/build readiness: T001-T004 and T006-T110 are locally implemented and verified; T005 workflow is implemented but awaiting external merge-protection evidence.
+- Code/build readiness: T001-T110 are implemented and verified with local and GitHub evidence.
 - Local runtime readiness: Docker-free Windows native runtime scripts and quickstart evidence exist for sandbox mode.
 - Deterministic demo readiness: sandbox demo probe evidence exists; final rendered video remains only as safe local artifact/probe evidence, not a production demo claim.
-- Staging deployment readiness: manifests are present but not publicly deployed.
+- Staging deployment readiness: manifests are present but not deployed as a running public service.
 - Production/live integration readiness: not ready; live-write remains disabled.
 - Commercial/customer readiness: not ready; customer-specific rights, finance, security, and operating approvals remain external gates.
 
 ## Authoritative Task Status
 
-The task ledger is 109/110 complete.
+The task ledger is 110/110 complete.
 
 - T001-T004: checked and locally evidenced.
-- T005: unchecked. Local CI aggregate gate proof passes and the private GitHub remote exists, but GitHub merge blocking is not verified because branch protection/rulesets are blocked for this private repo on the current GitHub plan.
+- T005: checked. Local CI aggregate proof passes, GitHub branch protection requires `Required aggregate gate`, a failing PR proof was blocked, and a fixed PR proof was unblocked/merged.
 - T006-T110: checked and locally evidenced.
 
 Current T005 evidence:
@@ -40,16 +40,19 @@ Fresh local T005 proof:
 - `aggregateUsesAlways`: true.
 - `failedRequiredJobFailsAggregate`: true.
 - `gitRemoteConfigured`: true.
-- `branchProtectionVerified`: false.
+- `branchProtectionVerified`: false in the local-only verifier because merge protection is external GitHub state.
 - Status: `LOCAL_GATE_VERIFIED_EXTERNAL_MERGE_PROTECTION_PENDING`.
 - GitHub Actions commit `2458a3a`: `DataFinOps CI` run `29187284719` passed; `DataFinOps Security` run `29187284720` passed.
 
 External GitHub probe:
 
 - `scripts/verify-ci-gate-github.ps1`: writes `artifacts/implementation/T005-ci-gates-github.json`.
-- Current status: expected failure, `T005 external proof requires branch protection to require Required aggregate gate.`
-- Remote now exists: `https://github.com/maixuancanh/datafinops.git`, private, default branch `main`.
-- Branch protection/ruleset configuration is blocked by GitHub account/repository plan for private repos: `Upgrade to GitHub Pro or make this repository public to enable this feature.`
+- Current status: `EXTERNAL_MERGE_PROTECTION_VERIFIED`.
+- Remote exists: `https://github.com/maixuancanh/datafinops.git`, public, default branch `main`.
+- Branch protection required status checks: `Required aggregate gate`.
+- PR proof: `https://github.com/maixuancanh/datafinops/pull/1`.
+- Failing proof run `29187578131`: `tests=failure`, `Required aggregate gate=failure`, observed PR merge state `BLOCKED`.
+- Fixed proof run `29187642741`: `Required aggregate gate=success`, observed PR merge state `CLEAN`, merged as `24f4900267769b3750e210fad8cdfa65886046ab`.
 
 ## Runtime And Verification
 
@@ -80,15 +83,4 @@ Acceptance evidence is archived under:
 
 ## Current External Gate
 
-T005 requires a GitHub repository remote and branch protection or a ruleset requiring the `Required aggregate gate` status check. The private GitHub repository and `origin` now exist, but GitHub currently blocks branch protection/rulesets for this private repository. To complete T005 honestly:
-
-1. Enable GitHub Pro for the account/repository, or explicitly allow making the repository public.
-2. Verify or configure branch protection/ruleset for the target branch.
-3. Prove a failed required job blocks merge.
-4. Prove the fixed aggregate gate can unblock merge.
-5. Archive evidence under `artifacts/implementation/`.
-6. Mark T005 `[X]` only after that proof exists.
-
-## Next Exact Task
-
-Complete T005 external merge-protection proof after the GitHub private-repo protection/ruleset plan blocker is resolved. No Docker action is needed for this blocker. Local integration tests still require a native PostgreSQL listener on `127.0.0.1:55432`; GitHub Actions supplies that service in CI.
+No implementation task remains open. T005 external merge-protection proof is complete. Local integration tests still require a native PostgreSQL listener on `127.0.0.1:55432`; GitHub Actions supplies that service in CI.

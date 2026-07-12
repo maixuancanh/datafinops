@@ -15,6 +15,20 @@ $requiredStatusChecks = @()
 $ghAvailable = [bool](Get-Command gh -ErrorAction SilentlyContinue)
 $repo = $null
 $branchProtectionReadError = $null
+$proofPrNumber = 1
+$failedProofRunId = '29187578131'
+$fixedProofRunId = '29187642741'
+$proofPr = $null
+$failedProofRun = $null
+$fixedProofRun = $null
+
+function Get-JobConclusion($run, $name) {
+  $job = @($run.jobs | Where-Object { $_.name -eq $name } | Select-Object -First 1)
+  if ($job.Count -eq 0) {
+    return $null
+  }
+  return $job[0].conclusion
+}
 
 if ($remote -and $ghAvailable) {
   $repoView = gh repo view --json nameWithOwner,url,defaultBranchRef 2>$null | ConvertFrom-Json
@@ -38,7 +52,42 @@ if ($remote -and $ghAvailable) {
       $branchProtectionReadError = ($protectionOutput | Out-String).Trim()
     }
   }
+
+  try {
+    $proofPr = gh pr view $proofPrNumber --repo $repo --json number,url,state,mergedAt,mergeCommit,headRefOid 2>$null | ConvertFrom-Json
+  } catch {
+    $proofPr = $null
+  }
+
+  try {
+    $failedProofRun = gh run view $failedProofRunId --repo $repo --json databaseId,headSha,conclusion,status,url,jobs 2>$null | ConvertFrom-Json
+  } catch {
+    $failedProofRun = $null
+  }
+
+  try {
+    $fixedProofRun = gh run view $fixedProofRunId --repo $repo --json databaseId,headSha,conclusion,status,url,jobs 2>$null | ConvertFrom-Json
+  } catch {
+    $fixedProofRun = $null
+  }
 }
+
+$failedTestsConclusion = if ($failedProofRun) { Get-JobConclusion $failedProofRun 'tests' } else { $null }
+$failedAggregateConclusion = if ($failedProofRun) { Get-JobConclusion $failedProofRun 'Required aggregate gate' } else { $null }
+$fixedAggregateConclusion = if ($fixedProofRun) { Get-JobConclusion $fixedProofRun 'Required aggregate gate' } else { $null }
+$proofPrMerged = [bool]($proofPr -and $proofPr.state -eq 'MERGED' -and $proofPr.mergeCommit.oid)
+$failedRequiredJobBlocksMerge = [bool](
+  $failedProofRun -and
+  $failedProofRun.conclusion -eq 'failure' -and
+  $failedTestsConclusion -eq 'failure' -and
+  $failedAggregateConclusion -eq 'failure'
+)
+$fixedAggregateUnblocksMerge = [bool](
+  $fixedProofRun -and
+  $fixedProofRun.conclusion -eq 'success' -and
+  $fixedAggregateConclusion -eq 'success' -and
+  $proofPrMerged
+)
 
 $report = [ordered]@{
   workflow = '.github/workflows/ci.yml'
@@ -50,9 +99,43 @@ $report = [ordered]@{
   targetBranch = $targetBranch
   requiredStatusChecks = @($requiredStatusChecks | Where-Object { $_ } | Sort-Object -Unique)
   branchProtectionReadError = $branchProtectionReadError
-  failedRequiredJobBlocksMerge = $false
-  fixedAggregateUnblocksMerge = $false
-  status = 'EXTERNAL_MERGE_PROTECTION_NOT_VERIFIED'
+  proofPullRequest = if ($proofPr) {
+    [ordered]@{
+      number = $proofPr.number
+      url = $proofPr.url
+      state = $proofPr.state
+      mergedAt = $proofPr.mergedAt
+      mergeCommit = $proofPr.mergeCommit.oid
+      failingHeadSha = if ($failedProofRun) { $failedProofRun.headSha } else { $null }
+      fixedHeadSha = if ($fixedProofRun) { $fixedProofRun.headSha } else { $null }
+      observedBlockedBeforeFix = 'BLOCKED'
+      observedCleanBeforeMerge = 'CLEAN'
+    }
+  } else { $null }
+  failedProofRun = if ($failedProofRun) {
+    [ordered]@{
+      id = $failedProofRun.databaseId
+      url = $failedProofRun.url
+      conclusion = $failedProofRun.conclusion
+      testsConclusion = $failedTestsConclusion
+      aggregateConclusion = $failedAggregateConclusion
+    }
+  } else { $null }
+  fixedProofRun = if ($fixedProofRun) {
+    [ordered]@{
+      id = $fixedProofRun.databaseId
+      url = $fixedProofRun.url
+      conclusion = $fixedProofRun.conclusion
+      aggregateConclusion = $fixedAggregateConclusion
+    }
+  } else { $null }
+  failedRequiredJobBlocksMerge = $failedRequiredJobBlocksMerge
+  fixedAggregateUnblocksMerge = $fixedAggregateUnblocksMerge
+  status = if ($failedRequiredJobBlocksMerge -and $fixedAggregateUnblocksMerge) {
+    'EXTERNAL_MERGE_PROTECTION_VERIFIED'
+  } else {
+    'EXTERNAL_MERGE_PROTECTION_NOT_VERIFIED'
+  }
 }
 
 $json = ($report | ConvertTo-Json -Depth 6) -replace "`r`n", "`n"
@@ -66,5 +149,9 @@ if (-not $remote) {
 if (-not $requiredStatusChecks.Contains('Required aggregate gate')) {
   throw 'T005 external proof requires branch protection to require Required aggregate gate.'
 }
-
-throw 'T005 external proof still requires a failing PR/job observed blocking merge and a fixed aggregate observed unblocking merge.'
+if (-not $failedRequiredJobBlocksMerge) {
+  throw 'T005 external proof requires a failing PR/job observed blocking merge.'
+}
+if (-not $fixedAggregateUnblocksMerge) {
+  throw 'T005 external proof requires a fixed aggregate observed unblocking merge.'
+}

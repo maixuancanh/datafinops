@@ -7,10 +7,34 @@
     "repository":  "maixuancanh/datafinops",
     "targetBranch":  "main",
     "requiredStatusChecks":  [
-
+                                 "Required aggregate gate"
                              ],
-    "branchProtectionReadError":  "{\"message\":\"Upgrade to GitHub Pro or make this repository public to enable this feature.\",\"documentation_url\":\"https://docs.github.com/rest/branches/branch-protection#get-status-checks-protection\",\"status\":\"403\"}gh: Upgrade to GitHub Pro or make this repository public to enable this feature. (HTTP 403)",
-    "failedRequiredJobBlocksMerge":  false,
-    "fixedAggregateUnblocksMerge":  false,
-    "status":  "EXTERNAL_MERGE_PROTECTION_NOT_VERIFIED"
+    "branchProtectionReadError":  null,
+    "proofPullRequest":  {
+                             "number":  1,
+                             "url":  "https://github.com/maixuancanh/datafinops/pull/1",
+                             "state":  "MERGED",
+                             "mergedAt":  "2026-07-12T09:34:21Z",
+                             "mergeCommit":  "24f4900267769b3750e210fad8cdfa65886046ab",
+                             "failingHeadSha":  "83c5b8ea6170d185ba3eaa343239a97a85b60cc0",
+                             "fixedHeadSha":  "7eefdc0f33f0eb82bdc7f286fc2396d680701bf2",
+                             "observedBlockedBeforeFix":  "BLOCKED",
+                             "observedCleanBeforeMerge":  "CLEAN"
+                         },
+    "failedProofRun":  {
+                           "id":  29187578131,
+                           "url":  "https://github.com/maixuancanh/datafinops/actions/runs/29187578131",
+                           "conclusion":  "failure",
+                           "testsConclusion":  "failure",
+                           "aggregateConclusion":  "failure"
+                       },
+    "fixedProofRun":  {
+                          "id":  29187642741,
+                          "url":  "https://github.com/maixuancanh/datafinops/actions/runs/29187642741",
+                          "conclusion":  "success",
+                          "aggregateConclusion":  "success"
+                      },
+    "failedRequiredJobBlocksMerge":  true,
+    "fixedAggregateUnblocksMerge":  true,
+    "status":  "EXTERNAL_MERGE_PROTECTION_VERIFIED"
 }

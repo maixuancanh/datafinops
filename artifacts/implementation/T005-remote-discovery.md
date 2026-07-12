@@ -38,4 +38,14 @@ No intended GitHub remote for DataFinOps could be identified from local git conf
 
 Current conclusion:
 
-The remote/repository prerequisite is now satisfied. T005 still cannot be completed honestly while the repository remains private on an account/plan where GitHub blocks branch protection and rulesets. Completion requires GitHub Pro/private protection capability or explicit permission to make the repository public, then a failing PR and fixed PR rerun proving `Required aggregate gate` blocks and unblocks merge.
+The remote/repository prerequisite is satisfied. After explicit user permission, the repository was changed from private to public, branch protection was configured on `main`, and the required status check list now includes `Required aggregate gate`.
+
+Final T005 proof:
+
+- `gh api repos/maixuancanh/datafinops/branches/main/protection/required_status_checks`: `strict: true`, `contexts: ["Required aggregate gate"]`.
+- PR #1 failing proof commit: `83c5b8ea6170d185ba3eaa343239a97a85b60cc0`.
+- Failing proof run: `29187578131`; `tests=failure`, `Required aggregate gate=failure`; PR merge state observed as `BLOCKED`.
+- PR #1 fixed proof commit: `7eefdc0f33f0eb82bdc7f286fc2396d680701bf2`.
+- Fixed proof run: `29187642741`; `Required aggregate gate=success`; PR merge state observed as `CLEAN`.
+- PR #1 merged as `24f4900267769b3750e210fad8cdfa65886046ab`.
+- `scripts/verify-ci-gate-github.ps1`: exits 0 and writes `status: EXTERNAL_MERGE_PROTECTION_VERIFIED`.
