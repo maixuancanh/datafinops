@@ -25,6 +25,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm test:security
       - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   dependency-license-sbom:
     runs-on: ubuntu-24.04
