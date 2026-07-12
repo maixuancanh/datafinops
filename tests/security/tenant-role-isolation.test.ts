@@ -32,7 +32,9 @@ describe('tenant, mode, role, direct-ID, list, export, and job isolation', () =>
   });
 
   it('returns opaque not-found for a cross-tenant direct ID', () => {
-    expect(() => authorize(procurement, 'portfolio:read', otherScope, { directId: true })).toThrowError(
+    expect(() =>
+      authorize(procurement, 'portfolio:read', otherScope, { directId: true }),
+    ).toThrowError(
       expect.objectContaining({ statusCode: 404, reasonCode: 'RESOURCE_NOT_VISIBLE' }),
     );
   });
@@ -59,24 +61,30 @@ describe('tenant, mode, role, direct-ID, list, export, and job isolation', () =>
 
   it('requires explicit finance/auditor scope for export', () => {
     const finance = createPrincipal({
-      subjectRef: 'finance-demo', kind: 'USER', context: scope,
-      roles: ['FINANCE'], scopes: ['finance:export'],
+      subjectRef: 'finance-demo',
+      kind: 'USER',
+      context: scope,
+      roles: ['FINANCE'],
+      scopes: ['finance:export'],
     });
     expect(authorize(finance, 'finance:export', scope).allowed).toBe(true);
   });
 
   it('rejects background jobs whose embedded scope differs from the worker principal', () => {
-    expect(() => requireJobScope(procurement, { context: otherScope, operationKey: 'operation-demo-0001' })).toThrowError(
-      expect.objectContaining({ reasonCode: 'JOB_SCOPE_MISMATCH' }),
-    );
+    expect(() =>
+      requireJobScope(procurement, { context: otherScope, operationKey: 'operation-demo-0001' }),
+    ).toThrowError(expect.objectContaining({ reasonCode: 'JOB_SCOPE_MISMATCH' }));
   });
 
-  it.each(['proposal:approve', 'transaction:sign', 'policy:write', 'live-write:enable']) (
+  it.each(['proposal:approve', 'transaction:sign', 'policy:write', 'live-write:enable'])(
     'denies service accounts the privileged %s action',
     (action) => {
       const service = createPrincipal({
-        subjectRef: 'importer-demo', kind: 'SERVICE_ACCOUNT', context: scope,
-        roles: ['IMPORTER'], scopes: [action],
+        subjectRef: 'importer-demo',
+        kind: 'SERVICE_ACCOUNT',
+        context: scope,
+        roles: ['IMPORTER'],
+        scopes: [action],
       });
       expect(() => authorize(service, action, scope)).toThrowError(
         expect.objectContaining({ reasonCode: 'SERVICE_ACCOUNT_RESTRICTED' }),

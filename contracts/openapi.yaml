@@ -268,7 +268,13 @@ paths:
               required: [signingEnvelopeId, publicTransaction, publicTransactionHash]
               properties:
                 signingEnvelopeId: { type: string, format: uuid }
-                publicTransaction: { type: string, minLength: 32, maxLength: 20000, description: Signed public transaction bytes or deterministic simulation receipt; never private signing material. }
+                publicTransaction:
+                  {
+                    type: string,
+                    minLength: 32,
+                    maxLength: 20000,
+                    description: Signed public transaction bytes or deterministic simulation receipt; never private signing material.,
+                  }
                 publicTransactionHash: { type: string, minLength: 16, maxLength: 256 }
       responses:
         '202':
@@ -475,7 +481,8 @@ components:
     Inventory:
       type: object
       additionalProperties: false
-      required: [connectionId, pricingSnapshotHash, observedAt, freshness, subscriptions, entitlements]
+      required:
+        [connectionId, pricingSnapshotHash, observedAt, freshness, subscriptions, entitlements]
       properties:
         connectionId: { type: string, format: uuid }
         pricingSnapshotHash: { $ref: '#/components/schemas/Sha256' }
@@ -558,7 +565,12 @@ components:
             additionalProperties: false
             required: [kind, hardness, operator, value, ownerRef]
             properties:
-              kind: { type: string, enum: [LEAGUE, FIXTURE, LATENCY, REGION, BUDGET, EFFECTIVE_DATE, BLACKOUT, HEADROOM] }
+              kind:
+                {
+                  type: string,
+                  enum:
+                    [LEAGUE, FIXTURE, LATENCY, REGION, BUDGET, EFFECTIVE_DATE, BLACKOUT, HEADROOM],
+                }
               hardness: { type: string, enum: [HARD, SOFT] }
               operator: { type: string, enum: [INCLUDE, EXCLUDE, MAX, MIN, EQUALS, BEFORE, AFTER] }
               value: {}
@@ -580,7 +592,8 @@ components:
     Recommendation:
       type: object
       additionalProperties: false
-      required: [id, candidateHash, hardConstraints, currentCost, proposedCost, forecastDelta, confidence]
+      required:
+        [id, candidateHash, hardConstraints, currentCost, proposedCost, forecastDelta, confidence]
       properties:
         id: { type: string, format: uuid }
         candidateHash: { $ref: '#/components/schemas/Sha256' }
@@ -595,13 +608,19 @@ components:
     Proposal:
       type: object
       additionalProperties: false
-      required: [id, version, proposalHash, snapshotHash, state, policyResult, expiresAt, approvalGraph]
+      required:
+        [id, version, proposalHash, snapshotHash, state, policyResult, expiresAt, approvalGraph]
       properties:
         id: { type: string, format: uuid }
         version: { type: integer, minimum: 1 }
         proposalHash: { $ref: '#/components/schemas/Sha256' }
         snapshotHash: { $ref: '#/components/schemas/Sha256' }
-        state: { type: string, enum: [DRAFT, BLOCKED, AWAITING_APPROVAL, APPROVED, READY_TO_SIGN, EXPIRED, INVALIDATED] }
+        state:
+          {
+            type: string,
+            enum:
+              [DRAFT, BLOCKED, AWAITING_APPROVAL, APPROVED, READY_TO_SIGN, EXPIRED, INVALIDATED],
+          }
         policyResult: { type: string, enum: [ELIGIBLE, APPROVAL_REQUIRED, BLOCKED] }
         expiresAt: { type: string, format: date-time }
         approvalGraph:
@@ -641,7 +660,11 @@ components:
       required: [proposalId, status, checkedAt, reasonCodes]
       properties:
         proposalId: { type: string, format: uuid }
-        status: { type: string, enum: [PENDING, VERIFIED_ACTIVE, ACTIVATION_FAILED, ENTITLEMENT_MISMATCH] }
+        status:
+          {
+            type: string,
+            enum: [PENDING, VERIFIED_ACTIVE, ACTIVATION_FAILED, ENTITLEMENT_MISMATCH],
+          }
         checkedAt: { type: string, format: date-time }
         reasonCodes:
           type: array
@@ -661,6 +684,7 @@ components:
             required: [entryId, type, amount, evidenceHash]
             properties:
               entryId: { type: string, format: uuid }
-              type: { type: string, enum: [FORECAST, APPROVED, PENDING, REALIZED, DISPUTED, REVERSAL] }
+              type:
+                { type: string, enum: [FORECAST, APPROVED, PENDING, REALIZED, DISPUTED, REVERSAL] }
               amount: { $ref: '#/components/schemas/Money' }
               evidenceHash: { $ref: '#/components/schemas/Sha256' }

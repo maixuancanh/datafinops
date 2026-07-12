@@ -16,12 +16,12 @@ Fresh local T005 proof is in `artifacts/implementation/T005-ci-gates-local.json`
 - local structural tests: 5 passed
 - aggregate uses `always()`: true
 - failed required job fails aggregate: true
-- git remote configured: false
+- git remote configured: true
 - branch protection verified: false
 
-External GitHub proof probe is in `artifacts/implementation/T005-ci-gates-github.json`. It is expected to fail until `origin` points at the intended GitHub repository and branch protection/rulesets require `Required aggregate gate`.
+External GitHub proof probe is in `artifacts/implementation/T005-ci-gates-github.json`. It now sees `origin` as `https://github.com/maixuancanh/datafinops.git` and repository `maixuancanh/datafinops`; it is expected to fail until branch protection/rulesets require `Required aggregate gate`.
 
-Remote discovery evidence is in `artifacts/implementation/T005-remote-discovery.md`. Local config has no remote, and read-only GitHub CLI checks did not find `maixuancanh/datafinops`, `maixuancanh/ideawithsol`, or a matching repository in the account search results.
+Remote and GitHub-plan evidence is in `artifacts/implementation/T005-remote-discovery.md`. A private GitHub repo has been created and pushed, but GitHub returns `Upgrade to GitHub Pro or make this repository public to enable this feature` when configuring or reading branch protection/rulesets for the private repo.
 
 ## Runtime And Verification
 
@@ -40,6 +40,8 @@ Previously archived evidence shows sandbox-only verification for US1-US6 and Com
 - `artifacts/commercial-v1/`
 - `artifacts/implementation/`
 
+Local `pnpm test:integration` requires PostgreSQL listening on `127.0.0.1:55432`. On this machine it currently fails with `ECONNREFUSED` when native PostgreSQL is not running; GitHub Actions covers this path with a PostgreSQL service mapped as `55432:5432`.
+
 Safety state remains unchanged: no live spend, no public deploy, no funded wallet, and no live-write enablement.
 
 ## Remaining Task
@@ -48,7 +50,7 @@ T005 is the only remaining task:
 
 `Configure CI aggregate gates for contracts, lint, type, tests, build, security, SBOM, solver parity, and evidence in .github/workflows/ci.yml; prove any failed job blocks merge.`
 
-To close it honestly, provide or configure a GitHub remote for this repo, then verify branch protection/ruleset requires the `Required aggregate gate` status check. A complete proof should include:
+To close it honestly, resolve the GitHub private-repo branch-protection/ruleset plan blocker, then verify branch protection/ruleset requires the `Required aggregate gate` status check. A complete proof should include:
 
 1. Git remote URL and target protected branch.
 2. Branch protection or ruleset evidence requiring `Required aggregate gate`.
@@ -62,10 +64,10 @@ Do not fabricate this with local tests. The current local proof is useful, but i
 
 ## Next Exact Command
 
-After a remote is configured:
+After branch protection/rulesets are available for the private repo, or after explicit permission to make the repo public:
 
 ```powershell
-git -C D:\superteam remote -v
+git -C D:\superteam\ideawithsol\datafinops remote -v
 gh repo view --json nameWithOwner,url
 powershell -NoProfile -ExecutionPolicy Bypass -File D:\superteam\ideawithsol\datafinops\scripts\verify-ci-gate-github.ps1
 ```

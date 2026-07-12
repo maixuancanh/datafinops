@@ -1,5 +1,7 @@
-const prohibitedName = /^(?:x[-_])?(?:private[_-]?key|seed[_-]?phrase|mnemonic|keystore|recovery[_-]?phrase|signing[_-]?passphrase|raw[_-]?signer)$/i;
-const prohibitedContent = /(?:private[_-]?key|seed[_-]?phrase|mnemonic|keystore|recovery[_-]?phrase|signing[_-]?passphrase|raw[_-]?signer)\s*[:=]/i;
+const prohibitedName =
+  /^(?:x[-_])?(?:private[_-]?key|seed[_-]?phrase|mnemonic|keystore|recovery[_-]?phrase|signing[_-]?passphrase|raw[_-]?signer)$/i;
+const prohibitedContent =
+  /(?:private[_-]?key|seed[_-]?phrase|mnemonic|keystore|recovery[_-]?phrase|signing[_-]?passphrase|raw[_-]?signer)\s*[:=]/i;
 
 export class ProhibitedMaterialError extends Error {
   readonly reasonCode = 'PROHIBITED_SIGNING_MATERIAL';

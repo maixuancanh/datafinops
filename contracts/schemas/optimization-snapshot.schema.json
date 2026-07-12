@@ -4,7 +4,22 @@
   "title": "DataFinOps Optimization Snapshot",
   "type": "object",
   "additionalProperties": false,
-  "required": ["snapshotId", "workspaceId", "mode", "network", "programId", "period", "currency", "sourceVersions", "currentConfiguration", "pricingItems", "requirements", "optimizerVersion", "canonicalHash", "createdAt"],
+  "required": [
+    "snapshotId",
+    "workspaceId",
+    "mode",
+    "network",
+    "programId",
+    "period",
+    "currency",
+    "sourceVersions",
+    "currentConfiguration",
+    "pricingItems",
+    "requirements",
+    "optimizerVersion",
+    "canonicalHash",
+    "createdAt"
+  ],
   "properties": {
     "snapshotId": { "type": "string", "format": "uuid" },
     "workspaceId": { "type": "string", "format": "uuid" },
@@ -16,7 +31,16 @@
     "sourceVersions": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["pricing", "subscription", "entitlement", "fixtures", "usage", "allocation", "requirements", "policy"],
+      "required": [
+        "pricing",
+        "subscription",
+        "entitlement",
+        "fixtures",
+        "usage",
+        "allocation",
+        "requirements",
+        "policy"
+      ],
       "properties": {
         "pricing": { "$ref": "#/$defs/versionHash" },
         "subscription": { "$ref": "#/$defs/versionHash" },
@@ -90,7 +114,15 @@
     "pricingItem": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "tier", "leagues", "latencyClass", "cost", "effectiveStart", "effectiveEnd"],
+      "required": [
+        "id",
+        "tier",
+        "leagues",
+        "latencyClass",
+        "cost",
+        "effectiveStart",
+        "effectiveEnd"
+      ],
       "properties": {
         "id": { "type": "string" },
         "tier": { "type": "string" },
@@ -107,9 +139,24 @@
       "required": ["id", "kind", "hardness", "operator", "value", "ownerRef"],
       "properties": {
         "id": { "type": "string" },
-        "kind": { "type": "string", "enum": ["LEAGUE", "FIXTURE", "LATENCY", "REGION", "BUDGET", "EFFECTIVE_DATE", "BLACKOUT", "HEADROOM"] },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "LEAGUE",
+            "FIXTURE",
+            "LATENCY",
+            "REGION",
+            "BUDGET",
+            "EFFECTIVE_DATE",
+            "BLACKOUT",
+            "HEADROOM"
+          ]
+        },
         "hardness": { "type": "string", "enum": ["HARD", "SOFT"] },
-        "operator": { "type": "string", "enum": ["INCLUDE", "EXCLUDE", "MAX", "MIN", "EQUALS", "BEFORE", "AFTER"] },
+        "operator": {
+          "type": "string",
+          "enum": ["INCLUDE", "EXCLUDE", "MAX", "MIN", "EQUALS", "BEFORE", "AFTER"]
+        },
         "value": {},
         "ownerRef": { "type": "string", "minLength": 1, "maxLength": 128 }
       }

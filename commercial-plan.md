@@ -15,12 +15,12 @@ The product must separate potential savings from verified realized savings. Succ
 
 ## Packaging
 
-| Plan | Mode | Included scope |
-|---|---|---|
-| Baseline | Live-read | Inventory, usage import, allocation, requirements, renewal calendar, audit |
-| Optimize | Live-read | Deterministic scenarios, recommendations, policy, approvals, finance forecast |
-| Governed Execute | Opt-in write | Unsigned proposals, client signing, observation, activation, entitlement verification |
-| Enterprise | Configurable | SSO, custom policies, integrations, retention, dedicated support/capacity, private topology |
+| Plan             | Mode         | Included scope                                                                              |
+| ---------------- | ------------ | ------------------------------------------------------------------------------------------- |
+| Baseline         | Live-read    | Inventory, usage import, allocation, requirements, renewal calendar, audit                  |
+| Optimize         | Live-read    | Deterministic scenarios, recommendations, policy, approvals, finance forecast               |
+| Governed Execute | Opt-in write | Unsigned proposals, client signing, observation, activation, entitlement verification       |
+| Enterprise       | Configurable | SSO, custom policies, integrations, retention, dedicated support/capacity, private topology |
 
 Pricing combines a platform fee based on workspaces and managed TxLINE spend. A separate contracted success fee may use verified realized savings. Network fees and TxLINE subscription charges remain direct customer/vendor costs.
 

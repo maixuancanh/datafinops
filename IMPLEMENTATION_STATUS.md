@@ -20,7 +20,7 @@ Use `git log --oneline -- ideawithsol/datafinops` for the current HEAD-specific 
 The task ledger is 109/110 complete.
 
 - T001-T004: checked and locally evidenced.
-- T005: unchecked. Local CI aggregate gate proof passes, but GitHub merge blocking is not verified because this workspace has no Git remote.
+- T005: unchecked. Local CI aggregate gate proof passes and the private GitHub remote exists, but GitHub merge blocking is not verified because branch protection/rulesets are blocked for this private repo on the current GitHub plan.
 - T006-T110: checked and locally evidenced.
 
 Current T005 evidence:
@@ -39,15 +39,16 @@ Fresh local T005 proof:
 - `scripts/verify-ci-gate-local.ps1`: 5 tests passed.
 - `aggregateUsesAlways`: true.
 - `failedRequiredJobFailsAggregate`: true.
-- `gitRemoteConfigured`: false.
+- `gitRemoteConfigured`: true.
 - `branchProtectionVerified`: false.
 - Status: `LOCAL_GATE_VERIFIED_EXTERNAL_MERGE_PROTECTION_PENDING`.
 
 External GitHub probe:
 
 - `scripts/verify-ci-gate-github.ps1`: writes `artifacts/implementation/T005-ci-gates-github.json`.
-- Current status: expected failure, `T005 external proof requires git remote origin.`
-- Remote discovery: no local remote and no matching `maixuancanh/datafinops` or `maixuancanh/ideawithsol` repository found through read-only GitHub CLI checks.
+- Current status: expected failure, `T005 external proof requires branch protection to require Required aggregate gate.`
+- Remote now exists: `https://github.com/maixuancanh/datafinops.git`, private, default branch `main`.
+- Branch protection/ruleset configuration is blocked by GitHub account/repository plan for private repos: `Upgrade to GitHub Pro or make this repository public to enable this feature.`
 
 ## Runtime And Verification
 
@@ -78,9 +79,9 @@ Acceptance evidence is archived under:
 
 ## Current External Gate
 
-T005 requires a GitHub repository remote and branch protection or a ruleset requiring the `Required aggregate gate` status check. To complete T005 honestly:
+T005 requires a GitHub repository remote and branch protection or a ruleset requiring the `Required aggregate gate` status check. The private GitHub repository and `origin` now exist, but GitHub currently blocks branch protection/rulesets for this private repository. To complete T005 honestly:
 
-1. Configure or provide the GitHub remote URL.
+1. Enable GitHub Pro for the account/repository, or explicitly allow making the repository public.
 2. Verify or configure branch protection/ruleset for the target branch.
 3. Prove a failed required job blocks merge.
 4. Prove the fixed aggregate gate can unblock merge.
@@ -89,4 +90,4 @@ T005 requires a GitHub repository remote and branch protection or a ruleset requ
 
 ## Next Exact Task
 
-Complete T005 external merge-protection proof. No Docker action is needed for this blocker.
+Complete T005 external merge-protection proof after the GitHub private-repo protection/ruleset plan blocker is resolved. No Docker action is needed for this blocker. Local integration tests still require a native PostgreSQL listener on `127.0.0.1:55432`; GitHub Actions supplies that service in CI.

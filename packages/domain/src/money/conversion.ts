@@ -2,11 +2,7 @@ import { Money, normalizeCurrency } from './money.js';
 
 export type RoundingMode = 'HALF_EVEN' | 'FLOOR' | 'CEILING' | 'TRUNCATE';
 
-export function roundRational(
-  numerator: bigint,
-  denominator: bigint,
-  mode: RoundingMode,
-): bigint {
+export function roundRational(numerator: bigint, denominator: bigint, mode: RoundingMode): bigint {
   if (denominator === 0n) throw new RangeError('Rational denominator cannot be zero');
   if (denominator < 0n) return roundRational(-numerator, -denominator, mode);
   const quotient = numerator / denominator;

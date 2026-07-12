@@ -1,3 +1,35 @@
 import { describe, expect, it } from 'vitest';
 import { canLiveWrite } from '../src/live-write/index.js';
-describe('live write gate', () => { it('is fail-closed without tenant-scoped unexpired evidence', () => { expect(canLiveWrite(undefined, 't', 1, '2026-01-01')).toBe(false); expect(canLiveWrite({ tenantId: 't', approvedBy: 'a', expiresAt: '2027-01-01', maxSpendMinor: 10, emergencyStop: false }, 't', 1, '2026-01-01')).toBe(true); expect(canLiveWrite({ tenantId: 't', approvedBy: 'a', expiresAt: '2027-01-01', maxSpendMinor: 10, emergencyStop: true }, 't', 1, '2026-01-01')).toBe(false); }); });
+describe('live write gate', () => {
+  it('is fail-closed without tenant-scoped unexpired evidence', () => {
+    expect(canLiveWrite(undefined, 't', 1, '2026-01-01')).toBe(false);
+    expect(
+      canLiveWrite(
+        {
+          tenantId: 't',
+          approvedBy: 'a',
+          expiresAt: '2027-01-01',
+          maxSpendMinor: 10,
+          emergencyStop: false,
+        },
+        't',
+        1,
+        '2026-01-01',
+      ),
+    ).toBe(true);
+    expect(
+      canLiveWrite(
+        {
+          tenantId: 't',
+          approvedBy: 'a',
+          expiresAt: '2027-01-01',
+          maxSpendMinor: 10,
+          emergencyStop: true,
+        },
+        't',
+        1,
+        '2026-01-01',
+      ),
+    ).toBe(false);
+  });
+});

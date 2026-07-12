@@ -27,7 +27,14 @@ function parseBoolean(value: string | undefined, name: string): boolean {
 function parseList(value: string | undefined): readonly string[] {
   if (!value) return [];
   return Object.freeze(
-    [...new Set(value.split(',').map((item) => item.trim()).filter(Boolean))].sort(),
+    [
+      ...new Set(
+        value
+          .split(',')
+          .map((item) => item.trim())
+          .filter(Boolean),
+      ),
+    ].sort(),
   );
 }
 
@@ -56,7 +63,11 @@ export function parseModeConfiguration(environment: ModeEnvironment): ModeConfig
   if (mode === 'live-write') {
     if (!liveWriteEvidence) throw new Error('live-write requires tenant enablement evidence');
     if (!liveWrite) throw new Error('live-write mode requires explicit DATAFINOPS_LIVE_WRITE=true');
-    if (networkAllowlist.length === 0 || programAllowlist.length === 0 || tenantAllowlist.length === 0) {
+    if (
+      networkAllowlist.length === 0 ||
+      programAllowlist.length === 0 ||
+      tenantAllowlist.length === 0
+    ) {
       throw new Error('live-write requires network, program, and tenant allowlists');
     }
   }

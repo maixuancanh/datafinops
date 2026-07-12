@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 
 $root = Split-Path -Parent $PSScriptRoot
-$repoRoot = Split-Path (Split-Path $root -Parent) -Parent
+$repoRoot = $root
 $out = Join-Path $root 'artifacts/implementation/T005-ci-gates-github.json'
 
 $remote = $null
@@ -14,6 +14,7 @@ $targetBranch = 'main'
 $requiredStatusChecks = @()
 $ghAvailable = [bool](Get-Command gh -ErrorAction SilentlyContinue)
 $repo = $null
+$branchProtectionReadError = $null
 
 if ($remote -and $ghAvailable) {
   $repoView = gh repo view --json nameWithOwner,url,defaultBranchRef 2>$null | ConvertFrom-Json
@@ -22,12 +23,19 @@ if ($remote -and $ghAvailable) {
     if ($repoView.defaultBranchRef.name) {
       $targetBranch = $repoView.defaultBranchRef.name
     }
-    $protection = gh api "repos/$repo/branches/$targetBranch/protection/required_status_checks" 2>$null | ConvertFrom-Json
-    if ($protection.contexts) {
-      $requiredStatusChecks = @($protection.contexts)
-    }
-    if ($protection.checks) {
-      $requiredStatusChecks = @($requiredStatusChecks + ($protection.checks | ForEach-Object { $_.context }))
+    $protectionEndpoint = "repos/$repo/branches/$targetBranch/protection/required_status_checks"
+    $protectionOutput = & cmd.exe /d /c "gh api ""$protectionEndpoint"" 2>&1"
+    $protectionExitCode = $LASTEXITCODE
+    if ($protectionExitCode -eq 0 -and $protectionOutput) {
+      $protection = $protectionOutput | ConvertFrom-Json
+      if ($protection.contexts) {
+        $requiredStatusChecks = @($protection.contexts)
+      }
+      if ($protection.checks) {
+        $requiredStatusChecks = @($requiredStatusChecks + ($protection.checks | ForEach-Object { $_.context }))
+      }
+    } elseif ($protectionExitCode -ne 0) {
+      $branchProtectionReadError = ($protectionOutput | Out-String).Trim()
     }
   }
 }
@@ -41,6 +49,7 @@ $report = [ordered]@{
   repository = $repo
   targetBranch = $targetBranch
   requiredStatusChecks = @($requiredStatusChecks | Where-Object { $_ } | Sort-Object -Unique)
+  branchProtectionReadError = $branchProtectionReadError
   failedRequiredJobBlocksMerge = $false
   fixedAggregateUnblocksMerge = $false
   status = 'EXTERNAL_MERGE_PROTECTION_NOT_VERIFIED'

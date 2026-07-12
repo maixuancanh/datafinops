@@ -21,5 +21,8 @@ export function buildServer() {
 
 if (process.argv[1]?.endsWith('server.ts')) {
   const { app } = buildServer();
-  await app.listen({ port: Number(process.env.PORT ?? 4010), host: process.env.HOST ?? '127.0.0.1' });
+  await app.listen({
+    port: Number(process.env.PORT ?? 4010),
+    host: process.env.HOST ?? '127.0.0.1',
+  });
 }

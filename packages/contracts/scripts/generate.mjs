@@ -22,6 +22,12 @@ function header(name, hash) {
   return `// Generated from ${name} sha256:${hash}\n// Do not edit; run pnpm contracts:generate.\n\n`;
 }
 
+async function formatTypeScript(content) {
+  const prettier = await import('prettier');
+  const config = (await prettier.resolveConfig(packageRoot)) ?? {};
+  return prettier.format(content, { ...config, parser: 'typescript' });
+}
+
 function rewriteComponentRefs(value) {
   if (Array.isArray(value)) return value.map(rewriteComponentRefs);
   if (value && typeof value === 'object') {
@@ -40,7 +46,7 @@ function rewriteComponentRefs(value) {
 async function openApiOutput() {
   const input = await source('openapi.yaml');
   const ast = await openapiTS(pathToFileURL(input.absolute), { alphabetize: true });
-  return header('openapi.yaml', input.hash) + astToString(ast);
+  return formatTypeScript(header('openapi.yaml', input.hash) + astToString(ast));
 }
 
 async function eventOutput() {
@@ -53,30 +59,30 @@ async function eventOutput() {
     oneOf: messages.map((message) => rewriteComponentRefs(message.payload)),
     $defs: rewriteComponentRefs(document.components?.schemas ?? {}),
   };
-  return (
+  return await formatTypeScript(
     header('events.asyncapi.yaml', input.hash) +
-    (await compile(schema, 'DataFinOpsEvent', {
-      additionalProperties: false,
-      bannerComment: '',
-      format: false,
-      strictIndexSignatures: true,
-      unknownAny: true,
-    }))
+      (await compile(schema, 'DataFinOpsEvent', {
+        additionalProperties: false,
+        bannerComment: '',
+        format: false,
+        strictIndexSignatures: true,
+        unknownAny: true,
+      })),
   );
 }
 
 async function jsonSchemaOutput(name, typeName) {
   const input = await source(`schemas/${name}.schema.json`);
   const schema = JSON.parse(input.text);
-  return (
+  return await formatTypeScript(
     header(`schemas/${name}.schema.json`, input.hash) +
-    (await compile(schema, typeName, {
-      additionalProperties: false,
-      bannerComment: '',
-      format: false,
-      strictIndexSignatures: true,
-      unknownAny: true,
-    }))
+      (await compile(schema, typeName, {
+        additionalProperties: false,
+        bannerComment: '',
+        format: false,
+        strictIndexSignatures: true,
+        unknownAny: true,
+      })),
   );
 }
 
@@ -87,7 +93,10 @@ const outputs = new Map([
     'optimization-snapshot.ts',
     await jsonSchemaOutput('optimization-snapshot', 'OptimizationSnapshot'),
   ],
-  ['transaction-proposal.ts', await jsonSchemaOutput('transaction-proposal', 'TransactionProposal')],
+  [
+    'transaction-proposal.ts',
+    await jsonSchemaOutput('transaction-proposal', 'TransactionProposal'),
+  ],
 ]);
 const exportNames = new Map([
   ['openapi.ts', 'OpenApiTypes'],
@@ -96,10 +105,7 @@ const exportNames = new Map([
   ['transaction-proposal.ts', 'TransactionProposalTypes'],
 ]);
 const index = [...outputs.keys()]
-  .map(
-    (name) =>
-      `export * as ${exportNames.get(name)} from './generated/${name.slice(0, -3)}.js';`,
-  )
+  .map((name) => `export * as ${exportNames.get(name)} from './generated/${name.slice(0, -3)}.js';`)
   .join('\n');
 
 await mkdir(outputRoot, { recursive: true });
@@ -119,4 +125,6 @@ if (checkOnly) {
 } else {
   await writeFile(indexTarget, `${index}\n`, 'utf8');
 }
-console.log(checkOnly ? 'Generated contracts match sources.' : `Generated ${outputs.size} contract files.`);
+console.log(
+  checkOnly ? 'Generated contracts match sources.' : `Generated ${outputs.size} contract files.`,
+);

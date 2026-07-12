@@ -58,13 +58,16 @@ export async function extractContractSurface() {
   collectRequired(asyncapi, 'events:', requiredFields);
   collectRequired(snapshot, 'snapshot:', requiredFields);
   collectRequired(transaction, 'transaction:', requiredFields);
-  if (Array.isArray(snapshot.required)) requiredFields['snapshot:root'] = sortedUnique(snapshot.required);
+  if (Array.isArray(snapshot.required))
+    requiredFields['snapshot:root'] = sortedUnique(snapshot.required);
   if (Array.isArray(transaction.required)) {
     requiredFields['transaction:root'] = sortedUnique(transaction.required);
   }
   return {
     operations: sortedUnique(operations),
-    channels: sortedUnique(Object.values(asyncapi.channels ?? {}).map((channel) => channel.address)),
+    channels: sortedUnique(
+      Object.values(asyncapi.channels ?? {}).map((channel) => channel.address),
+    ),
     requiredFields: Object.fromEntries(
       Object.entries(requiredFields).sort(([left], [right]) => left.localeCompare(right)),
     ),

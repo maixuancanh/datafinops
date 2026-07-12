@@ -4,7 +4,12 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 const generatedRoot = path.resolve(import.meta.dirname, '../src/generated');
-const expectedFiles = ['openapi.ts', 'events.ts', 'optimization-snapshot.ts', 'transaction-proposal.ts'];
+const expectedFiles = [
+  'openapi.ts',
+  'events.ts',
+  'optimization-snapshot.ts',
+  'transaction-proposal.ts',
+];
 
 describe('generated contract types', () => {
   it.each(expectedFiles)('%s is generated with source hash and strict unknowns', async (file) => {
@@ -16,6 +21,7 @@ describe('generated contract types', () => {
 
   it('exports every generated contract surface', async () => {
     const source = await readFile(path.resolve(generatedRoot, '../index.ts'), 'utf8');
-    for (const file of expectedFiles) expect(source).toContain(`./generated/${file.slice(0, -3)}.js`);
+    for (const file of expectedFiles)
+      expect(source).toContain(`./generated/${file.slice(0, -3)}.js`);
   });
 });

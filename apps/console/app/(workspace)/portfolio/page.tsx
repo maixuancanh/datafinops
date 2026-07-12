@@ -1,1 +1,33 @@
-export default function PortfolioPage() { return <main><p>Workspace / Portfolio</p><h1>Subscription and entitlement baseline</h1><p>Read-only baseline with exact cost, coverage, latency, period, freshness and source hash.</p><table><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody><tr><td>Subscription cost</td><td>—</td></tr><tr><td>Coverage</td><td>—</td></tr><tr><td>Source hash</td><td>—</td></tr></tbody></table></main>; }
+export default function PortfolioPage() {
+  return (
+    <main>
+      <p>Workspace / Portfolio</p>
+      <h1>Subscription and entitlement baseline</h1>
+      <p>
+        Read-only baseline with exact cost, coverage, latency, period, freshness and source hash.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Subscription cost</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Coverage</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Source hash</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  );
+}

@@ -5,8 +5,17 @@ import { FairTenantScheduler, queueDefinitions } from '../src/queues/index.js';
 describe('isolated worker queues', () => {
   it('declares every required workload with bounded retry policy', () => {
     expect(Object.keys(queueDefinitions)).toEqual([
-      'activation', 'close', 'export', 'ingestion', 'metering', 'notification',
-      'observation', 'optimization', 'renewal', 'snapshot', 'verification',
+      'activation',
+      'close',
+      'export',
+      'ingestion',
+      'metering',
+      'notification',
+      'observation',
+      'optimization',
+      'renewal',
+      'snapshot',
+      'verification',
     ]);
     for (const definition of Object.values(queueDefinitions)) {
       expect(definition.attempts).toBeGreaterThanOrEqual(1);

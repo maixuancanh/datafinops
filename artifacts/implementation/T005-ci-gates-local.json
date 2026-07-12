@@ -12,7 +12,7 @@
     "localStructuralTests":  "5 passed",
     "aggregateUsesAlways":  true,
     "failedRequiredJobFailsAggregate":  true,
-    "gitRemoteConfigured":  false,
+    "gitRemoteConfigured":  true,
     "branchProtectionVerified":  false,
     "status":  "LOCAL_GATE_VERIFIED_EXTERNAL_MERGE_PROTECTION_PENDING"
 }

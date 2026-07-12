@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "exports": { ".": "./src/prohibited-material.ts" },
+  "exports": {
+    ".": "./src/prohibited-material.ts"
+  },
   "scripts": {
     "test": "vitest run",
     "test:security": "vitest run",
     "test:unit": "vitest run",
     "typecheck": "tsc -p tsconfig.json"
   },
-  "devDependencies": { "typescript": "catalog:" }
+  "devDependencies": {
+    "typescript": "catalog:"
+  }
 }

@@ -1,1 +1,14 @@
-export default async function SignPage({ params }: { params: Promise<{ id: string }> }) { const { id } = await params; return <main><p>Proposal / {id} / Sign</p><h1>Transaction review</h1><p>Network · program · public account · exact amount · instructions · expiry · approval hash.</p><p>Wallet mode: demo simulation only. No secret input.</p><button type="button">Simulate signature</button></main>; }
+export default async function SignPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return (
+    <main>
+      <p>Proposal / {id} / Sign</p>
+      <h1>Transaction review</h1>
+      <p>
+        Network · program · public account · exact amount · instructions · expiry · approval hash.
+      </p>
+      <p>Wallet mode: demo simulation only. No secret input.</p>
+      <button type="button">Simulate signature</button>
+    </main>
+  );
+}

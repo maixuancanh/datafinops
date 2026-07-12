@@ -2,7 +2,11 @@ const CANONICAL_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
 
 function epoch(value: string): number {
   const parsed = Date.parse(value);
-  if (!CANONICAL_INSTANT.test(value) || Number.isNaN(parsed) || new Date(parsed).toISOString() !== value) {
+  if (
+    !CANONICAL_INSTANT.test(value) ||
+    Number.isNaN(parsed) ||
+    new Date(parsed).toISOString() !== value
+  ) {
     throw new TypeError('Accounting period boundary must be a canonical UTC instant');
   }
   return parsed;

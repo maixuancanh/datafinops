@@ -42,14 +42,7 @@
       "schemaVersion",
       "workspaceRef"
     ],
-    "openapi:Approval": [
-      "actorRef",
-      "decidedAt",
-      "decision",
-      "id",
-      "proposalHash",
-      "role"
-    ],
+    "openapi:Approval": ["actorRef", "decidedAt", "decision", "id", "proposalHash", "role"],
     "openapi:ConnectionCreate": [
       "apiHost",
       "mode",
@@ -58,18 +51,8 @@
       "publicWalletRef",
       "workspaceId"
     ],
-    "openapi:EntitlementItem": [
-      "latencyClass",
-      "leagues",
-      "observedAt",
-      "status"
-    ],
-    "openapi:EntitlementStatus": [
-      "checkedAt",
-      "proposalId",
-      "reasonCodes",
-      "status"
-    ],
+    "openapi:EntitlementItem": ["latencyClass", "leagues", "observedAt", "status"],
+    "openapi:EntitlementStatus": ["checkedAt", "proposalId", "reasonCodes", "status"],
     "openapi:Inventory": [
       "connectionId",
       "entitlements",
@@ -78,15 +61,8 @@
       "pricingSnapshotHash",
       "subscriptions"
     ],
-    "openapi:Money": [
-      "currency",
-      "minorUnits"
-    ],
-    "openapi:Operation": [
-      "createdAt",
-      "operationId",
-      "state"
-    ],
+    "openapi:Money": ["currency", "minorUnits"],
+    "openapi:Operation": ["createdAt", "operationId", "state"],
     "openapi:OptimizationResult": [
       "optimizerVersion",
       "runId",
@@ -94,12 +70,7 @@
       "state",
       "verifierVersion"
     ],
-    "openapi:Problem": [
-      "correlationId",
-      "status",
-      "title",
-      "type"
-    ],
+    "openapi:Problem": ["correlationId", "status", "title", "type"],
     "openapi:Proposal": [
       "approvalGraph",
       "expiresAt",
@@ -119,18 +90,8 @@
       "id",
       "proposedCost"
     ],
-    "openapi:RequirementSet": [
-      "periodEnd",
-      "periodStart",
-      "requirements",
-      "workspaceId"
-    ],
-    "openapi:SavingsPeriod": [
-      "currency",
-      "entries",
-      "id",
-      "state"
-    ],
+    "openapi:RequirementSet": ["periodEnd", "periodStart", "requirements", "workspaceId"],
+    "openapi:SavingsPeriod": ["currency", "entries", "id", "state"],
     "openapi:SubscriptionItem": [
       "exactCost",
       "externalRef",
@@ -140,39 +101,12 @@
       "periodStart",
       "tier"
     ],
-    "openapi:TransactionStatus": [
-      "network",
-      "observedAt",
-      "operationId",
-      "programId",
-      "state"
-    ],
-    "openapi:UsageImport": [
-      "periodEnd",
-      "periodStart",
-      "rows",
-      "schemaVersion",
-      "workspaceId"
-    ],
-    "openapi:VersionReference": [
-      "createdAt",
-      "hash",
-      "id",
-      "version"
-    ],
-    "snapshot:configurationItem": [
-      "effectiveEnd",
-      "effectiveStart",
-      "pricingItemId"
-    ],
-    "snapshot:money": [
-      "currency",
-      "minorUnits"
-    ],
-    "snapshot:period": [
-      "end",
-      "start"
-    ],
+    "openapi:TransactionStatus": ["network", "observedAt", "operationId", "programId", "state"],
+    "openapi:UsageImport": ["periodEnd", "periodStart", "rows", "schemaVersion", "workspaceId"],
+    "openapi:VersionReference": ["createdAt", "hash", "id", "version"],
+    "snapshot:configurationItem": ["effectiveEnd", "effectiveStart", "pricingItemId"],
+    "snapshot:money": ["currency", "minorUnits"],
+    "snapshot:period": ["end", "start"],
     "snapshot:pricingItem": [
       "cost",
       "effectiveEnd",
@@ -182,14 +116,7 @@
       "leagues",
       "tier"
     ],
-    "snapshot:requirement": [
-      "hardness",
-      "id",
-      "kind",
-      "operator",
-      "ownerRef",
-      "value"
-    ],
+    "snapshot:requirement": ["hardness", "id", "kind", "operator", "ownerRef", "value"],
     "snapshot:root": [
       "canonicalHash",
       "createdAt",
@@ -206,14 +133,8 @@
       "sourceVersions",
       "workspaceId"
     ],
-    "snapshot:versionHash": [
-      "hash",
-      "version"
-    ],
-    "transaction:money": [
-      "currency",
-      "minorUnits"
-    ],
+    "snapshot:versionHash": ["hash", "version"],
+    "transaction:money": ["currency", "minorUnits"],
     "transaction:root": [
       "approvalsDigest",
       "builderVersion",

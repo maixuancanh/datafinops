@@ -1,1 +1,11 @@
-{"alerts":[{"name":"live-write-enabled","condition":"mode=LIVE_WRITE AND evidence_missing","severity":"critical"},{"name":"source-stale","condition":"freshness=STALE","severity":"warning"},{"name":"queue-fairness","condition":"tenant_wait_ms>threshold","severity":"warning"}]}
+{
+  "alerts": [
+    {
+      "name": "live-write-enabled",
+      "condition": "mode=LIVE_WRITE AND evidence_missing",
+      "severity": "critical"
+    },
+    { "name": "source-stale", "condition": "freshness=STALE", "severity": "warning" },
+    { "name": "queue-fairness", "condition": "tenant_wait_ms>threshold", "severity": "warning" }
+  ]
+}

@@ -5,7 +5,23 @@
   "description": "An unsigned client-review envelope. Private keys, seed phrases, mnemonics, keystores, passphrases, and server signing instructions are prohibited.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["signingEnvelopeId", "operationKey", "mode", "network", "programId", "proposalId", "proposalHash", "snapshotHash", "policyVersion", "approvalsDigest", "builderVersion", "expiresAt", "transaction", "humanSummary", "humanSummaryDigest"],
+  "required": [
+    "signingEnvelopeId",
+    "operationKey",
+    "mode",
+    "network",
+    "programId",
+    "proposalId",
+    "proposalHash",
+    "snapshotHash",
+    "policyVersion",
+    "approvalsDigest",
+    "builderVersion",
+    "expiresAt",
+    "transaction",
+    "humanSummary",
+    "humanSummaryDigest"
+  ],
   "properties": {
     "signingEnvelopeId": { "type": "string", "format": "uuid" },
     "operationKey": { "type": "string", "minLength": 16, "maxLength": 128 },
@@ -22,7 +38,14 @@
     "transaction": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["version", "publicSigner", "accounts", "instructions", "recentBlockReference", "unsignedPayload"],
+      "required": [
+        "version",
+        "publicSigner",
+        "accounts",
+        "instructions",
+        "recentBlockReference",
+        "unsignedPayload"
+      ],
       "properties": {
         "version": { "type": "string" },
         "publicSigner": { "type": "string", "minLength": 16, "maxLength": 128 },
@@ -52,7 +75,10 @@
               "programId": { "type": "string", "minLength": 16, "maxLength": 128 },
               "discriminator": { "type": "string", "minLength": 1, "maxLength": 128 },
               "dataDigest": { "$ref": "#/$defs/sha256" },
-              "purpose": { "type": "string", "enum": ["SUBSCRIPTION_CHANGE", "ENTITLEMENT_ACTIVATION"] }
+              "purpose": {
+                "type": "string",
+                "enum": ["SUBSCRIPTION_CHANGE", "ENTITLEMENT_ACTIVATION"]
+              }
             }
           }
         },
@@ -63,7 +89,16 @@
     "humanSummary": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["modeLabel", "network", "programId", "publicSigner", "changes", "total", "effectiveAt", "expiryNotice"],
+      "required": [
+        "modeLabel",
+        "network",
+        "programId",
+        "publicSigner",
+        "changes",
+        "total",
+        "effectiveAt",
+        "expiryNotice"
+      ],
       "properties": {
         "modeLabel": { "type": "string" },
         "network": { "type": "string" },

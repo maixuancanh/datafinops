@@ -14,4 +14,6 @@ description = "Synthetic documentation and security corpus labels contain prohib
 paths = [
   '''(^|/)security/prohibited-material\.yml$''',
   '''(^|/)tests/security/fixtures/''',
+  '''(^|/)packages/contracts/src/generated/''',
+  '''(^|/)packages/security/test/prohibited-material\.test\.ts$''',
 ]

@@ -10,16 +10,16 @@
 
 ## Constitutional Gates
 
-| Gate | Requirement | Evidence |
-|---|---|---|
-| Source truth | TxLINE adapter verifies network, program, pricing, subscription, activation, and entitlement | Adapter contract/golden tests |
-| Optimization safety | Every candidate passes an independent hard-constraint verifier | Property and mutation tests |
-| Reproducibility | Snapshots and all material objects are immutable/versioned | Replay and hash tests |
-| Governance | Policy, separation, approval, expiry, and invalidation bind exact proposal | Authorization/state tests |
-| Non-custody | No server signing or private signing material | Schema, security, artifact scans |
-| Verified value | Confirmation, activation, entitlement, and realized savings are separate | Integration and ledger tests |
-| Operational safety | Live-write per-tenant default off with tested kill switches | Enablement and incident evidence |
-| Demo safety | Synthetic metrics and unfunded signer flow | Capture report and config audit |
+| Gate                | Requirement                                                                                  | Evidence                         |
+| ------------------- | -------------------------------------------------------------------------------------------- | -------------------------------- |
+| Source truth        | TxLINE adapter verifies network, program, pricing, subscription, activation, and entitlement | Adapter contract/golden tests    |
+| Optimization safety | Every candidate passes an independent hard-constraint verifier                               | Property and mutation tests      |
+| Reproducibility     | Snapshots and all material objects are immutable/versioned                                   | Replay and hash tests            |
+| Governance          | Policy, separation, approval, expiry, and invalidation bind exact proposal                   | Authorization/state tests        |
+| Non-custody         | No server signing or private signing material                                                | Schema, security, artifact scans |
+| Verified value      | Confirmation, activation, entitlement, and realized savings are separate                     | Integration and ledger tests     |
+| Operational safety  | Live-write per-tenant default off with tested kill switches                                  | Enablement and incident evidence |
+| Demo safety         | Synthetic metrics and unfunded signer flow                                                   | Capture report and config audit  |
 
 ## Repository Layout
 

@@ -41,14 +41,21 @@ export interface ReplayAdapterBase {
   verifyConnection(expectation: ConnectionExpectation): Promise<{
     readonly status: 'VERIFIED_READ' | 'BLOCKED';
     readonly executable: boolean;
-    readonly checks: readonly Readonly<{ name: string; status: 'PASS' | 'FAIL'; observed: string }>[];
+    readonly checks: readonly Readonly<{
+      name: string;
+      status: 'PASS' | 'FAIL';
+      observed: string;
+    }>[];
     readonly reasonCodes: readonly string[];
   }>;
   getPricing(): Promise<SourceRows<Readonly<Record<string, unknown>>>>;
   getSubscriptions(): Promise<SourceRows<Readonly<Record<string, unknown>>>>;
   getFixtures(): Promise<SourceRows<Readonly<Record<string, unknown>>>>;
   getEntitlement(): Promise<SourceValue<Readonly<Record<string, unknown>>>>;
-  activateEntitlement(input: { readonly operationKey: string; readonly target: readonly string[] }): Promise<{
+  activateEntitlement(input: {
+    readonly operationKey: string;
+    readonly target: readonly string[];
+  }): Promise<{
     readonly status: 'SIMULATED';
     readonly repurchaseAllowed: false;
     readonly operationKey: string;
@@ -72,8 +79,17 @@ function sourceRows<T>(rows: readonly T[], dataset: ReplayDataset, clock: string
   });
 }
 
-function sourceValue<T extends Readonly<Record<string, unknown>>>(value: T, dataset: ReplayDataset, clock: string): SourceValue<T> {
-  return Object.freeze({ rows: Object.freeze({ ...value }), sourcePublishedAt: dataset.sourcePublishedAt, ingestedAt: clock, contentHash: canonicalHash(value) });
+function sourceValue<T extends Readonly<Record<string, unknown>>>(
+  value: T,
+  dataset: ReplayDataset,
+  clock: string,
+): SourceValue<T> {
+  return Object.freeze({
+    rows: Object.freeze({ ...value }),
+    sourcePublishedAt: dataset.sourcePublishedAt,
+    ingestedAt: clock,
+    contentHash: canonicalHash(value),
+  });
 }
 
 export function createReplayAdapter(input: {
@@ -90,29 +106,67 @@ export function createReplayAdapter(input: {
     capabilities: Object.freeze({ liveWrite: input.mode === 'LIVE_WRITE' }),
     async verifyConnection(expectation) {
       const checks = [
-        { name: 'NETWORK', observed: input.dataset.network, status: input.dataset.network === expectation.network ? 'PASS' : 'FAIL' },
-        { name: 'PROGRAM', observed: input.dataset.programId, status: input.dataset.programId === expectation.programId ? 'PASS' : 'FAIL' },
-        { name: 'API_HOST', observed: input.dataset.apiHost, status: input.dataset.apiHost === expectation.apiHost ? 'PASS' : 'FAIL' },
-        { name: 'PUBLIC_WALLET', observed: expectation.publicWalletRef, status: expectation.publicWalletRef ? 'PASS' : 'FAIL' },
+        {
+          name: 'NETWORK',
+          observed: input.dataset.network,
+          status: input.dataset.network === expectation.network ? 'PASS' : 'FAIL',
+        },
+        {
+          name: 'PROGRAM',
+          observed: input.dataset.programId,
+          status: input.dataset.programId === expectation.programId ? 'PASS' : 'FAIL',
+        },
+        {
+          name: 'API_HOST',
+          observed: input.dataset.apiHost,
+          status: input.dataset.apiHost === expectation.apiHost ? 'PASS' : 'FAIL',
+        },
+        {
+          name: 'PUBLIC_WALLET',
+          observed: expectation.publicWalletRef,
+          status: expectation.publicWalletRef ? 'PASS' : 'FAIL',
+        },
       ] as const;
-      const reasonCodes = checks.filter((check) => check.status === 'FAIL').map((check) => `${check.name}_MISMATCH`);
-      if (input.dataset.apiHost === 'unknown' || !input.dataset.sourcePublishedAt) reasonCodes.push('UNKNOWN_SOURCE_SEMANTICS');
+      const reasonCodes = checks
+        .filter((check) => check.status === 'FAIL')
+        .map((check) => `${check.name}_MISMATCH`);
+      if (input.dataset.apiHost === 'unknown' || !input.dataset.sourcePublishedAt)
+        reasonCodes.push('UNKNOWN_SOURCE_SEMANTICS');
       const blocked = reasonCodes.length > 0;
-      return Object.freeze({ status: blocked ? 'BLOCKED' as const : 'VERIFIED_READ' as const, executable: !blocked, checks, reasonCodes });
+      return Object.freeze({
+        status: blocked ? ('BLOCKED' as const) : ('VERIFIED_READ' as const),
+        executable: !blocked,
+        checks,
+        reasonCodes,
+      });
     },
-    async getPricing() { return sourceRows(input.dataset.pricing, input.dataset, input.clock); },
-    async getSubscriptions() { return sourceRows(input.dataset.subscriptions, input.dataset, input.clock); },
-    async getFixtures() { return sourceRows(input.dataset.fixtures, input.dataset, input.clock); },
-    async getEntitlement() { return sourceValue(input.dataset.entitlement, input.dataset, input.clock); },
+    async getPricing() {
+      return sourceRows(input.dataset.pricing, input.dataset, input.clock);
+    },
+    async getSubscriptions() {
+      return sourceRows(input.dataset.subscriptions, input.dataset, input.clock);
+    },
+    async getFixtures() {
+      return sourceRows(input.dataset.fixtures, input.dataset, input.clock);
+    },
+    async getEntitlement() {
+      return sourceValue(input.dataset.entitlement, input.dataset, input.clock);
+    },
     async activateEntitlement({ operationKey }) {
       if (!operationKey.trim()) throw new TypeError('Activation operation key is required');
-      return Object.freeze({ status: 'SIMULATED' as const, repurchaseAllowed: false as const, operationKey });
+      return Object.freeze({
+        status: 'SIMULATED' as const,
+        repurchaseAllowed: false as const,
+        operationKey,
+      });
     },
   };
   if (input.mode !== 'LIVE_WRITE') return Object.freeze(adapter);
   return Object.freeze({
     ...adapter,
     capabilities: Object.freeze({ liveWrite: true as const }),
-    async writeSubscription() { return Object.freeze({ status: 'SIMULATED' as const, spend: false as const }); },
+    async writeSubscription() {
+      return Object.freeze({ status: 'SIMULATED' as const, spend: false as const });
+    },
   });
 }

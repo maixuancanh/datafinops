@@ -14,18 +14,18 @@
 
 ## Alert Ownership
 
-| Alert | Severity | First owner | Immediate action |
-|---|---|---|---|
-| Signing material detected | SEV-1 | Security | Stop affected ingestion, restrict evidence, investigate |
-| Unauthorized or wrong-bound transaction | SEV-1 | Security + Platform | Disable live-write and builder |
-| Cross-tenant finance access | SEV-1 | Security | Isolate service and revoke access |
-| Optimizer/verifier disagreement | SEV-1/2 | Optimization | Disable recommendations from version |
-| Confirmed purchase, activation failed | SEV-2 | Integrations | Preserve no-repurchase guard, open recovery |
-| Entitlement mismatch | SEV-2 | Integrations + Procurement | Block savings/renewal action |
-| Transaction observation backlog | SEV-2 | Platform | Scale observer; never resubmit blindly |
-| Pricing or fixture stale | SEV-2/3 | Data Integration | Block executable proposals |
-| Ledger reconciliation failure | SEV-2 | Finance Engineering | Stop close/export for affected period |
-| Optimizer queue or tenant fairness breach | SEV-3 | Platform | Rebalance bounded workers |
+| Alert                                     | Severity | First owner                | Immediate action                                        |
+| ----------------------------------------- | -------- | -------------------------- | ------------------------------------------------------- |
+| Signing material detected                 | SEV-1    | Security                   | Stop affected ingestion, restrict evidence, investigate |
+| Unauthorized or wrong-bound transaction   | SEV-1    | Security + Platform        | Disable live-write and builder                          |
+| Cross-tenant finance access               | SEV-1    | Security                   | Isolate service and revoke access                       |
+| Optimizer/verifier disagreement           | SEV-1/2  | Optimization               | Disable recommendations from version                    |
+| Confirmed purchase, activation failed     | SEV-2    | Integrations               | Preserve no-repurchase guard, open recovery             |
+| Entitlement mismatch                      | SEV-2    | Integrations + Procurement | Block savings/renewal action                            |
+| Transaction observation backlog           | SEV-2    | Platform                   | Scale observer; never resubmit blindly                  |
+| Pricing or fixture stale                  | SEV-2/3  | Data Integration           | Block executable proposals                              |
+| Ledger reconciliation failure             | SEV-2    | Finance Engineering        | Stop close/export for affected period                   |
+| Optimizer queue or tenant fairness breach | SEV-3    | Platform                   | Rebalance bounded workers                               |
 
 ## Incident Sequence
 

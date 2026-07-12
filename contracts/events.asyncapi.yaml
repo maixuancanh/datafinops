@@ -118,7 +118,8 @@ components:
         allOf:
           - $ref: '#/components/schemas/EventEnvelope'
           - type: object
-            required: [operationId, proposalId, confirmedTransaction, reasonCodes, repurchaseBlocked]
+            required:
+              [operationId, proposalId, confirmedTransaction, reasonCodes, repurchaseBlocked]
             properties:
               operationId: { type: string, format: uuid }
               proposalId: { type: string, format: uuid }
@@ -150,7 +151,11 @@ components:
             required: [subscriptionRef, risk, renewalAt]
             properties:
               subscriptionRef: { type: string }
-              risk: { type: string, enum: [MISSING_REQUIREMENTS, APPROVAL_DELAY, ENTITLEMENT_MISMATCH, EXPIRY] }
+              risk:
+                {
+                  type: string,
+                  enum: [MISSING_REQUIREMENTS, APPROVAL_DELAY, ENTITLEMENT_MISMATCH, EXPIRY],
+                }
               renewalAt: { type: string, format: date-time }
     SavingsClosed:
       name: SavingsClosed
@@ -171,7 +176,18 @@ components:
       pattern: '^[a-f0-9]{64}$'
     EventEnvelope:
       type: object
-      required: [eventId, eventType, schemaVersion, occurredAt, organizationRef, workspaceRef, environmentRef, idempotencyKey, correlationId]
+      required:
+        [
+          eventId,
+          eventType,
+          schemaVersion,
+          occurredAt,
+          organizationRef,
+          workspaceRef,
+          environmentRef,
+          idempotencyKey,
+          correlationId,
+        ]
       properties:
         eventId: { type: string, format: uuid }
         eventType: { type: string }

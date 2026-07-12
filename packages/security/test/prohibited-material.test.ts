@@ -11,7 +11,10 @@ describe('prohibited signing material prefilter', () => {
   it.each(corpus)('rejects $surface material named $name before a sink', (entry) => {
     const sink = createSafeSink();
     expect(() =>
-      assertNoProhibitedMaterial({ [entry.name]: entry.value }, { correlationId: 'corr-demo', sink }),
+      assertNoProhibitedMaterial(
+        { [entry.name]: entry.value },
+        { correlationId: 'corr-demo', sink },
+      ),
     ).toThrow(ProhibitedMaterialError);
     const serialized = JSON.stringify(sink.entries());
     expect(serialized).not.toContain(entry.value);
@@ -26,7 +29,10 @@ describe('prohibited signing material prefilter', () => {
 
   it('allows public wallet references and normal aggregate data', () => {
     expect(() =>
-      assertNoProhibitedMaterial({ publicWalletRef: 'DemoWallet111111111111111111111111111111', requests: 10 }),
+      assertNoProhibitedMaterial({
+        publicWalletRef: 'DemoWallet111111111111111111111111111111',
+        requests: 10,
+      }),
     ).not.toThrow();
   });
 });

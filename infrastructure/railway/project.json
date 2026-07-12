@@ -1,1 +1,5 @@
-{"services":["api","workers","postgres","redis"],"liveWriteDefault":false,"queueDrainBeforeDeploy":true}
+{
+  "services": ["api", "workers", "postgres", "redis"],
+  "liveWriteDefault": false,
+  "queueDrainBeforeDeploy": true
+}

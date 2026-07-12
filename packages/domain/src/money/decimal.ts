@@ -23,7 +23,9 @@ export class ExactDecimal {
 
   toJSON(): { decimal: string; scale: number } {
     const negative = this.unscaled < 0n;
-    const absolute = (negative ? -this.unscaled : this.unscaled).toString().padStart(this.scale + 1, '0');
+    const absolute = (negative ? -this.unscaled : this.unscaled)
+      .toString()
+      .padStart(this.scale + 1, '0');
     const decimal =
       this.scale === 0
         ? absolute

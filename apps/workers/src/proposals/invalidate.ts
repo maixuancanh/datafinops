@@ -1,2 +1,16 @@
-export interface MaterialState { readonly pricingHash: string; readonly requirementHash: string; readonly policyHash: string; readonly amountMinor: number; readonly network: string; readonly programId: string; readonly signer: string; readonly effectiveAt: string; readonly expiresAt: string; }
-export function materialChange(previous: MaterialState, current: MaterialState): readonly string[] { return (Object.keys(previous) as (keyof MaterialState)[]).filter((key) => previous[key] !== current[key]); }
+export interface MaterialState {
+  readonly pricingHash: string;
+  readonly requirementHash: string;
+  readonly policyHash: string;
+  readonly amountMinor: number;
+  readonly network: string;
+  readonly programId: string;
+  readonly signer: string;
+  readonly effectiveAt: string;
+  readonly expiresAt: string;
+}
+export function materialChange(previous: MaterialState, current: MaterialState): readonly string[] {
+  return (Object.keys(previous) as (keyof MaterialState)[]).filter(
+    (key) => previous[key] !== current[key],
+  );
+}

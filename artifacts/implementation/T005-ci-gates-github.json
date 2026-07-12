@@ -1,14 +1,15 @@
 {
     "workflow":  ".github/workflows/ci.yml",
     "requiredGate":  "Required aggregate gate",
-    "gitRemoteConfigured":  false,
-    "remoteUrl":  null,
+    "gitRemoteConfigured":  true,
+    "remoteUrl":  "https://github.com/maixuancanh/datafinops.git",
     "githubCliAvailable":  true,
-    "repository":  null,
+    "repository":  "maixuancanh/datafinops",
     "targetBranch":  "main",
     "requiredStatusChecks":  [
 
                              ],
+    "branchProtectionReadError":  "{\"message\":\"Upgrade to GitHub Pro or make this repository public to enable this feature.\",\"documentation_url\":\"https://docs.github.com/rest/branches/branch-protection#get-status-checks-protection\",\"status\":\"403\"}gh: Upgrade to GitHub Pro or make this repository public to enable this feature. (HTTP 403)",
     "failedRequiredJobBlocksMerge":  false,
     "fixedAggregateUnblocksMerge":  false,
     "status":  "EXTERNAL_MERGE_PROTECTION_NOT_VERIFIED"

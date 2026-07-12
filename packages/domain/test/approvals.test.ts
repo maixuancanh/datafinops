@@ -1,3 +1,38 @@
 import { describe, expect, it } from 'vitest';
 import { appendApproval, authorizeApproval } from '../src/approvals/index.js';
-describe('approval authorization', () => { it('requires role and separation', () => { expect(() => authorizeApproval({ approverId: 'a', role: 'finance', requiredRole: 'finance', selfApproval: false, expired: false })).not.toThrow(); expect(() => authorizeApproval({ approverId: 'a', role: 'finance', requiredRole: 'finance', selfApproval: true, expired: false })).toThrow('SELF_APPROVAL_DENIED'); }); it('keeps rationale append-only', () => expect(Object.isFrozen(appendApproval({ id: 'a1', proposalId: 'p1', approverId: 'a', role: 'finance', decision: 'APPROVED', createdAt: '2026-01-01', rationale: 'reviewed' }))).toBe(true)); });
+describe('approval authorization', () => {
+  it('requires role and separation', () => {
+    expect(() =>
+      authorizeApproval({
+        approverId: 'a',
+        role: 'finance',
+        requiredRole: 'finance',
+        selfApproval: false,
+        expired: false,
+      }),
+    ).not.toThrow();
+    expect(() =>
+      authorizeApproval({
+        approverId: 'a',
+        role: 'finance',
+        requiredRole: 'finance',
+        selfApproval: true,
+        expired: false,
+      }),
+    ).toThrow('SELF_APPROVAL_DENIED');
+  });
+  it('keeps rationale append-only', () =>
+    expect(
+      Object.isFrozen(
+        appendApproval({
+          id: 'a1',
+          proposalId: 'p1',
+          approverId: 'a',
+          role: 'finance',
+          decision: 'APPROVED',
+          createdAt: '2026-01-01',
+          rationale: 'reviewed',
+        }),
+      ),
+    ).toBe(true));
+});

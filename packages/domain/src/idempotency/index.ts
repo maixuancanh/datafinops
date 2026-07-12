@@ -37,7 +37,8 @@ export function createOperationKey(
   scope: OperationScope,
   input: unknown,
 ): string {
-  if (!/^[a-z][a-z0-9-]{2,63}$/.test(namespace)) throw new TypeError('Operation namespace is invalid');
+  if (!/^[a-z][a-z0-9-]{2,63}$/.test(namespace))
+    throw new TypeError('Operation namespace is invalid');
   return `${namespace}:${hash({ scope, input })}`;
 }
 
@@ -47,7 +48,8 @@ export async function executeIdempotent<T>(
   operationKey: string,
   handler: () => Promise<{ readonly result: T; readonly events: readonly DomainEvent[] }>,
 ): Promise<T> {
-  if (operationKey.length < 16 || operationKey.length > 256) throw new TypeError('Operation key is invalid');
+  if (operationKey.length < 16 || operationKey.length > 256)
+    throw new TypeError('Operation key is invalid');
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
@@ -115,7 +117,14 @@ export async function consumeOnce(
      (organization_id,workspace_id,environment_id,consumer,operation_key,result_hash)
      VALUES($1,$2,$3,$4,$5,$6)
      ON CONFLICT(workspace_id,environment_id,consumer,operation_key) DO NOTHING RETURNING id`,
-    [scope.organizationId, scope.workspaceId, scope.environmentId, consumer, operationKey, resultHash],
+    [
+      scope.organizationId,
+      scope.workspaceId,
+      scope.environmentId,
+      consumer,
+      operationKey,
+      resultHash,
+    ],
   );
   return result.rowCount === 1;
 }

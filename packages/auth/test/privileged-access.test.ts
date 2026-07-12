@@ -36,13 +36,17 @@ describe('privileged access posture', () => {
   it('rejects excessive or unreasoned break-glass grants', () => {
     expect(() =>
       createBreakGlassGrant({
-        subjectRef: 'admin-demo', reason: '', createdAt: '2026-08-01T12:00:00.000Z',
+        subjectRef: 'admin-demo',
+        reason: '',
+        createdAt: '2026-08-01T12:00:00.000Z',
         expiresAt: '2026-08-01T12:30:00.000Z',
       }),
     ).toThrow(/reason/);
     expect(() =>
       createBreakGlassGrant({
-        subjectRef: 'admin-demo', reason: 'test', createdAt: '2026-08-01T12:00:00.000Z',
+        subjectRef: 'admin-demo',
+        reason: 'test',
+        createdAt: '2026-08-01T12:00:00.000Z',
         expiresAt: '2026-08-01T14:00:00.000Z',
       }),
     ).toThrow(/60 minutes/);

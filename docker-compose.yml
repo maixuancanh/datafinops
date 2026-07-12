@@ -8,26 +8,26 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-datafinops-local-only}
       POSTGRES_USER: ${POSTGRES_USER:-datafinops}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
       interval: 5s
       timeout: 3s
       retries: 20
     ports:
-      - "${POSTGRES_PORT:-55432}:5432"
+      - '${POSTGRES_PORT:-55432}:5432'
     restart: unless-stopped
     volumes:
       - datafinops-postgres:/var/lib/postgresql/data
 
   redis:
     image: redis:8.4-alpine
-    command: ["redis-server", "--appendonly", "yes", "--save", "60", "1"]
+    command: ['redis-server', '--appendonly', 'yes', '--save', '60', '1']
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ['CMD', 'redis-cli', 'ping']
       interval: 5s
       timeout: 3s
       retries: 20
     ports:
-      - "${REDIS_PORT:-56379}:6379"
+      - '${REDIS_PORT:-56379}:6379'
     restart: unless-stopped
     volumes:
       - datafinops-redis:/data
@@ -39,13 +39,13 @@ services:
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-datafinops-local-password}
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:-datafinops-local}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
       interval: 5s
       timeout: 3s
       retries: 20
     ports:
-      - "${MINIO_API_PORT:-59000}:9000"
-      - "${MINIO_CONSOLE_PORT:-59001}:9001"
+      - '${MINIO_API_PORT:-59000}:9000'
+      - '${MINIO_CONSOLE_PORT:-59001}:9001'
     restart: unless-stopped
     volumes:
       - datafinops-minio:/data

@@ -15,8 +15,10 @@ export interface ContractInspectionReport {
   readonly openTransactionObjects: readonly string[];
 }
 
-const prohibitedField = /^(?:private[_-]?key|seed[_-]?phrase|mnemonic|keystore|passphrase|recovery[_-]?phrase|raw[_-]?signer|signing[_-]?secret)$/i;
-const transactionField = /^(?:accounts|instructions|publicSigner|signingEnvelopeId|unsignedPayload)$/;
+const prohibitedField =
+  /^(?:private[_-]?key|seed[_-]?phrase|mnemonic|keystore|passphrase|recovery[_-]?phrase|raw[_-]?signer|signing[_-]?secret)$/i;
+const transactionField =
+  /^(?:accounts|instructions|publicSigner|signingEnvelopeId|unsignedPayload)$/;
 
 type Document = Record<string, unknown>;
 
@@ -33,7 +35,11 @@ function pointerValue(document: unknown, pointer: string): unknown {
     }, document);
 }
 
-function walk(value: unknown, visitor: (value: Document, pointer: string) => void, pointer = '#'): void {
+function walk(
+  value: unknown,
+  visitor: (value: Document, pointer: string) => void,
+  pointer = '#',
+): void {
   if (value === null || typeof value !== 'object') return;
   if (!Array.isArray(value)) visitor(value as Document, pointer);
   for (const [key, child] of Object.entries(value)) {
@@ -63,7 +69,9 @@ export async function inspectApprovedContracts(root: string): Promise<ContractIn
     try {
       documents.set(relativeFile, await readDocument(path.join(root, relativeFile)));
     } catch (error) {
-      parseErrors.push(`${relativeFile}: ${error instanceof Error ? error.message : String(error)}`);
+      parseErrors.push(
+        `${relativeFile}: ${error instanceof Error ? error.message : String(error)}`,
+      );
     }
   }
 
@@ -75,7 +83,9 @@ export async function inspectApprovedContracts(root: string): Promise<ContractIn
     try {
       ajv.compile(document);
     } catch (error) {
-      parseErrors.push(`${relativeFile}: ${error instanceof Error ? error.message : String(error)}`);
+      parseErrors.push(
+        `${relativeFile}: ${error instanceof Error ? error.message : String(error)}`,
+      );
     }
   }
 
@@ -99,7 +109,8 @@ export async function inspectApprovedContracts(root: string): Promise<ContractIn
           prohibitedSchemaFields.push(`${relativeFile}${pointer}/properties/${name}`);
         }
         if (names.some((name) => transactionField.test(name)) && node.type === 'object') {
-          if (node.additionalProperties !== false) openTransactionObjects.push(`${relativeFile}${pointer}`);
+          if (node.additionalProperties !== false)
+            openTransactionObjects.push(`${relativeFile}${pointer}`);
         }
       }
     });

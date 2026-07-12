@@ -20,7 +20,8 @@ const configPath = process.env.DEMO_CONFIG ?? path.join(__dirname, 'demo-config.
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8')) as DemoConfig;
 const baseURL = process.env.BASE_URL ?? config.baseUrl;
 const outputDir = path.resolve(__dirname, '..', config.outputDir);
-const prohibitedSecretLabels = /private key|seed phrase|mnemonic|keystore|recovery phrase|signing passphrase/i;
+const prohibitedSecretLabels =
+  /private key|seed phrase|mnemonic|keystore|recovery phrase|signing passphrase/i;
 
 async function mark(page: Page, name: string): Promise<void> {
   await page.screenshot({ path: path.join(outputDir, `${name}.png`), fullPage: false });
@@ -34,7 +35,9 @@ test.use({
   screenshot: 'only-on-failure',
 });
 
-test('records the deterministic non-custodial DataFinOps walkthrough', async ({ page }, testInfo) => {
+test('records the deterministic non-custodial DataFinOps walkthrough', async ({
+  page,
+}, testInfo) => {
   test.setTimeout((config.maxDurationSeconds + 30) * 1_000);
   fs.mkdirSync(outputDir, { recursive: true });
   const startedAt = Date.now();

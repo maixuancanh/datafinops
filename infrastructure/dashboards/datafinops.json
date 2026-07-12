@@ -1,1 +1,15 @@
-{"name":"datafinops-commercial-v1","sloOwners":["platform","finance","security"],"signals":["sources","optimizer","proposals","transactions","activation","entitlement","savings","modes","infrastructure"]}
+{
+  "name": "datafinops-commercial-v1",
+  "sloOwners": ["platform", "finance", "security"],
+  "signals": [
+    "sources",
+    "optimizer",
+    "proposals",
+    "transactions",
+    "activation",
+    "entitlement",
+    "savings",
+    "modes",
+    "infrastructure"
+  ]
+}

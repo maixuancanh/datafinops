@@ -79,10 +79,7 @@ describe('conversion provenance', () => {
 
 describe('AccountingPeriod', () => {
   it('uses a half-open UTC interval and exact elapsed milliseconds', () => {
-    const period = AccountingPeriod.create(
-      '2026-08-01T00:00:00.000Z',
-      '2026-09-01T00:00:00.000Z',
-    );
+    const period = AccountingPeriod.create('2026-08-01T00:00:00.000Z', '2026-09-01T00:00:00.000Z');
     expect(period.contains('2026-08-01T00:00:00.000Z')).toBe(true);
     expect(period.contains('2026-09-01T00:00:00.000Z')).toBe(false);
     expect(period.durationMilliseconds).toBe(31n * 24n * 60n * 60n * 1000n);

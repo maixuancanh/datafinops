@@ -52,9 +52,7 @@ export function createAuditEvent(input: AuditEventInput): AuditEvent {
   return Object.freeze({ ...input, eventHash: eventHash(input) });
 }
 
-export function recordPrivilegedRead(
-  input: Omit<AuditEventInput, 'action'>,
-): AuditEvent {
+export function recordPrivilegedRead(input: Omit<AuditEventInput, 'action'>): AuditEvent {
   if (!input.purpose.trim()) throw new TypeError('Privileged read purpose is required');
   return createAuditEvent({ ...input, action: 'PRIVILEGED_READ' });
 }

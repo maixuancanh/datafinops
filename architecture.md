@@ -58,17 +58,17 @@ The server generates a typed unsigned envelope after final approval. The console
 
 ## Availability and Degradation
 
-| Failure | Safe behavior |
-|---|---|
-| TxLINE stale or schema unknown | Freeze current evidence; block executable proposals |
-| Usage import incomplete | Advisory confidence only; no realized savings |
-| Optimizer timeout | Preserve job and snapshot; no partial candidate promoted |
-| Policy unavailable | Block proposal progression |
-| Wallet unavailable/rejected | Proposal remains approved but unsigned until expiry |
-| Confirmation timeout | Observe without resubmitting; open incident at threshold |
-| Activation failure | No repurchase; manual recovery incident |
-| Entitlement mismatch | Mark verification failed; block finance close |
-| Explanation service unavailable | Show deterministic facts without prose enhancement |
+| Failure                         | Safe behavior                                            |
+| ------------------------------- | -------------------------------------------------------- |
+| TxLINE stale or schema unknown  | Freeze current evidence; block executable proposals      |
+| Usage import incomplete         | Advisory confidence only; no realized savings            |
+| Optimizer timeout               | Preserve job and snapshot; no partial candidate promoted |
+| Policy unavailable              | Block proposal progression                               |
+| Wallet unavailable/rejected     | Proposal remains approved but unsigned until expiry      |
+| Confirmation timeout            | Observe without resubmitting; open incident at threshold |
+| Activation failure              | No repurchase; manual recovery incident                  |
+| Entitlement mismatch            | Mark verification failed; block finance close            |
+| Explanation service unavailable | Show deterministic facts without prose enhancement       |
 
 ## Recovery Targets
 

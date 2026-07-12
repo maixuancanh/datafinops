@@ -11,14 +11,14 @@
 
 ## Data Classification
 
-| Class | Examples | Controls |
-|---|---|---|
-| Restricted secret | TxLINE API credential, webhook secret, SSO secret, database secret | Managed secret store, rotation, no export, redaction |
-| Prohibited signing material | Private key, seed phrase, mnemonic, keystore, raw signer secret | No schema/column, boundary rejection, corpus scanning, incident response |
-| Confidential finance | Usage/revenue aggregates, budgets, allocations, savings, approval authority | Tenant RBAC, encryption, audit, retention |
-| Confidential operational | Requirements, proposals, wallet public references, entitlement evidence | Least privilege, purpose logging, controlled export |
-| Licensed source | Raw TxLINE pricing/subscription/feed payload | Server-only, licensed retention, no reconstructive export |
-| Public chain data | Transaction signature, public wallet, network/program | Integrity verification and tenant context |
+| Class                       | Examples                                                                    | Controls                                                                 |
+| --------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Restricted secret           | TxLINE API credential, webhook secret, SSO secret, database secret          | Managed secret store, rotation, no export, redaction                     |
+| Prohibited signing material | Private key, seed phrase, mnemonic, keystore, raw signer secret             | No schema/column, boundary rejection, corpus scanning, incident response |
+| Confidential finance        | Usage/revenue aggregates, budgets, allocations, savings, approval authority | Tenant RBAC, encryption, audit, retention                                |
+| Confidential operational    | Requirements, proposals, wallet public references, entitlement evidence     | Least privilege, purpose logging, controlled export                      |
+| Licensed source             | Raw TxLINE pricing/subscription/feed payload                                | Server-only, licensed retention, no reconstructive export                |
+| Public chain data           | Transaction signature, public wallet, network/program                       | Integrity verification and tenant context                                |
 
 ## Identity and Authorization
 
@@ -59,19 +59,19 @@
 
 ## Threat Model
 
-| Threat | Primary control | Verification |
-|---|---|---|
-| Server receives a seed/private key | Absent schema, prefilter, no columns, redaction | Corpus tests and artifact scans |
-| Proposal tampering | Canonical hashes, immutable version, approval binding | Mutation tests |
-| Wallet signs different instruction | Re-parse and compare allowlisted bound fields | Wallet integration security tests |
-| Approval privilege escalation | Role/limit snapshot, separation, MFA, audit | Negative authorization suite |
-| Cross-tenant finance access | Dual-layer scoping and opaque IDs | Isolation tests |
-| Invalid optimizer candidate | Independent verifier and brute-force comparison | Property/golden tests |
-| Stale pricing purchase | Freshness and expiry gate | Clock/freshness tests |
-| Duplicate purchase/activation | Stable operation keys and no-repurchase guard | Retry/fault tests |
-| False realized savings | Verification and complete-period close | Ledger property tests |
-| TxLINE credential/source leak | Server-only adapter, redaction, export allowlist | Build/log/export scan |
-| Live-write accidental enablement | Separate capability and accountable enablement | Configuration and game-day test |
+| Threat                             | Primary control                                       | Verification                      |
+| ---------------------------------- | ----------------------------------------------------- | --------------------------------- |
+| Server receives a seed/private key | Absent schema, prefilter, no columns, redaction       | Corpus tests and artifact scans   |
+| Proposal tampering                 | Canonical hashes, immutable version, approval binding | Mutation tests                    |
+| Wallet signs different instruction | Re-parse and compare allowlisted bound fields         | Wallet integration security tests |
+| Approval privilege escalation      | Role/limit snapshot, separation, MFA, audit           | Negative authorization suite      |
+| Cross-tenant finance access        | Dual-layer scoping and opaque IDs                     | Isolation tests                   |
+| Invalid optimizer candidate        | Independent verifier and brute-force comparison       | Property/golden tests             |
+| Stale pricing purchase             | Freshness and expiry gate                             | Clock/freshness tests             |
+| Duplicate purchase/activation      | Stable operation keys and no-repurchase guard         | Retry/fault tests                 |
+| False realized savings             | Verification and complete-period close                | Ledger property tests             |
+| TxLINE credential/source leak      | Server-only adapter, redaction, export allowlist      | Build/log/export scan             |
+| Live-write accidental enablement   | Separate capability and accountable enablement        | Configuration and game-day test   |
 
 ## Privacy
 

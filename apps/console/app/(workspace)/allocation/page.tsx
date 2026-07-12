@@ -1,1 +1,18 @@
-export default function AllocationPage() { return <main><p>Workspace / Allocation</p><h1>Cost allocation</h1><p>Review versioned mappings, deterministic rounding and explicit unallocated cost before export.</p><dl><dt>Allocation status</dt><dd>Awaiting scoped usage</dd><dt>Unallocated</dt><dd>Shown explicitly</dd></dl></main>; }
+export default function AllocationPage() {
+  return (
+    <main>
+      <p>Workspace / Allocation</p>
+      <h1>Cost allocation</h1>
+      <p>
+        Review versioned mappings, deterministic rounding and explicit unallocated cost before
+        export.
+      </p>
+      <dl>
+        <dt>Allocation status</dt>
+        <dd>Awaiting scoped usage</dd>
+        <dt>Unallocated</dt>
+        <dd>Shown explicitly</dd>
+      </dl>
+    </main>
+  );
+}

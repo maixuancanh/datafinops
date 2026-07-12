@@ -2,7 +2,7 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $env:CI = 'true'
 pnpm.cmd --filter @datafinops/tests exec vitest run ci/ci-gates.test.ts
-$remote = git -C (Split-Path $root -Parent | Split-Path -Parent) remote -v
+$remote = git -C $root remote -v
 $report = [ordered]@{
   workflow = '.github/workflows/ci.yml'
   requiredJobs = @('contracts','quality','tests','build','security','solver-parity','evidence')

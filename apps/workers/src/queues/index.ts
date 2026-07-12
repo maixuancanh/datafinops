@@ -36,7 +36,8 @@ export function createQueueRegistry(input: {
   readonly connection: ConnectionOptions;
   readonly environmentId: string;
 }) {
-  if (!input.environmentId.trim()) throw new TypeError('environmentId is required for queue isolation');
+  if (!input.environmentId.trim())
+    throw new TypeError('environmentId is required for queue isolation');
   return Object.fromEntries(
     Object.entries(queueDefinitions).map(([kind, config]) => [
       kind,
@@ -60,7 +61,11 @@ export class FairTenantScheduler<T> {
   #currentBurst = 0;
 
   constructor(input: { readonly perTenantBurst: number }) {
-    if (!Number.isSafeInteger(input.perTenantBurst) || input.perTenantBurst < 1 || input.perTenantBurst > 100) {
+    if (
+      !Number.isSafeInteger(input.perTenantBurst) ||
+      input.perTenantBurst < 1 ||
+      input.perTenantBurst > 100
+    ) {
       throw new RangeError('tenant burst must be an integer from 1 through 100');
     }
     this.#burst = input.perTenantBurst;

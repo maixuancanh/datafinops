@@ -8,39 +8,39 @@
 
 ## Phase 1 — Workspace and Delivery Foundation
 
-- [X] T001 Create the pnpm workspace, pinned Node version, strict TypeScript base, and root scripts in `./package.json`, `./pnpm-workspace.yaml`, `./.nvmrc`, and `./tsconfig.base.json`; verify clean frozen installation.
-- [X] T002 [P] Configure lint, formatting, commit checks, exact-import rules, and browser/server boundary lint in `eslint.config.mjs`, `prettier.config.mjs`, `.editorconfig`, and `scripts/check-boundaries.mjs`.
-- [X] T003 [P] Implement typed environment configuration and fail-closed mode schema in `packages/config/src/index.ts` and `packages/config/src/modes.ts`; test sandbox/devnet/live-read/live-write isolation in `packages/config/test/modes.test.ts`.
-- [X] T004 [P] Define local PostgreSQL, Redis, MinIO, and service dependencies in `./docker-compose.yml` and `./.env.example`; include only synthetic and unfunded references.
+- [x] T001 Create the pnpm workspace, pinned Node version, strict TypeScript base, and root scripts in `./package.json`, `./pnpm-workspace.yaml`, `./.nvmrc`, and `./tsconfig.base.json`; verify clean frozen installation.
+- [x] T002 [P] Configure lint, formatting, commit checks, exact-import rules, and browser/server boundary lint in `eslint.config.mjs`, `prettier.config.mjs`, `.editorconfig`, and `scripts/check-boundaries.mjs`.
+- [x] T003 [P] Implement typed environment configuration and fail-closed mode schema in `packages/config/src/index.ts` and `packages/config/src/modes.ts`; test sandbox/devnet/live-read/live-write isolation in `packages/config/test/modes.test.ts`.
+- [x] T004 [P] Define local PostgreSQL, Redis, MinIO, and service dependencies in `./docker-compose.yml` and `./.env.example`; include only synthetic and unfunded references.
 - [ ] T005 Configure CI aggregate gates for contracts, lint, type, tests, build, security, SBOM, solver parity, and evidence in `.github/workflows/ci.yml`; prove any failed job blocks merge.
-- [X] T006 [P] Configure secret, prohibited-signing-material, dependency, license, image, and provenance scans in `.github/workflows/security.yml`, `.gitleaks.toml`, and `security/prohibited-material.yml`.
-- [X] T007 [P] Build fixed clock, deterministic IDs, exact money factories, portfolio generators, and seed control in `packages/test-fixtures/src/`; verify repeatable canonical hashes.
-- [X] T008 [P] Add synthetic pricing, subscription, fixture, usage, requirements, receipts, entitlement, and savings fixtures with provenance in `packages/test-fixtures/fixtures/` and `packages/test-fixtures/README.md`.
-- [X] T009 Create console, API, worker, and health skeletons in `apps/console/`, `apps/api/`, and `apps/workers/`; health must report version, mode, adapter, fixed clock, and live-write state without secrets.
-- [X] T010 [P] Implement structured logs, correlation, OpenTelemetry, metrics, Sentry, finance/secret redaction, and allowlisted fields in `packages/observability/src/`; test in `packages/observability/test/redaction.test.ts`.
-- [X] T011 [P] Create ADR template and initial solver, exact-money, non-custody, and mode decisions in `docs/adr/000-template.md`, `docs/adr/001-solver.md`, `docs/adr/002-money.md`, and `docs/adr/003-non-custody.md`.
-- [X] T012 Document bootstrap, verification, evidence, safe demo, and reset procedures in `README.md` and `scripts/verify-workspace.ps1`; archive a clean run under `artifacts/bootstrap/`.
+- [x] T006 [P] Configure secret, prohibited-signing-material, dependency, license, image, and provenance scans in `.github/workflows/security.yml`, `.gitleaks.toml`, and `security/prohibited-material.yml`.
+- [x] T007 [P] Build fixed clock, deterministic IDs, exact money factories, portfolio generators, and seed control in `packages/test-fixtures/src/`; verify repeatable canonical hashes.
+- [x] T008 [P] Add synthetic pricing, subscription, fixture, usage, requirements, receipts, entitlement, and savings fixtures with provenance in `packages/test-fixtures/fixtures/` and `packages/test-fixtures/README.md`.
+- [x] T009 Create console, API, worker, and health skeletons in `apps/console/`, `apps/api/`, and `apps/workers/`; health must report version, mode, adapter, fixed clock, and live-write state without secrets.
+- [x] T010 [P] Implement structured logs, correlation, OpenTelemetry, metrics, Sentry, finance/secret redaction, and allowlisted fields in `packages/observability/src/`; test in `packages/observability/test/redaction.test.ts`.
+- [x] T011 [P] Create ADR template and initial solver, exact-money, non-custody, and mode decisions in `docs/adr/000-template.md`, `docs/adr/001-solver.md`, `docs/adr/002-money.md`, and `docs/adr/003-non-custody.md`.
+- [x] T012 Document bootstrap, verification, evidence, safe demo, and reset procedures in `README.md` and `scripts/verify-workspace.ps1`; archive a clean run under `artifacts/bootstrap/`.
 
 ## Phase 2 — Blocking Platform Foundations
 
-- [X] T013 Write failing schema lint and no-signing-secret tests for `contracts/openapi.yaml`, `contracts/events.asyncapi.yaml`, and `contracts/schemas/*.json` in `tests/contract/schema-lint.test.ts`.
-- [X] T014 Import approved contracts, validate examples, and generate strict TypeScript types from `contracts/openapi.yaml`, `contracts/events.asyncapi.yaml`, `contracts/schemas/optimization-snapshot.schema.json`, and `contracts/schemas/transaction-proposal.schema.json` into `packages/contracts/src/generated/`.
-- [X] T015 [P] Add contract breaking-change and generated-artifact checks in `scripts/check-contract-compatibility.mjs` and `packages/contracts/package.json`; require approval for incompatibility.
-- [X] T016 [P] Write exact money, currency, scale, rounding, period, and arithmetic tests in `packages/domain/test/money.test.ts`, including overflow and conversion-source behavior.
-- [X] T017 Implement exact money and accounting-period primitives without binary floating point in `packages/domain/src/money/` and `packages/domain/src/periods/`; pass T016.
-- [X] T018 Write failing migration/repository tests for all entities and forbidden signing columns in `tests/integration/database-model.test.ts` and `tests/security/migration-secret-lint.test.ts`.
-- [X] T019 Implement forward-only baseline migrations, indexes, constraints, append-only guards, and tenant/mode columns in `infrastructure/migrations/0001_baseline.sql`; pass T018.
-- [X] T020 [P] Implement mandatory tenant/workspace/environment repository context in `packages/domain/src/repositories/`; prohibit unscoped repositories with `packages/domain/test/repository-context.test-d.ts`.
-- [X] T021 Write cross-tenant, cross-mode, role, direct-ID, list, export, and job negative tests in `tests/security/tenant-role-isolation.test.ts`.
-- [X] T022 Implement OIDC subject mapping, RBAC, approval authority, service account restrictions, and dual-layer scope in `packages/auth/src/` and `apps/api/src/plugins/auth.ts`; pass T021.
-- [X] T023 [P] Implement privileged MFA posture, audited time-limited break-glass, and role lifecycle in `packages/auth/src/privileged-access.ts`; test denial/expiry in `packages/auth/test/privileged-access.test.ts`.
-- [X] T024 Write failing idempotency, transactional outbox, consumer deduplication, and reorder tests in `tests/integration/idempotency-outbox.test.ts`.
-- [X] T025 Implement stable operation keys, request replay results, transactional outbox, and consumer deduplication in `packages/domain/src/idempotency/` and `apps/workers/src/outbox/`; pass T024.
-- [X] T026 [P] Create isolated queues and fair tenant scheduling for ingestion, snapshot, optimization, notification, observation, activation, verification, renewal, close, export, and metering in `apps/workers/src/queues/`.
-- [X] T027 [P] Implement append-only canonical audit events and purpose-bound privileged reads in `packages/domain/src/audit/`; test tamper rejection in `packages/domain/test/audit.test.ts`.
-- [X] T028 [P] Build prohibited-signing-material prefilter and redaction corpus in `packages/security/src/prohibited-material.ts` and `tests/security/fixtures/signing-material-corpus.json`; assert no raw value reaches test log sinks.
-- [X] T029 Configure local backup, point-in-time restore simulation, object versioning, and restore verification in `infrastructure/backup/` and `scripts/restore-test.ps1`; compare hashes after restore.
-- [X] T030 Run `scripts/verify-foundation.ps1`; archive contract, exact-money, isolation, prohibited-material, outbox, restore, and dependency evidence under `artifacts/foundation/`.
+- [x] T013 Write failing schema lint and no-signing-secret tests for `contracts/openapi.yaml`, `contracts/events.asyncapi.yaml`, and `contracts/schemas/*.json` in `tests/contract/schema-lint.test.ts`.
+- [x] T014 Import approved contracts, validate examples, and generate strict TypeScript types from `contracts/openapi.yaml`, `contracts/events.asyncapi.yaml`, `contracts/schemas/optimization-snapshot.schema.json`, and `contracts/schemas/transaction-proposal.schema.json` into `packages/contracts/src/generated/`.
+- [x] T015 [P] Add contract breaking-change and generated-artifact checks in `scripts/check-contract-compatibility.mjs` and `packages/contracts/package.json`; require approval for incompatibility.
+- [x] T016 [P] Write exact money, currency, scale, rounding, period, and arithmetic tests in `packages/domain/test/money.test.ts`, including overflow and conversion-source behavior.
+- [x] T017 Implement exact money and accounting-period primitives without binary floating point in `packages/domain/src/money/` and `packages/domain/src/periods/`; pass T016.
+- [x] T018 Write failing migration/repository tests for all entities and forbidden signing columns in `tests/integration/database-model.test.ts` and `tests/security/migration-secret-lint.test.ts`.
+- [x] T019 Implement forward-only baseline migrations, indexes, constraints, append-only guards, and tenant/mode columns in `infrastructure/migrations/0001_baseline.sql`; pass T018.
+- [x] T020 [P] Implement mandatory tenant/workspace/environment repository context in `packages/domain/src/repositories/`; prohibit unscoped repositories with `packages/domain/test/repository-context.test-d.ts`.
+- [x] T021 Write cross-tenant, cross-mode, role, direct-ID, list, export, and job negative tests in `tests/security/tenant-role-isolation.test.ts`.
+- [x] T022 Implement OIDC subject mapping, RBAC, approval authority, service account restrictions, and dual-layer scope in `packages/auth/src/` and `apps/api/src/plugins/auth.ts`; pass T021.
+- [x] T023 [P] Implement privileged MFA posture, audited time-limited break-glass, and role lifecycle in `packages/auth/src/privileged-access.ts`; test denial/expiry in `packages/auth/test/privileged-access.test.ts`.
+- [x] T024 Write failing idempotency, transactional outbox, consumer deduplication, and reorder tests in `tests/integration/idempotency-outbox.test.ts`.
+- [x] T025 Implement stable operation keys, request replay results, transactional outbox, and consumer deduplication in `packages/domain/src/idempotency/` and `apps/workers/src/outbox/`; pass T024.
+- [x] T026 [P] Create isolated queues and fair tenant scheduling for ingestion, snapshot, optimization, notification, observation, activation, verification, renewal, close, export, and metering in `apps/workers/src/queues/`.
+- [x] T027 [P] Implement append-only canonical audit events and purpose-bound privileged reads in `packages/domain/src/audit/`; test tamper rejection in `packages/domain/test/audit.test.ts`.
+- [x] T028 [P] Build prohibited-signing-material prefilter and redaction corpus in `packages/security/src/prohibited-material.ts` and `tests/security/fixtures/signing-material-corpus.json`; assert no raw value reaches test log sinks.
+- [x] T029 Configure local backup, point-in-time restore simulation, object versioning, and restore verification in `infrastructure/backup/` and `scripts/restore-test.ps1`; compare hashes after restore.
+- [x] T030 Run `scripts/verify-foundation.ps1`; archive contract, exact-money, isolation, prohibited-material, outbox, restore, and dependency evidence under `artifacts/foundation/`.
 
 ## Phase 3 — US1 Connect and Establish a Verified Baseline
 

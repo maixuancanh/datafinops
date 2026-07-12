@@ -47,9 +47,7 @@ export function validateBranchProtectionEvidence(evidence) {
   if (!evidence?.gitRemoteConfigured) errors.push('git remote must be configured');
   if (!evidence?.remoteUrl) errors.push('remoteUrl is required');
   if (!evidence?.targetBranch) errors.push('targetBranch is required');
-  const checks = Array.isArray(evidence?.requiredStatusChecks)
-    ? evidence.requiredStatusChecks
-    : [];
+  const checks = Array.isArray(evidence?.requiredStatusChecks) ? evidence.requiredStatusChecks : [];
   if (!checks.includes('Required aggregate gate'))
     errors.push('branch protection must require Required aggregate gate');
   if (evidence?.failedRequiredJobBlocksMerge !== true)

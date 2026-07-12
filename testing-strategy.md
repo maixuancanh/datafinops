@@ -47,17 +47,17 @@ k6 and worker harnesses model usage-import bursts, renewal-period portfolio runs
 
 ## Required Gates
 
-| Gate | Standard |
-|---|---|
-| Solver | Bounded brute-force parity and zero independent-verifier failure |
-| Money/ledger | Exact arithmetic and 100% branch coverage for realized/reversal paths |
-| Non-custody | Zero prohibited secret in corpus scans and no server wallet dependency |
-| Governance | All role, authority, separation, expiry, and invalidation negatives green |
-| Transaction | Bound-field mutation and duplicate/fault suites green |
-| Entitlement | Confirmation, activation, mismatch, and no-repurchase paths green |
-| Contracts | Valid/generated and no unapproved breaking change |
-| Load | Contracted optimizer and API thresholds with capacity margin |
-| Recovery | Restore, queue replay, rollback, and live-write stop exercised |
+| Gate         | Standard                                                                  |
+| ------------ | ------------------------------------------------------------------------- |
+| Solver       | Bounded brute-force parity and zero independent-verifier failure          |
+| Money/ledger | Exact arithmetic and 100% branch coverage for realized/reversal paths     |
+| Non-custody  | Zero prohibited secret in corpus scans and no server wallet dependency    |
+| Governance   | All role, authority, separation, expiry, and invalidation negatives green |
+| Transaction  | Bound-field mutation and duplicate/fault suites green                     |
+| Entitlement  | Confirmation, activation, mismatch, and no-repurchase paths green         |
+| Contracts    | Valid/generated and no unapproved breaking change                         |
+| Load         | Contracted optimizer and API thresholds with capacity margin              |
+| Recovery     | Restore, queue replay, rollback, and live-write stop exercised            |
 
 ## Test Data and Evidence
 
