@@ -12,7 +12,7 @@
 - [x] T002 [P] Configure lint, formatting, commit checks, exact-import rules, and browser/server boundary lint in `eslint.config.mjs`, `prettier.config.mjs`, `.editorconfig`, and `scripts/check-boundaries.mjs`.
 - [x] T003 [P] Implement typed environment configuration and fail-closed mode schema in `packages/config/src/index.ts` and `packages/config/src/modes.ts`; test sandbox/devnet/live-read/live-write isolation in `packages/config/test/modes.test.ts`.
 - [x] T004 [P] Define local PostgreSQL, Redis, MinIO, and service dependencies in `./docker-compose.yml` and `./.env.example`; include only synthetic and unfunded references.
-- [ ] T005 Configure CI aggregate gates for contracts, lint, type, tests, build, security, SBOM, solver parity, and evidence in `.github/workflows/ci.yml`; prove any failed job blocks merge.
+- [x] T005 Configure CI aggregate gates for contracts, lint, type, tests, build, security, SBOM, solver parity, and evidence in `.github/workflows/ci.yml`; prove any failed job blocks merge.
 - [x] T006 [P] Configure secret, prohibited-signing-material, dependency, license, image, and provenance scans in `.github/workflows/security.yml`, `.gitleaks.toml`, and `security/prohibited-material.yml`.
 - [x] T007 [P] Build fixed clock, deterministic IDs, exact money factories, portfolio generators, and seed control in `packages/test-fixtures/src/`; verify repeatable canonical hashes.
 - [x] T008 [P] Add synthetic pricing, subscription, fixture, usage, requirements, receipts, entitlement, and savings fixtures with provenance in `packages/test-fixtures/fixtures/` and `packages/test-fixtures/README.md`.
