@@ -1,0 +1,34 @@
+version: 1
+action: reject-before-durable-logging
+severity: SEV-1
+fieldNames:
+  - privateKey
+  - private_key
+  - seedPhrase
+  - seed_phrase
+  - mnemonic
+  - keystore
+  - recoveryPhrase
+  - recovery_phrase
+  - signingPassphrase
+  - signing_passphrase
+  - rawSigner
+  - raw_signer
+scanSurfaces:
+  - request-headers
+  - json
+  - csv
+  - uploaded-files
+  - errors
+  - logs
+  - traces
+  - queues
+  - exports
+  - support-captures
+  - source-maps
+  - video-configs
+response:
+  persistRawValue: false
+  includeRawValueInError: false
+  reasonCode: PROHIBITED_SIGNING_MATERIAL
+  incidentRunbook: security-privacy.md

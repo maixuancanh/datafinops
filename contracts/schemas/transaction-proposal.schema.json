@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.datafinops.example/v1/transaction-proposal.schema.json",
+  "title": "DataFinOps Unsigned Transaction Proposal",
+  "description": "An unsigned client-review envelope. Private keys, seed phrases, mnemonics, keystores, passphrases, and server signing instructions are prohibited.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["signingEnvelopeId", "operationKey", "mode", "network", "programId", "proposalId", "proposalHash", "snapshotHash", "policyVersion", "approvalsDigest", "builderVersion", "expiresAt", "transaction", "humanSummary", "humanSummaryDigest"],
+  "properties": {
+    "signingEnvelopeId": { "type": "string", "format": "uuid" },
+    "operationKey": { "type": "string", "minLength": 16, "maxLength": 128 },
+    "mode": { "type": "string", "enum": ["SANDBOX", "DEVNET", "LIVE_WRITE"] },
+    "network": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "programId": { "type": "string", "minLength": 16, "maxLength": 128 },
+    "proposalId": { "type": "string", "format": "uuid" },
+    "proposalHash": { "$ref": "#/$defs/sha256" },
+    "snapshotHash": { "$ref": "#/$defs/sha256" },
+    "policyVersion": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "approvalsDigest": { "$ref": "#/$defs/sha256" },
+    "builderVersion": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "transaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "publicSigner", "accounts", "instructions", "recentBlockReference", "unsignedPayload"],
+      "properties": {
+        "version": { "type": "string" },
+        "publicSigner": { "type": "string", "minLength": 16, "maxLength": 128 },
+        "accounts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["address", "role", "writable"],
+            "properties": {
+              "address": { "type": "string", "minLength": 16, "maxLength": 128 },
+              "role": { "type": "string", "minLength": 1, "maxLength": 64 },
+              "writable": { "type": "boolean" }
+            }
+          }
+        },
+        "instructions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["programId", "discriminator", "dataDigest", "purpose"],
+            "properties": {
+              "programId": { "type": "string", "minLength": 16, "maxLength": 128 },
+              "discriminator": { "type": "string", "minLength": 1, "maxLength": 128 },
+              "dataDigest": { "$ref": "#/$defs/sha256" },
+              "purpose": { "type": "string", "enum": ["SUBSCRIPTION_CHANGE", "ENTITLEMENT_ACTIVATION"] }
+            }
+          }
+        },
+        "recentBlockReference": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "unsignedPayload": { "type": "string", "minLength": 32, "maxLength": 20000 }
+      }
+    },
+    "humanSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["modeLabel", "network", "programId", "publicSigner", "changes", "total", "effectiveAt", "expiryNotice"],
+      "properties": {
+        "modeLabel": { "type": "string" },
+        "network": { "type": "string" },
+        "programId": { "type": "string" },
+        "publicSigner": { "type": "string" },
+        "changes": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "total": { "$ref": "#/$defs/money" },
+        "effectiveAt": { "type": "string", "format": "date-time" },
+        "expiryNotice": { "type": "string" }
+      }
+    },
+    "humanSummaryDigest": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "money": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["currency", "minorUnits"],
+      "properties": {
+        "currency": { "type": "string", "pattern": "^[A-Z]{3,8}$" },
+        "minorUnits": { "type": "string", "pattern": "^\\d+$" }
+      }
+    }
+  }
+}

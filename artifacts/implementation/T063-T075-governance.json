@@ -1,0 +1,6 @@
+{
+  "tasks": ["T063", "T064", "T065", "T066", "T067", "T068", "T069", "T070", "T071", "T072", "T073", "T074", "T075"],
+  "status": "verified",
+  "tests": {"policy": "3 passed", "domain": "20 passed", "invalidation": "1 passed", "webhook": "1 passed"},
+  "controls": ["versioned policy decision table", "content-addressed proposal", "separation/self-approval denial", "material-change invalidation", "HMAC replay rejection", "sandbox and live-write disabled"]
+}

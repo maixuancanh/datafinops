@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0",
+  "fixtureType": "requirements",
+  "generatedAt": "2026-08-01T12:00:00.000Z",
+  "provenance": {
+    "synthetic": true,
+    "containsCustomerData": false,
+    "containsSigningMaterial": false,
+    "generatorVersion": "datafinops-fixtures-1.0.0"
+  },
+  "planningPeriodRef": "PERIOD-DEMO-2026-08",
+  "items": [
+    {
+      "id": "req-epl",
+      "kind": "LEAGUE",
+      "hardness": "HARD",
+      "operator": "INCLUDE",
+      "value": "EPL",
+      "ownerRef": "ops-demo"
+    },
+    {
+      "id": "req-latency",
+      "kind": "LATENCY",
+      "hardness": "HARD",
+      "operator": "MAX",
+      "value": 500,
+      "ownerRef": "ops-demo"
+    }
+  ]
+}

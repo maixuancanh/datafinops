@@ -1,0 +1,11 @@
+{
+    "releaseLists":  "reviewed",
+    "sbom":  "pnpm-lock.yaml",
+    "liveSpend":  false,
+    "liveWrite":  false,
+    "accountableApprovals":  "external gate",
+    "publicDeploy":  false,
+    "docker":  "not-required",
+    "runtime":  "native-windows",
+    "status":  "verified-local"
+}

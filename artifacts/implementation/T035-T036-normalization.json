@@ -1,0 +1,7 @@
+{
+  "tasks": ["T035", "T036"],
+  "status": "verified",
+  "tests": "10 adapter tests passed",
+  "typechecks": "adapter and domain passed",
+  "controls": ["latest correction version wins", "duplicate row keys collapse deterministically", "canonical content hash retained", "freshness is explicit FRESH/STALE", "inventory versions reject invalid identity/version/source"]
+}

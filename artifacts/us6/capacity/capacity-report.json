@@ -1,0 +1,1 @@
+{"status":"verified-local","usageImportBurst":"bounded-smoke-pass","renewalSpike":"sandbox-route","largeOptimization":500,"tenantFairness":"scheduler-covered","observerFanout":"state-model-covered","txlineStale":"blocked-by-freshness","redisLoss":"fail-closed","databaseFailover":"recovery-rehearsal","activationTimeout":"manual-recovery","liveWrite":false}

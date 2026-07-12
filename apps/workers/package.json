@@ -1,0 +1,28 @@
+{
+  "name": "@datafinops/workers",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/main.js",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@datafinops/config": "workspace:*",
+    "@datafinops/domain": "workspace:*",
+    "@datafinops/optimizer": "workspace:*",
+    "@datafinops/savings-ledger": "workspace:*",
+    "@datafinops/entitlement-verifier": "workspace:*",
+    "@datafinops/test-fixtures": "workspace:*",
+    "bullmq": "5.80.1",
+    "ioredis": "5.11.1"
+  },
+  "devDependencies": {
+    "tsx": "4.21.0",
+    "typescript": "catalog:"
+  }
+}

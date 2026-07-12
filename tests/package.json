@@ -1,0 +1,29 @@
+{
+  "name": "@datafinops/tests",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:contract": "vitest run contract",
+    "test:integration": "vitest run integration --no-file-parallelism --maxWorkers=1",
+    "test:security": "vitest run security --passWithNoTests",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@datafinops/optimizer": "workspace:*",
+    "@datafinops/test-fixtures": "workspace:*",
+    "@datafinops/savings-ledger": "workspace:*",
+    "@datafinops/auth": "workspace:*",
+    "@datafinops/domain": "workspace:*",
+    "@datafinops/security": "workspace:*",
+    "ajv": "8.18.0",
+    "ajv-formats": "3.0.1",
+    "pg": "8.20.0",
+    "yaml": "2.9.0"
+  },
+  "devDependencies": {
+    "@types/pg": "8.18.0",
+    "typescript": "catalog:"
+  }
+}

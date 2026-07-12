@@ -1,0 +1,12 @@
+{
+    "mode":  "SANDBOX",
+    "unsignedEnvelope":  true,
+    "entitlementMismatch":  "blocked",
+    "summaryParity":  true,
+    "liveWrite":  "disabled",
+    "duplicateOperation":  "blocked",
+    "spend":  false,
+    "noSecretInput":  true,
+    "demoSigner":  true,
+    "status":  "verified"
+}

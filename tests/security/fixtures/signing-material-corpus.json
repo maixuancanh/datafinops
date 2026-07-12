@@ -1,0 +1,9 @@
+[
+  { "surface": "header", "name": "x-private-key", "value": "FAKE_PRIVATE_KEY_11111111111111111111111111111111" },
+  { "surface": "json", "name": "seedPhrase", "value": "abandon ability able about above absent absorb abstract absurd abuse access accident" },
+  { "surface": "json", "name": "mnemonic", "value": "synthetic words that must always be rejected before durable logging" },
+  { "surface": "csv", "name": "recovery_phrase", "value": "FAKE_RECOVERY_PHRASE_222222222222222222222222222" },
+  { "surface": "file", "name": "keystore", "value": "{\"crypto\":{\"ciphertext\":\"FAKE333333333333333333333333\"}}" },
+  { "surface": "error", "name": "signingPassphrase", "value": "FAKE_SIGNING_PASSPHRASE_4444444444444444444444" },
+  { "surface": "queue", "name": "rawSigner", "value": "FAKE_RAW_SIGNER_555555555555555555555555555555" }
+]

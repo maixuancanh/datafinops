@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "database": {
+    "localMode": "native-postgresql-custom-format",
+    "productionMode": "managed-pitr",
+    "rpoMinutes": 5,
+    "rtoHours": 4,
+    "encryptionRequired": true,
+    "quarterlyRestoreExercise": true
+  },
+  "objects": {
+    "contentAddressed": true,
+    "versioningRequired": true,
+    "retentionPolicyRequired": true,
+    "localAdapter": ".local-runtime/object-versions"
+  },
+  "liveWriteDuringRecovery": "disabled"
+}

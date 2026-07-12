@@ -1,0 +1,14 @@
+{
+  "name": "@datafinops/auth",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": { "@datafinops/domain": "workspace:*" },
+  "devDependencies": { "typescript": "catalog:" }
+}

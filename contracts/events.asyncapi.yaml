@@ -1,0 +1,184 @@
+asyncapi: 3.0.0
+info:
+  title: DataFinOps Commercial Events
+  version: 1.0.0
+  description: Signed tenant events for recommendation, governance, transaction, entitlement, renewal, and finance workflows.
+defaultContentType: application/json
+channels:
+  recommendationReady:
+    address: datafinops.recommendation.ready.v1
+    messages:
+      recommendationReady: { $ref: '#/components/messages/RecommendationReady' }
+  approvalRequired:
+    address: datafinops.approval.required.v1
+    messages:
+      approvalRequired: { $ref: '#/components/messages/ApprovalRequired' }
+  proposalExpired:
+    address: datafinops.proposal.expired.v1
+    messages:
+      proposalExpired: { $ref: '#/components/messages/ProposalExpired' }
+  transactionStatus:
+    address: datafinops.transaction.status.v1
+    messages:
+      transactionStatus: { $ref: '#/components/messages/TransactionStatus' }
+  activationFailed:
+    address: datafinops.activation.failed.v1
+    messages:
+      activationFailed: { $ref: '#/components/messages/ActivationFailed' }
+  entitlementMismatch:
+    address: datafinops.entitlement.mismatch.v1
+    messages:
+      entitlementMismatch: { $ref: '#/components/messages/EntitlementMismatch' }
+  renewalRisk:
+    address: datafinops.renewal.risk.v1
+    messages:
+      renewalRisk: { $ref: '#/components/messages/RenewalRisk' }
+  savingsClosed:
+    address: datafinops.savings.closed.v1
+    messages:
+      savingsClosed: { $ref: '#/components/messages/SavingsClosed' }
+operations:
+  receiveRecommendationReady:
+    action: receive
+    channel: { $ref: '#/channels/recommendationReady' }
+  receiveApprovalRequired:
+    action: receive
+    channel: { $ref: '#/channels/approvalRequired' }
+  receiveProposalExpired:
+    action: receive
+    channel: { $ref: '#/channels/proposalExpired' }
+  receiveTransactionStatus:
+    action: receive
+    channel: { $ref: '#/channels/transactionStatus' }
+  receiveActivationFailed:
+    action: receive
+    channel: { $ref: '#/channels/activationFailed' }
+  receiveEntitlementMismatch:
+    action: receive
+    channel: { $ref: '#/channels/entitlementMismatch' }
+  receiveRenewalRisk:
+    action: receive
+    channel: { $ref: '#/channels/renewalRisk' }
+  receiveSavingsClosed:
+    action: receive
+    channel: { $ref: '#/channels/savingsClosed' }
+components:
+  messages:
+    RecommendationReady:
+      name: RecommendationReady
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            required: [runId, snapshotHash, state]
+            properties:
+              runId: { type: string, format: uuid }
+              snapshotHash: { $ref: '#/components/schemas/Sha256' }
+              state: { type: string, enum: [COMPLETE, INFEASIBLE] }
+              recommendationId: { type: string, format: uuid }
+    ApprovalRequired:
+      name: ApprovalRequired
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            required: [proposalId, proposalHash, requiredRole, expiresAt]
+            properties:
+              proposalId: { type: string, format: uuid }
+              proposalHash: { $ref: '#/components/schemas/Sha256' }
+              requiredRole: { type: string }
+              expiresAt: { type: string, format: date-time }
+    ProposalExpired:
+      name: ProposalExpired
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            required: [proposalId, proposalHash, expiredAt]
+            properties:
+              proposalId: { type: string, format: uuid }
+              proposalHash: { $ref: '#/components/schemas/Sha256' }
+              expiredAt: { type: string, format: date-time }
+    TransactionStatus:
+      name: TransactionStatus
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            required: [operationId, proposalId, state, network]
+            properties:
+              operationId: { type: string, format: uuid }
+              proposalId: { type: string, format: uuid }
+              state: { type: string, enum: [SUBMITTED, CONFIRMED, FAILED, EXPIRED, REPLACED] }
+              network: { type: string }
+              publicTransactionHash: { type: string }
+    ActivationFailed:
+      name: ActivationFailed
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            required: [operationId, proposalId, confirmedTransaction, reasonCodes, repurchaseBlocked]
+            properties:
+              operationId: { type: string, format: uuid }
+              proposalId: { type: string, format: uuid }
+              confirmedTransaction: { type: boolean, const: true }
+              reasonCodes:
+                type: array
+                items: { type: string }
+              repurchaseBlocked: { type: boolean, const: true }
+    EntitlementMismatch:
+      name: EntitlementMismatch
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            required: [proposalId, expectedHash, observedHash, reasonCodes]
+            properties:
+              proposalId: { type: string, format: uuid }
+              expectedHash: { $ref: '#/components/schemas/Sha256' }
+              observedHash: { $ref: '#/components/schemas/Sha256' }
+              reasonCodes:
+                type: array
+                items: { type: string }
+    RenewalRisk:
+      name: RenewalRisk
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            required: [subscriptionRef, risk, renewalAt]
+            properties:
+              subscriptionRef: { type: string }
+              risk: { type: string, enum: [MISSING_REQUIREMENTS, APPROVAL_DELAY, ENTITLEMENT_MISMATCH, EXPIRY] }
+              renewalAt: { type: string, format: date-time }
+    SavingsClosed:
+      name: SavingsClosed
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            required: [periodId, state, currency, realizedMinorUnits, evidenceHash]
+            properties:
+              periodId: { type: string, format: uuid }
+              state: { type: string, enum: [CLOSED, DISPUTED] }
+              currency: { type: string }
+              realizedMinorUnits: { type: string, pattern: '^-?\d+$' }
+              evidenceHash: { $ref: '#/components/schemas/Sha256' }
+  schemas:
+    Sha256:
+      type: string
+      pattern: '^[a-f0-9]{64}$'
+    EventEnvelope:
+      type: object
+      required: [eventId, eventType, schemaVersion, occurredAt, organizationRef, workspaceRef, environmentRef, idempotencyKey, correlationId]
+      properties:
+        eventId: { type: string, format: uuid }
+        eventType: { type: string }
+        schemaVersion: { const: '1.0' }
+        occurredAt: { type: string, format: date-time }
+        organizationRef: { type: string }
+        workspaceRef: { type: string }
+        environmentRef: { type: string }
+        idempotencyKey: { type: string, minLength: 16, maxLength: 128 }
+        correlationId: { type: string }

@@ -1,0 +1,66 @@
+name: DataFinOps Security
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 3 * * 1'
+
+permissions:
+  contents: read
+  security-events: write
+  id-token: write
+
+jobs:
+  secrets-and-prohibited-material:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: pnpm/action-setup@v4
+        with: { version: 11.5.2, run_install: false }
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .nvmrc, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:security
+      - uses: gitleaks/gitleaks-action@v2
+
+  dependency-license-sbom:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 11.5.2, run_install: false }
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .nvmrc, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm audit --audit-level high
+      - run: pnpm licenses list --prod --json > licenses.json
+      - uses: anchore/sbom-action@v0
+        with: { path: '.', format: spdx-json, output-file: sbom.spdx.json }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: supply-chain-evidence
+          path: |
+            licenses.json
+            sbom.spdx.json
+
+  filesystem-and-image:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquasecurity/trivy-action@0.33.1
+        with:
+          scan-type: fs
+          scan-ref: .
+          severity: CRITICAL,HIGH
+          exit-code: '1'
+
+  provenance-policy:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: test -f pnpm-lock.yaml
+      - run: test -f .gitleaks.toml
+      - run: test -f security/prohibited-material.yml

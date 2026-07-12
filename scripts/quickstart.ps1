@@ -1,0 +1,1 @@
+$ErrorActionPreference='Stop'; powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'start-native-dependencies.ps1'); powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'check-native-dependencies.ps1')

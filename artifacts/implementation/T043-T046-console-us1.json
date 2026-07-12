@@ -1,0 +1,8 @@
+{
+  "tasks": ["T043", "T044", "T045", "T046"],
+  "status": "verified",
+  "console": "typecheck and production build passed",
+  "routes": ["/connections", "/usage", "/allocation", "/portfolio"],
+  "acceptance": "scripts/accept-us1.ps1 emits artifacts/us1/acceptance-report.json",
+  "safety": ["SANDBOX", "liveWrite=false", "no spend", "mismatch and prohibited data are nondestructively blocked"]
+}

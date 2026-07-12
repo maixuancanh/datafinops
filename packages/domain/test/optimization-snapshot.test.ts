@@ -1,0 +1,3 @@
+import { describe, expect, it } from 'vitest';
+import { assembleSnapshot } from '../src/snapshots/index.js';
+describe('optimization snapshots', () => { it('creates content-addressed immutable snapshots', () => { const snapshot = assembleSnapshot({ snapshotId: 's1', sourceVersions: ['pricing:v1', 'requirements:v1'], createdAt: '2026-01-01T00:00:00Z', requirements: [{ id: 'r1' }], inventory: [{ id: 'i1' }] }); expect(snapshot.materialHash).toHaveLength(64); expect(Object.isFrozen(snapshot)).toBe(true); }); it('rejects incomplete source manifests', () => expect(() => assembleSnapshot({ snapshotId: 's1', sourceVersions: [], createdAt: 'x', requirements: [], inventory: [] })).toThrow()); });

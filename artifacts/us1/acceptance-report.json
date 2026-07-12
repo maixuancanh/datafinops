@@ -1,0 +1,19 @@
+{
+    "status":  "verified",
+    "mode":  "SANDBOX",
+    "liveWrite":  false,
+    "cases":  [
+                  "valid baseline",
+                  "mismatched connection blocked",
+                  "duplicate import rejected",
+                  "unallocated cost explicit"
+              ],
+    "tests":  {
+                  "workers":  7,
+                  "api":  4,
+                  "allocation":  2,
+                  "adapter":  10
+              },
+    "spend":  false,
+    "generatedAt":  "2026-07-11T16:35:24.4140306Z"
+}

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1.0",
+  "fixtureType": "receipt",
+  "generatedAt": "2026-08-01T12:00:00.000Z",
+  "provenance": {
+    "synthetic": true,
+    "containsCustomerData": false,
+    "containsSigningMaterial": false,
+    "generatorVersion": "datafinops-fixtures-1.0.0"
+  },
+  "operationKey": "demo-operation-0001",
+  "mode": "SANDBOX",
+  "publicTransactionHash": "demo-public-transaction-hash-0001",
+  "fundedTransaction": false,
+  "state": "CONFIRMED"
+}

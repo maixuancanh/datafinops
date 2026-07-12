@@ -1,0 +1,17 @@
+title = "DataFinOps secret scanning"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "datafinops-signing-material-field"
+description = "Prohibited signing material assigned to a value"
+regex = '''(?i)(private[_-]?key|seed[_-]?phrase|mnemonic|keystore|recovery[_-]?phrase|signing[_-]?passphrase)\s*[:=]\s*["']?[A-Za-z0-9+/=_-]{12,}'''
+keywords = ["private", "seed", "mnemonic", "keystore", "recovery", "passphrase"]
+
+[allowlist]
+description = "Synthetic documentation and security corpus labels contain prohibited field names without real values"
+paths = [
+  '''(^|/)security/prohibited-material\.yml$''',
+  '''(^|/)tests/security/fixtures/''',
+]

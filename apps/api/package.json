@@ -1,0 +1,24 @@
+{
+  "name": "@datafinops/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@datafinops/auth": "workspace:*",
+    "@datafinops/domain": "workspace:*",
+    "@datafinops/config": "workspace:*",
+    "fastify": "5.10.0"
+  },
+  "devDependencies": {
+    "tsx": "4.21.0",
+    "typescript": "catalog:"
+  }
+}

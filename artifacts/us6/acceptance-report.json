@@ -1,0 +1,11 @@
+{
+    "deployManifests":  true,
+    "capacity":  true,
+    "dashboards":  true,
+    "recovery":  true,
+    "liveWrite":  false,
+    "liveSpend":  false,
+    "publicDeploy":  false,
+    "alerts":  true,
+    "status":  "verified-local"
+}

@@ -1,0 +1,10 @@
+{
+    "emergencyStop":  true,
+    "rto":  "local rehearsal",
+    "rollback":  true,
+    "status":  "verified",
+    "databaseRestore":  true,
+    "liveWrite":  false,
+    "rpo":  "backup evidence",
+    "queueReplay":  true
+}

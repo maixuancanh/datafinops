@@ -1,0 +1,11 @@
+{
+    "mode":  "SANDBOX",
+    "infeasible":  "blocked",
+    "liveWrite":  false,
+    "snapshot":  "content-addressed",
+    "replay":  "identical",
+    "spend":  false,
+    "verifier":  "independent",
+    "status":  "verified",
+    "bruteForceParity":  true
+}

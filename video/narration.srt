@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:20,000
+DataFinOps connects real requirements to pricing, entitlement, governance, and reproducible savings evidence.
+
+2
+00:00:20,000 --> 00:00:48,000
+The sandbox verifies network, program, pricing, subscription, and API entitlement. The wallet remains a public reference only.
+
+3
+00:00:48,000 --> 00:01:15,000
+Aggregate usage maps to products, while unallocated spend stays visible. Hard requirements remain separate from preferences.
+
+4
+00:01:15,000 --> 00:01:48,000
+Every input is frozen. A deterministic optimizer proposes valid configurations, and an independent verifier checks every hard constraint.
+
+5
+00:01:48,000 --> 00:02:12,000
+Adding a hard fixture creates a new snapshot and recommendation. The requirement is never silently relaxed, and prior evidence remains replayable.
+
+6
+00:02:12,000 --> 00:02:46,000
+Procurement and finance approve the exact proposal hash under separate roles. Material change invalidates approval.
+
+7
+00:02:46,000 --> 00:03:17,000
+The unsigned summary binds network, program, changes, amount, expiry, and hashes. The client-side demo signer uses no private-key input or funded transaction.
+
+8
+00:03:17,000 --> 00:03:47,000
+Confirmation, activation, and effective entitlement are verified separately. Duplicate callbacks never create a second purchase.
+
+9
+00:03:47,000 --> 00:04:06,000
+Only a complete, verified period can label the synthetic delta realized. Corrections append reversals without rewriting history.
+
+10
+00:04:06,000 --> 00:04:15,000
+Optimize cost, preserve coverage, and verify value. That is DataFinOps.

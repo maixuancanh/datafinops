@@ -1,0 +1,7 @@
+{
+  "tasks": ["T039", "T040"],
+  "status": "verified",
+  "tests": "2 passed",
+  "typechecks": "allocation-engine and domain passed",
+  "controls": ["priority-aware active mappings", "largest-remainder deterministic rounding", "exact reconciliation", "retired mappings excluded", "unallocated bucket explicit"]
+}

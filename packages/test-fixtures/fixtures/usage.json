@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0",
+  "fixtureType": "usage",
+  "generatedAt": "2026-08-01T12:00:00.000Z",
+  "provenance": {
+    "synthetic": true,
+    "containsCustomerData": false,
+    "containsSigningMaterial": false,
+    "generatorVersion": "datafinops-fixtures-1.0.0"
+  },
+  "period": {
+    "start": "2026-07-01T00:00:00.000Z",
+    "end": "2026-08-01T00:00:00.000Z"
+  },
+  "aggregates": [
+    {
+      "productRef": "scores-api",
+      "league": "EPL",
+      "requests": 125000
+    },
+    {
+      "productRef": "unmapped",
+      "league": "SERIE_A",
+      "requests": 4000
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0",
+  "fixtureType": "pricing",
+  "generatedAt": "2026-08-01T12:00:00.000Z",
+  "provenance": {
+    "synthetic": true,
+    "containsCustomerData": false,
+    "containsSigningMaterial": false,
+    "generatorVersion": "datafinops-fixtures-1.0.0"
+  },
+  "items": [
+    {
+      "id": "price-standard-epl",
+      "tier": "STANDARD",
+      "leagues": ["EPL"],
+      "latencyClass": "STANDARD",
+      "cost": {
+        "currency": "USD",
+        "minorUnits": "120000"
+      }
+    },
+    {
+      "id": "price-premium-all",
+      "tier": "PREMIUM",
+      "leagues": ["EPL", "LA_LIGA", "SERIE_A"],
+      "latencyClass": "REALTIME",
+      "cost": {
+        "currency": "USD",
+        "minorUnits": "350000"
+      }
+    }
+  ]
+}

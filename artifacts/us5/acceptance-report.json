@@ -1,0 +1,11 @@
+{
+    "mode":  "SANDBOX",
+    "entitlementMismatch":  "blocked",
+    "creditReversal":  "append-only",
+    "exportHash":  "content-addressed",
+    "incompleteInput":  "blocked",
+    "spend":  false,
+    "closeReplay":  "deterministic",
+    "exactReconciliation":  true,
+    "status":  "verified"
+}

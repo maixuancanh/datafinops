@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0",
+  "fixtureType": "subscription",
+  "generatedAt": "2026-08-01T12:00:00.000Z",
+  "provenance": {
+    "synthetic": true,
+    "containsCustomerData": false,
+    "containsSigningMaterial": false,
+    "generatorVersion": "datafinops-fixtures-1.0.0"
+  },
+  "publicWalletRef": "DemoWallet111111111111111111111111111111",
+  "network": "txline-sandbox",
+  "programId": "TxLINEProgram11111111111111111111111111",
+  "selectedPricingItemIds": ["price-premium-all"],
+  "period": {
+    "start": "2026-08-01T00:00:00.000Z",
+    "end": "2026-09-01T00:00:00.000Z"
+  }
+}

@@ -1,0 +1,18 @@
+{
+    "workflow":  ".github/workflows/ci.yml",
+    "requiredJobs":  [
+                         "contracts",
+                         "quality",
+                         "tests",
+                         "build",
+                         "security",
+                         "solver-parity",
+                         "evidence"
+                     ],
+    "localStructuralTests":  "5 passed",
+    "aggregateUsesAlways":  true,
+    "failedRequiredJobFailsAggregate":  true,
+    "gitRemoteConfigured":  false,
+    "branchProtectionVerified":  false,
+    "status":  "LOCAL_GATE_VERIFIED_EXTERNAL_MERGE_PROTECTION_PENDING"
+}

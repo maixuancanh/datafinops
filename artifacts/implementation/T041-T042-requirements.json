@@ -1,0 +1,7 @@
+{
+  "tasks": ["T041", "T042"],
+  "status": "verified",
+  "tests": {"domain": "15 passed", "api": "4 passed"},
+  "typechecks": "domain and api passed",
+  "controls": ["immutable versions", "hard/soft lifecycle", "owner/product scope", "latency and budget validation", "period/blackout/effective time validation"]
+}

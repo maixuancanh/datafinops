@@ -1,0 +1,8 @@
+{
+  "task": "T034",
+  "status": "verified",
+  "apiTests": "4 passed",
+  "workerTests": "5 passed",
+  "typechecks": "api and workers passed",
+  "controls": ["secret reference retained server-side only", "API host/network/program/wallet mismatch blocks executable state", "verification starts PENDING and is read-only"]
+}

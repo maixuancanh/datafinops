@@ -1,0 +1,15 @@
+{
+  "baseUrl": "http://127.0.0.1:3000",
+  "outputDir": "artifacts/video/datafinops",
+  "tenantSlug": "crescent-markets-sandbox",
+  "demoUser": "procurement@datafinops.demo",
+  "demoPassword": "demo-only-not-a-secret",
+  "planningPeriodRef": "PERIOD-DEMO-2026-08",
+  "headless": true,
+  "slowMoMs": 120,
+  "maxDurationSeconds": 270,
+  "viewport": {
+    "width": 1920,
+    "height": 1080
+  }
+}

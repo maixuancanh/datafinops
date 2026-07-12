@@ -1,0 +1,1 @@
+export default function RenewalsPage() { return <main><p>Workspace / Renewals</p><h1>Renewal calendar</h1><p>Every renewal links its snapshot, policy, approval, and entitlement evidence.</p></main>; }

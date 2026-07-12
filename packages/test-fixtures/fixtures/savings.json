@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0",
+  "fixtureType": "savings",
+  "generatedAt": "2026-08-01T12:00:00.000Z",
+  "provenance": {
+    "synthetic": true,
+    "containsCustomerData": false,
+    "containsSigningMaterial": false,
+    "generatorVersion": "datafinops-fixtures-1.0.0"
+  },
+  "periodRef": "PERIOD-DEMO-2026-08",
+  "currency": "USD",
+  "baselineMinorUnits": "350000",
+  "actualMinorUnits": "120000",
+  "realizedMinorUnits": "230000",
+  "syntheticOutcome": true
+}

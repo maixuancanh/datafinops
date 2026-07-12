@@ -1,0 +1,49 @@
+{
+  "name": "@datafinops/workspace",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.5.2",
+  "engines": {
+    "node": "24.14.1",
+    "pnpm": "11.5.2"
+  },
+  "scripts": {
+    "build": "pnpm -r --if-present build",
+    "contracts:generate": "pnpm --filter @datafinops/contracts generate",
+    "contracts:lint": "pnpm --filter @datafinops/contracts lint",
+    "dev": "pnpm -r --parallel --if-present dev",
+    "deps:native:check": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/check-native-dependencies.ps1",
+    "deps:native:start": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/start-native-dependencies.ps1",
+    "deps:native:stop": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/stop-native-dependencies.ps1",
+    "boundaries:check": "node ./scripts/check-boundaries.mjs",
+    "commit:check": "node ./scripts/check-commit-message.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . && pnpm boundaries:check",
+    "test": "pnpm -r --if-present test",
+    "test:contract": "pnpm -r --if-present test:contract",
+    "test:e2e": "pnpm -r --if-present test:e2e",
+    "test:golden": "pnpm -r --if-present test:golden",
+    "test:integration": "pnpm -r --if-present test:integration",
+    "test:load": "pnpm -r --if-present test:load",
+    "test:property": "pnpm -r --if-present test:property",
+    "security:config:check": "node ./scripts/check-security-config.mjs",
+    "test:security": "pnpm security:config:check && pnpm -r --if-present test:security",
+    "test:unit": "pnpm -r --if-present test:unit",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "verify:workspace": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/verify-workspace.ps1"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.2",
+    "@types/node": "24.10.1",
+    "eslint": "9.39.2",
+    "eslint-plugin-import-x": "4.16.2",
+    "globals": "17.3.0",
+    "prettier": "3.8.2",
+    "s3rver": "3.7.1",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.63.0",
+    "vitest": "4.1.0",
+    "yaml": "2.9.0"
+  }
+}

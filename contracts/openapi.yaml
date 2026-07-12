@@ -1,0 +1,666 @@
+openapi: 3.1.0
+info:
+  title: DataFinOps Commercial V1 API
+  version: 1.0.0
+  description: Tenant-scoped TxLINE inventory, optimization, governance, non-custodial transaction, entitlement, and savings API.
+servers:
+  - url: https://api.sandbox.datafinops.example/v1
+    description: Deterministic sandbox contract host
+security:
+  - bearerAuth: []
+tags:
+  - name: Connections
+    description: Configure and verify TxLINE network, program, pricing, subscription, and entitlement state.
+  - name: Imports
+    description: Ingest tenant-owned aggregate usage and finance inputs idempotently.
+  - name: Requirements
+    description: Version hard coverage, latency, period, and budget requirements.
+  - name: Optimization
+    description: Snapshot, solve, independently verify, explain, and replay scenarios.
+  - name: Proposals
+    description: Create immutable policy-bound procurement proposal versions.
+  - name: Approvals
+    description: Record role, authority, separation, order, and quorum decisions.
+  - name: Transactions
+    description: Create unsigned envelopes and observe matching signed public transactions.
+  - name: Entitlements
+    description: Verify transaction, activation, API entitlement, coverage, and latency.
+  - name: Savings
+    description: Reconcile append-only forecast, realized, disputed, and reversal entries.
+  - name: Operations
+    description: Inspect source, optimizer, verification, and live-write safety health.
+paths:
+  /connections:
+    post:
+      tags: [Connections]
+      summary: Create a non-write TxLINE connection configuration
+      operationId: createTxlineConnection
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ConnectionCreate' }
+      responses:
+        '201':
+          description: Connection created in non-write state
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Connection' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /connections/{connectionId}/verify:
+    post:
+      tags: [Connections]
+      summary: Verify network, program, pricing, subscription, activation, and entitlement
+      operationId: verifyTxlineConnection
+      parameters:
+        - $ref: '#/components/parameters/ConnectionId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      responses:
+        '202':
+          description: Verification job accepted
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Operation' }
+  /connections/{connectionId}/inventory:
+    get:
+      tags: [Connections]
+      summary: Read the versioned verified subscription and entitlement inventory
+      operationId: getVerifiedInventory
+      parameters:
+        - $ref: '#/components/parameters/ConnectionId'
+      responses:
+        '200':
+          description: Versioned pricing, subscriptions, activation, and entitlement inventory
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Inventory' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /imports/usage:
+    post:
+      tags: [Imports]
+      summary: Import tenant-owned aggregate usage idempotently
+      operationId: importUsageAggregates
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UsageImport' }
+      responses:
+        '202':
+          description: Import accepted idempotently
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Operation' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /requirements:
+    post:
+      tags: [Requirements]
+      summary: Create an immutable hard and soft requirement version
+      operationId: createRequirementVersion
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/RequirementSet' }
+      responses:
+        '201':
+          description: Immutable requirement version
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/VersionReference' }
+  /optimization-runs:
+    post:
+      tags: [Optimization]
+      summary: Freeze an input snapshot and start deterministic optimization
+      operationId: startOptimization
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [connectionId, requirementVersionId, periodStart, periodEnd, mode]
+              properties:
+                connectionId: { type: string, format: uuid }
+                requirementVersionId: { type: string, format: uuid }
+                periodStart: { type: string, format: date-time }
+                periodEnd: { type: string, format: date-time }
+                mode: { type: string, enum: [ADVISORY, EXECUTABLE] }
+      responses:
+        '202':
+          description: Snapshot and optimization job accepted
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Operation' }
+  /optimization-runs/{runId}:
+    get:
+      tags: [Optimization]
+      summary: Read a snapshot identity and verified optimization result
+      operationId: getOptimizationRun
+      parameters:
+        - $ref: '#/components/parameters/RunId'
+      responses:
+        '200':
+          description: Immutable snapshot identity and run result
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OptimizationResult' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /optimization-runs/{runId}/replay:
+    post:
+      tags: [Optimization]
+      summary: Replay an optimization run from its immutable snapshot
+      operationId: replayOptimizationRun
+      parameters:
+        - $ref: '#/components/parameters/RunId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      responses:
+        '202':
+          description: Deterministic replay accepted
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Operation' }
+  /proposals:
+    post:
+      tags: [Proposals]
+      summary: Create a policy-evaluated proposal from a verified candidate
+      operationId: createProposal
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [recommendationId, candidateHash, effectiveAt]
+              properties:
+                recommendationId: { type: string, format: uuid }
+                candidateHash: { $ref: '#/components/schemas/Sha256' }
+                effectiveAt: { type: string, format: date-time }
+      responses:
+        '201':
+          description: Proposal version and policy outcome
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Proposal' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /proposals/{proposalId}:
+    get:
+      tags: [Proposals]
+      summary: Read an exact proposal, policy result, approval graph, and expiry
+      operationId: getProposal
+      parameters:
+        - $ref: '#/components/parameters/ProposalId'
+      responses:
+        '200':
+          description: Exact proposal, policy, approval graph, and expiry
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Proposal' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /proposals/{proposalId}/approvals:
+    post:
+      tags: [Approvals]
+      summary: Record an authorized append-only proposal decision
+      operationId: recordApproval
+      parameters:
+        - $ref: '#/components/parameters/ProposalId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [proposalHash, decision, rationale]
+              properties:
+                proposalHash: { $ref: '#/components/schemas/Sha256' }
+                decision: { type: string, enum: [APPROVE, REJECT] }
+                rationale: { type: string, minLength: 1, maxLength: 2000 }
+      responses:
+        '201':
+          description: Append-only approval decision
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Approval' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /proposals/{proposalId}/signing-envelope:
+    post:
+      tags: [Transactions]
+      summary: Create an approved unsigned and expiring transaction envelope
+      operationId: createUnsignedSigningEnvelope
+      parameters:
+        - $ref: '#/components/parameters/ProposalId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      responses:
+        '201':
+          description: Unsigned, expiring, policy-bound envelope; never contains private signing material
+          content:
+            application/json:
+              schema: { $ref: './schemas/transaction-proposal.schema.json' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /transactions/observe:
+    post:
+      tags: [Transactions]
+      summary: Verify and observe a matching signed public transaction
+      operationId: observeSignedTransaction
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [signingEnvelopeId, publicTransaction, publicTransactionHash]
+              properties:
+                signingEnvelopeId: { type: string, format: uuid }
+                publicTransaction: { type: string, minLength: 32, maxLength: 20000, description: Signed public transaction bytes or deterministic simulation receipt; never private signing material. }
+                publicTransactionHash: { type: string, minLength: 16, maxLength: 256 }
+      responses:
+        '202':
+          description: Observation accepted once after bound-field verification
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Operation' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /transactions/{operationId}:
+    get:
+      tags: [Transactions]
+      summary: Read public transaction observation and finality state
+      operationId: getTransactionOperation
+      parameters:
+        - $ref: '#/components/parameters/OperationId'
+      responses:
+        '200':
+          description: Transaction observation and finality state
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TransactionStatus' }
+  /entitlements/{proposalId}/verify:
+    post:
+      tags: [Entitlements]
+      summary: Start full transaction, activation, and entitlement verification
+      operationId: verifyProposalEntitlement
+      parameters:
+        - $ref: '#/components/parameters/ProposalId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      responses:
+        '202':
+          description: Subscription, activation, API entitlement, coverage, and latency verification accepted
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Operation' }
+  /entitlements/{proposalId}:
+    get:
+      tags: [Entitlements]
+      summary: Read verified effective entitlement or exact mismatch reasons
+      operationId: getProposalEntitlement
+      parameters:
+        - $ref: '#/components/parameters/ProposalId'
+      responses:
+        '200':
+          description: Verified effective state or exact mismatch
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/EntitlementStatus' }
+  /savings/periods/{periodId}/close:
+    post:
+      tags: [Savings]
+      summary: Reconcile and close an eligible savings period
+      operationId: closeSavingsPeriod
+      parameters:
+        - name: periodId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - $ref: '#/components/parameters/IdempotencyKey'
+      responses:
+        '202':
+          description: Reconciliation and close accepted
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Operation' }
+  /savings/periods/{periodId}:
+    get:
+      tags: [Savings]
+      summary: Read append-only savings entries and replay evidence
+      operationId: getSavingsPeriod
+      parameters:
+        - name: periodId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Append-only savings entries and replay evidence
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SavingsPeriod' }
+  /operations/health:
+    get:
+      tags: [Operations]
+      summary: Read tenant-safe source, verifier, and live-write health
+      operationId: getOperationsHealth
+      responses:
+        '200':
+          description: Tenant-safe source, optimizer, transaction, entitlement, and live-write health
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, mode, txlineFreshness, verifierStatus, liveWrite]
+                properties:
+                  status: { type: string, enum: [HEALTHY, DEGRADED, UNAVAILABLE] }
+                  mode: { type: string, enum: [SANDBOX, DEVNET, LIVE_READ, LIVE_WRITE] }
+                  txlineFreshness: { type: string, enum: [FRESH, STALE, UNKNOWN] }
+                  verifierStatus: { type: string, enum: [AGREES, DISAGREES, UNKNOWN] }
+                  liveWrite: { type: string, enum: [DISABLED, ENABLED, EMERGENCY_STOP] }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      schema: { type: string, minLength: 16, maxLength: 128 }
+    ConnectionId:
+      name: connectionId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    RunId:
+      name: runId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    ProposalId:
+      name: proposalId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    OperationId:
+      name: operationId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+  responses:
+    Conflict:
+      description: Immutable version, expiry, approval, or idempotency conflict
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    NotFound:
+      description: Resource not found or not visible in current tenant
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    ValidationError:
+      description: Schema, policy, prohibited material, or bound-field validation failed
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+  schemas:
+    Sha256:
+      type: string
+      pattern: '^[a-f0-9]{64}$'
+    Problem:
+      type: object
+      additionalProperties: false
+      required: [type, title, status, correlationId]
+      properties:
+        type: { type: string, format: uri-reference }
+        title: { type: string }
+        status: { type: integer }
+        detail: { type: string }
+        correlationId: { type: string }
+        reasonCodes:
+          type: array
+          items: { type: string }
+    Operation:
+      type: object
+      additionalProperties: false
+      required: [operationId, state, createdAt]
+      properties:
+        operationId: { type: string, format: uuid }
+        state: { type: string, enum: [QUEUED, RUNNING, COMPLETE, FAILED] }
+        createdAt: { type: string, format: date-time }
+    VersionReference:
+      type: object
+      additionalProperties: false
+      required: [id, version, hash, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        version: { type: integer, minimum: 1 }
+        hash: { $ref: '#/components/schemas/Sha256' }
+        createdAt: { type: string, format: date-time }
+    ConnectionCreate:
+      type: object
+      additionalProperties: false
+      required: [workspaceId, mode, network, programId, apiHost, publicWalletRef]
+      properties:
+        workspaceId: { type: string, format: uuid }
+        mode: { type: string, enum: [SANDBOX, DEVNET, LIVE_READ] }
+        network: { type: string, minLength: 1, maxLength: 64 }
+        programId: { type: string, minLength: 16, maxLength: 128 }
+        apiHost: { type: string, format: uri }
+        publicWalletRef: { type: string, minLength: 16, maxLength: 128 }
+        readCredential: { type: string, minLength: 16, maxLength: 512, writeOnly: true }
+    Connection:
+      allOf:
+        - $ref: '#/components/schemas/ConnectionCreate'
+        - type: object
+          required: [id, status, createdAt]
+          properties:
+            id: { type: string, format: uuid }
+            status: { type: string, enum: [DRAFT, VERIFYING, VERIFIED_READ, BLOCKED, DISABLED] }
+            createdAt: { type: string, format: date-time }
+    Inventory:
+      type: object
+      additionalProperties: false
+      required: [connectionId, pricingSnapshotHash, observedAt, freshness, subscriptions, entitlements]
+      properties:
+        connectionId: { type: string, format: uuid }
+        pricingSnapshotHash: { $ref: '#/components/schemas/Sha256' }
+        observedAt: { type: string, format: date-time }
+        freshness: { type: string, enum: [FRESH, STALE, UNKNOWN] }
+        subscriptions:
+          type: array
+          items: { $ref: '#/components/schemas/SubscriptionItem' }
+        entitlements:
+          type: array
+          items: { $ref: '#/components/schemas/EntitlementItem' }
+    SubscriptionItem:
+      type: object
+      additionalProperties: false
+      required: [externalRef, tier, leagues, latencyClass, periodStart, periodEnd, exactCost]
+      properties:
+        externalRef: { type: string }
+        tier: { type: string }
+        leagues:
+          type: array
+          items: { type: string }
+        latencyClass: { type: string }
+        periodStart: { type: string, format: date-time }
+        periodEnd: { type: string, format: date-time }
+        exactCost: { $ref: '#/components/schemas/Money' }
+    EntitlementItem:
+      type: object
+      additionalProperties: false
+      required: [status, leagues, latencyClass, observedAt]
+      properties:
+        status: { type: string, enum: [ACTIVE, INACTIVE, MISMATCH, UNKNOWN] }
+        leagues:
+          type: array
+          items: { type: string }
+        latencyClass: { type: string }
+        observedAt: { type: string, format: date-time }
+    Money:
+      type: object
+      additionalProperties: false
+      required: [currency, minorUnits]
+      properties:
+        currency: { type: string, pattern: '^[A-Z]{3,8}$' }
+        minorUnits: { type: string, pattern: '^-?\d+$' }
+    UsageImport:
+      type: object
+      additionalProperties: false
+      required: [workspaceId, periodStart, periodEnd, schemaVersion, rows]
+      properties:
+        workspaceId: { type: string, format: uuid }
+        periodStart: { type: string, format: date-time }
+        periodEnd: { type: string, format: date-time }
+        schemaVersion: { const: '1.0' }
+        rows:
+          type: array
+          minItems: 1
+          maxItems: 10000
+          items:
+            type: object
+            additionalProperties: false
+            required: [productRef, leagueRef, requestCount]
+            properties:
+              productRef: { type: string, maxLength: 128 }
+              leagueRef: { type: string, maxLength: 128 }
+              endpointClass: { type: string, maxLength: 64 }
+              latencyClass: { type: string, maxLength: 64 }
+              requestCount: { type: integer, minimum: 0 }
+    RequirementSet:
+      type: object
+      additionalProperties: false
+      required: [workspaceId, periodStart, periodEnd, requirements]
+      properties:
+        workspaceId: { type: string, format: uuid }
+        periodStart: { type: string, format: date-time }
+        periodEnd: { type: string, format: date-time }
+        requirements:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            additionalProperties: false
+            required: [kind, hardness, operator, value, ownerRef]
+            properties:
+              kind: { type: string, enum: [LEAGUE, FIXTURE, LATENCY, REGION, BUDGET, EFFECTIVE_DATE, BLACKOUT, HEADROOM] }
+              hardness: { type: string, enum: [HARD, SOFT] }
+              operator: { type: string, enum: [INCLUDE, EXCLUDE, MAX, MIN, EQUALS, BEFORE, AFTER] }
+              value: {}
+              ownerRef: { type: string, minLength: 1, maxLength: 128 }
+    OptimizationResult:
+      type: object
+      additionalProperties: false
+      required: [runId, state, snapshotHash, optimizerVersion, verifierVersion]
+      properties:
+        runId: { type: string, format: uuid }
+        state: { type: string, enum: [QUEUED, SOLVING, VERIFYING, COMPLETE, INFEASIBLE, FAILED] }
+        snapshotHash: { $ref: '#/components/schemas/Sha256' }
+        optimizerVersion: { type: string }
+        verifierVersion: { type: string }
+        recommendation: { $ref: '#/components/schemas/Recommendation' }
+        conflictSet:
+          type: array
+          items: { type: string }
+    Recommendation:
+      type: object
+      additionalProperties: false
+      required: [id, candidateHash, hardConstraints, currentCost, proposedCost, forecastDelta, confidence]
+      properties:
+        id: { type: string, format: uuid }
+        candidateHash: { $ref: '#/components/schemas/Sha256' }
+        hardConstraints: { type: string, enum: [PASSED] }
+        currentCost: { $ref: '#/components/schemas/Money' }
+        proposedCost: { $ref: '#/components/schemas/Money' }
+        forecastDelta: { $ref: '#/components/schemas/Money' }
+        confidence: { type: number, minimum: 0, maximum: 1 }
+        assumptions:
+          type: array
+          items: { type: string }
+    Proposal:
+      type: object
+      additionalProperties: false
+      required: [id, version, proposalHash, snapshotHash, state, policyResult, expiresAt, approvalGraph]
+      properties:
+        id: { type: string, format: uuid }
+        version: { type: integer, minimum: 1 }
+        proposalHash: { $ref: '#/components/schemas/Sha256' }
+        snapshotHash: { $ref: '#/components/schemas/Sha256' }
+        state: { type: string, enum: [DRAFT, BLOCKED, AWAITING_APPROVAL, APPROVED, READY_TO_SIGN, EXPIRED, INVALIDATED] }
+        policyResult: { type: string, enum: [ELIGIBLE, APPROVAL_REQUIRED, BLOCKED] }
+        expiresAt: { type: string, format: date-time }
+        approvalGraph:
+          type: array
+          items:
+            type: object
+            required: [role, order, status]
+            properties:
+              role: { type: string }
+              order: { type: integer, minimum: 1 }
+              status: { type: string, enum: [PENDING, APPROVED, REJECTED, EXPIRED] }
+    Approval:
+      type: object
+      additionalProperties: false
+      required: [id, proposalHash, actorRef, role, decision, decidedAt]
+      properties:
+        id: { type: string, format: uuid }
+        proposalHash: { $ref: '#/components/schemas/Sha256' }
+        actorRef: { type: string }
+        role: { type: string }
+        decision: { type: string, enum: [APPROVE, REJECT] }
+        decidedAt: { type: string, format: date-time }
+    TransactionStatus:
+      type: object
+      additionalProperties: false
+      required: [operationId, state, network, programId, observedAt]
+      properties:
+        operationId: { type: string, format: uuid }
+        state: { type: string, enum: [OBSERVING, SUBMITTED, CONFIRMED, FAILED, EXPIRED, REPLACED] }
+        network: { type: string }
+        programId: { type: string }
+        publicTransactionHash: { type: string }
+        observedAt: { type: string, format: date-time }
+    EntitlementStatus:
+      type: object
+      additionalProperties: false
+      required: [proposalId, status, checkedAt, reasonCodes]
+      properties:
+        proposalId: { type: string, format: uuid }
+        status: { type: string, enum: [PENDING, VERIFIED_ACTIVE, ACTIVATION_FAILED, ENTITLEMENT_MISMATCH] }
+        checkedAt: { type: string, format: date-time }
+        reasonCodes:
+          type: array
+          items: { type: string }
+    SavingsPeriod:
+      type: object
+      additionalProperties: false
+      required: [id, state, currency, entries]
+      properties:
+        id: { type: string, format: uuid }
+        state: { type: string, enum: [OPEN, INPUTS_COMPLETE, RECONCILING, CLOSED, DISPUTED] }
+        currency: { type: string }
+        entries:
+          type: array
+          items:
+            type: object
+            required: [entryId, type, amount, evidenceHash]
+            properties:
+              entryId: { type: string, format: uuid }
+              type: { type: string, enum: [FORECAST, APPROVED, PENDING, REALIZED, DISPUTED, REVERSAL] }
+              amount: { $ref: '#/components/schemas/Money' }
+              evidenceHash: { $ref: '#/components/schemas/Sha256' }

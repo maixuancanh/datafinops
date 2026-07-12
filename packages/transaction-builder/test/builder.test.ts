@@ -1,0 +1,3 @@
+import { describe, expect, it } from 'vitest';
+import { buildUnsigned } from '../src/index.js';
+describe('unsigned transaction builder', () => { it('keeps summary parity and allowlisted instructions', () => { const result = buildUnsigned({ version: 1, network: 'devnet', programId: 'prog', account: 'public-account', amountMinor: 10, instructions: ['ALLOW_SUBSCRIBE'], expiresAt: '2099-01-01', approvalHash: 'approval' }); expect(result.summary).toContain('10 minor units'); }); it('rejects unallowlisted instructions', () => expect(() => buildUnsigned({ version: 1, network: 'devnet', programId: 'prog', account: 'a', amountMinor: 1, instructions: ['TRANSFER_RAW'], expiresAt: '2099-01-01', approvalHash: 'a' })).toThrow('INSTRUCTION_NOT_ALLOWED')); });

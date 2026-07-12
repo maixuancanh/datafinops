@@ -1,0 +1,17 @@
+{
+  "name": "@datafinops/domain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": { "pg": "8.20.0" },
+  "devDependencies": {
+    "@types/pg": "8.18.0",
+    "typescript": "catalog:"
+  }
+}

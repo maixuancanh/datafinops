@@ -1,0 +1,125 @@
+name: DataFinOps CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: datafinops-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  CI: true
+  DATAFINOPS_MODE: sandbox
+  DATAFINOPS_FIXED_CLOCK: 2026-08-01T12:00:00.000Z
+  DATAFINOPS_LIVE_WRITE: 'false'
+
+jobs:
+  contracts:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 11.5.2, run_install: false }
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .nvmrc, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm contracts:lint
+      - run: pnpm contracts:generate
+      - run: git diff --exit-code
+
+  quality:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 11.5.2, run_install: false }
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .nvmrc, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm format:check
+      - run: pnpm lint
+      - run: pnpm typecheck
+
+  tests:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:17.7-alpine
+        env: { POSTGRES_DB: datafinops, POSTGRES_USER: datafinops, POSTGRES_PASSWORD: test-only }
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U datafinops -d datafinops"
+          --health-interval 5s --health-timeout 3s --health-retries 20
+      redis:
+        image: redis:8.4-alpine
+        ports: ['6379:6379']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 11.5.2, run_install: false }
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .nvmrc, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:unit
+      - run: pnpm test:property
+      - run: pnpm test:golden
+      - run: pnpm test:contract
+      - run: pnpm test:integration
+
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 11.5.2, run_install: false }
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .nvmrc, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+
+  security:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: pnpm/action-setup@v4
+        with: { version: 11.5.2, run_install: false }
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .nvmrc, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:security
+      - run: pnpm audit --audit-level high
+
+  solver-parity:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 11.5.2, run_install: false }
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .nvmrc, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:property
+      - run: pnpm test:golden
+
+  evidence:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: test -f IMPLEMENTATION_STATUS.md
+      - run: test -d artifacts/implementation
+      - run: test -z "$(git status --porcelain)"
+
+  aggregate:
+    name: Required aggregate gate
+    if: always()
+    needs: [contracts, quality, tests, build, security, solver-parity, evidence]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: node scripts/assert-ci-results.mjs '${{ toJson(needs) }}'

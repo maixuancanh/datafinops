@@ -1,0 +1,7 @@
+{
+  "tasks": ["T095", "T096", "T097", "T098", "T099", "T100", "T101", "T102", "T103"],
+  "status": "verified",
+  "tests": {"ledger": "2 passed", "property": "1 passed"},
+  "acceptance": "artifacts/us5/acceptance-report.json",
+  "controls": ["exact minor-unit delta", "append-only hash", "incomplete period stays OPEN", "content-addressed export with expiry", "forecast separated from realized", "no spend"]
+}

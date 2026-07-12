@@ -1,0 +1,11 @@
+{
+    "mode":  "SANDBOX",
+    "orderedApprovals":  "append-only",
+    "policy":  "versioned",
+    "separation":  "denied",
+    "spend":  false,
+    "proposalHash":  "content-addressed",
+    "webhook":  "hmac",
+    "invalidation":  "material-change",
+    "status":  "verified"
+}

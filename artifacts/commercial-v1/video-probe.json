@@ -1,0 +1,17 @@
+{
+    "status":  "script-ready",
+    "liveWrite":  false,
+    "routes":  [
+                   "/connections",
+                   "/usage",
+                   "/allocation",
+                   "/portfolio",
+                   "/scenarios",
+                   "/policies",
+                   "/proposals/demo/sign",
+                   "/savings",
+                   "/renewals"
+               ],
+    "mode":  "SANDBOX",
+    "spend":  false
+}

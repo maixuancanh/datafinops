@@ -1,0 +1,7 @@
+{
+  "tasks": ["T037", "T038"],
+  "status": "verified",
+  "tests": {"workers": "7 passed", "api": "4 passed"},
+  "typechecks": "domain, workers, api passed",
+  "controls": ["tenant-scoped aggregate rows", "deterministic row hashes", "duplicate and late quality handling", "period/currency/units validation", "customer-level identifiers rejected"]
+}

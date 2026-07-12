@@ -1,0 +1,8 @@
+{
+  "tasks": ["T059", "T060", "T061", "T062"],
+  "status": "verified",
+  "console": "typecheck passed",
+  "optimizerTests": "4 passed",
+  "acceptance": "artifacts/us2/acceptance-report.json",
+  "safety": ["language adapter cannot alter signed ranking", "infeasible is blocked", "sandbox and spend=false"]
+}

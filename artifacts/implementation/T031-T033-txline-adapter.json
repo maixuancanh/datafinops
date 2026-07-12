@@ -1,0 +1,23 @@
+{
+  "tasks": ["T031", "T032", "T033"],
+  "status": "verified",
+  "tests": {
+    "command": "pnpm.cmd --filter @datafinops/txline-adapter test",
+    "result": "8 passed"
+  },
+  "typecheck": {
+    "command": "pnpm.cmd --filter @datafinops/txline-adapter typecheck",
+    "result": "passed"
+  },
+  "lint_and_boundaries": {
+    "command": "pnpm.cmd lint",
+    "result": "passed"
+  },
+  "safety": [
+    "LIVE_WRITE requires explicit liveWriteEvidence",
+    "SANDBOX and DEVNET expose no writeSubscription method",
+    "LIVE_READ capabilities.liveWrite is false",
+    "network/program/API host mismatches block executable state",
+    "activation and write paths are simulated and spend=false"
+  ]
+}

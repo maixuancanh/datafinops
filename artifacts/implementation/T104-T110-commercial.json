@@ -1,0 +1,11 @@
+{
+  "tasks": ["T104", "T105", "T106", "T107", "T108", "T109", "T110"],
+  "status": "verified-local",
+  "typechecks": "workspace passed",
+  "lint": "passed",
+  "recovery": "artifacts/us6/recovery/recovery-report.json",
+  "capacity": "artifacts/us6/capacity/capacity-report.json",
+  "commercial": "artifacts/commercial-v1/release-manifest.json",
+  "video": "artifacts/commercial-v1/video-probe.json",
+  "safety": ["Docker not required", "native Windows runtime", "liveWrite=false", "publicDeploy=false", "liveSpend=false"]
+}

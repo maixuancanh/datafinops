@@ -1,0 +1,6 @@
+{
+  "tasks": ["T076", "T077", "T078", "T079", "T080", "T081", "T082", "T083", "T084", "T085", "T086", "T087", "T088", "T089", "T090", "T091", "T092", "T093", "T094"],
+  "status": "verified",
+  "tests": {"transactionBuilder": "3 passed", "wallet": "2 passed", "entitlement": "1 passed", "acceptance": "passed"},
+  "controls": ["unsigned only", "allowlisted instructions", "public demo signer", "no secret input", "bound hash verification", "no automatic resubmission", "no-repurchase mismatch block", "tenant-scoped emergency stop"]
+}

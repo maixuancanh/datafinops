@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.datafinops.example/v1/optimization-snapshot.schema.json",
+  "title": "DataFinOps Optimization Snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["snapshotId", "workspaceId", "mode", "network", "programId", "period", "currency", "sourceVersions", "currentConfiguration", "pricingItems", "requirements", "optimizerVersion", "canonicalHash", "createdAt"],
+  "properties": {
+    "snapshotId": { "type": "string", "format": "uuid" },
+    "workspaceId": { "type": "string", "format": "uuid" },
+    "mode": { "type": "string", "enum": ["SANDBOX", "DEVNET", "LIVE_READ", "LIVE_WRITE"] },
+    "network": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "programId": { "type": "string", "minLength": 16, "maxLength": 128 },
+    "period": { "$ref": "#/$defs/period" },
+    "currency": { "type": "string", "pattern": "^[A-Z]{3,8}$" },
+    "sourceVersions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pricing", "subscription", "entitlement", "fixtures", "usage", "allocation", "requirements", "policy"],
+      "properties": {
+        "pricing": { "$ref": "#/$defs/versionHash" },
+        "subscription": { "$ref": "#/$defs/versionHash" },
+        "entitlement": { "$ref": "#/$defs/versionHash" },
+        "fixtures": { "$ref": "#/$defs/versionHash" },
+        "usage": { "$ref": "#/$defs/versionHash" },
+        "allocation": { "$ref": "#/$defs/versionHash" },
+        "requirements": { "$ref": "#/$defs/versionHash" },
+        "policy": { "$ref": "#/$defs/versionHash" }
+      }
+    },
+    "currentConfiguration": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/configurationItem" }
+    },
+    "pricingItems": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/pricingItem" }
+    },
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/requirement" }
+    },
+    "unallocatedCost": { "$ref": "#/$defs/money" },
+    "dataQuality": { "type": "number", "minimum": 0, "maximum": 1 },
+    "optimizerVersion": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "canonicalHash": { "$ref": "#/$defs/sha256" },
+    "createdAt": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "versionHash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "hash"],
+      "properties": {
+        "version": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "hash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "period": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end"],
+      "properties": {
+        "start": { "type": "string", "format": "date-time" },
+        "end": { "type": "string", "format": "date-time" }
+      }
+    },
+    "money": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["currency", "minorUnits"],
+      "properties": {
+        "currency": { "type": "string", "pattern": "^[A-Z]{3,8}$" },
+        "minorUnits": { "type": "string", "pattern": "^-?\\d+$" }
+      }
+    },
+    "configurationItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pricingItemId", "effectiveStart", "effectiveEnd"],
+      "properties": {
+        "pricingItemId": { "type": "string" },
+        "effectiveStart": { "type": "string", "format": "date-time" },
+        "effectiveEnd": { "type": "string", "format": "date-time" }
+      }
+    },
+    "pricingItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "tier", "leagues", "latencyClass", "cost", "effectiveStart", "effectiveEnd"],
+      "properties": {
+        "id": { "type": "string" },
+        "tier": { "type": "string" },
+        "leagues": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "latencyClass": { "type": "string" },
+        "cost": { "$ref": "#/$defs/money" },
+        "effectiveStart": { "type": "string", "format": "date-time" },
+        "effectiveEnd": { "type": "string", "format": "date-time" }
+      }
+    },
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "hardness", "operator", "value", "ownerRef"],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "type": "string", "enum": ["LEAGUE", "FIXTURE", "LATENCY", "REGION", "BUDGET", "EFFECTIVE_DATE", "BLACKOUT", "HEADROOM"] },
+        "hardness": { "type": "string", "enum": ["HARD", "SOFT"] },
+        "operator": { "type": "string", "enum": ["INCLUDE", "EXCLUDE", "MAX", "MIN", "EQUALS", "BEFORE", "AFTER"] },
+        "value": {},
+        "ownerRef": { "type": "string", "minLength": 1, "maxLength": 128 }
+      }
+    }
+  }
+}

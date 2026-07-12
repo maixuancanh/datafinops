@@ -1,0 +1,14 @@
+{
+    "product":  "DataFinOps",
+    "mode":  "native-windows",
+    "sourceDatabase":  "datafinops_test",
+    "restoreDatabase":  "datafinops_restore_test",
+    "startedAt":  "2026-07-12T03:20:21.5127745Z",
+    "completedAt":  "2026-07-12T03:20:26.8716401Z",
+    "backupHash":  "8b9b7a5ad9ebb84a4404b83345919c75eeb3684e3ccc02e01d41219e1a9d40a8",
+    "schemaHash":  "c0fdd211b7783bf15e9bfd573c4b0a684d4bc237ccfd8309330adde8a7e8c0c2",
+    "dataHash":  "6c1b3847393b47f694a7316255062f99132c1a7061b67c324257c7cab093c9ba",
+    "contentAddressedCopy":  "D:\\superteam\\ideawithsol\\datafinops\\.local-runtime\\object-versions\\8b9b7a5ad9ebb84a4404b83345919c75eeb3684e3ccc02e01d41219e1a9d40a8.dump",
+    "liveWrite":  false,
+    "status":  "passed"
+}

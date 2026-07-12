@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0",
+  "fixtureType": "entitlement",
+  "generatedAt": "2026-08-01T12:00:00.000Z",
+  "provenance": {
+    "synthetic": true,
+    "containsCustomerData": false,
+    "containsSigningMaterial": false,
+    "generatorVersion": "datafinops-fixtures-1.0.0"
+  },
+  "proposalRef": "proposal-demo-001",
+  "status": "VERIFIED_ACTIVE",
+  "network": "txline-sandbox",
+  "leagues": ["EPL"],
+  "latencyClass": "STANDARD",
+  "effectiveAt": "2026-08-01T00:00:00.000Z"
+}
