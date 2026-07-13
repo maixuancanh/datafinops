@@ -1,13 +1,6 @@
+import { TxlineModulePage } from '../txline-module-page';
+import { savingsModule } from '../txline-worldcup-modules';
+
 export default function SavingsPage() {
-  return (
-    <main>
-      <p>Workspace / Savings</p>
-      <h1>Verified savings</h1>
-      <p>
-        Forecast remains separate from realized savings until complete-input watermark and approval
-        gates pass.
-      </p>
-      <p>Status: awaiting complete period</p>
-    </main>
-  );
+  return <TxlineModulePage context="Workspace / Savings" module={savingsModule} />;
 }

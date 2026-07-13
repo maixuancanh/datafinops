@@ -13,6 +13,7 @@ The console app also includes a sellable sandbox web demo, now positioned specif
 
 - `/`: commercial SaaS landing page for TxLINE World Cup 2026 fixture coverage, odds/scores replay, governed savings proposals, and settlement proof readiness.
 - `/demo`: guided sandbox command center linking into portfolio, scenarios, proposals, savings, renewals, usage, and administration through a World Cup fixture/feed/settlement operating story.
+- The main `/demo` launch cards now open concrete TxLINE World Cup module pages instead of placeholders: portfolio baseline, optimization scenarios, governed proposal review, replay-backed savings, renewal radar, and usage/metering.
 - Demo copy explicitly states sandbox-only, no real TxLINE token required, no funded wallet required, replay proofs are synthetic, and live-write disabled.
 
 The local CI workflow structure is implemented in `.github/workflows/ci.yml`. The aggregate job is named `Required aggregate gate`, uses `if: always()`, depends on contracts, quality, tests, build, security, solver-parity, and evidence, and calls `scripts/assert-ci-results.mjs`.

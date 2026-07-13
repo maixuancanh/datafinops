@@ -1,11 +1,8 @@
+import { TxlineModulePage } from '../../txline-module-page';
+import { proposalModule } from '../../txline-worldcup-modules';
+
 export default async function ProposalPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  return (
-    <main>
-      <p>Proposal / {id}</p>
-      <h1>Frozen proposal review</h1>
-      <p>Material hash, semantic diff, authority, rationale, expiry and approval graph.</p>
-      <p>Status: approval required · live write disabled</p>
-    </main>
-  );
+
+  return <TxlineModulePage context={`Proposal / ${id}`} module={proposalModule} />;
 }
