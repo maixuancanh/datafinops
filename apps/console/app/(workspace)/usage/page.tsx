@@ -1,30 +1,6 @@
+import { TxlineModulePage } from '../txline-module-page';
+import { usageModule } from '../txline-worldcup-modules';
+
 export default function UsagePage() {
-  return (
-    <main>
-      <p>Workspace / Usage</p>
-      <h1>Aggregate usage imports</h1>
-      <p>
-        Upload CSV or JSON with period, currency, units and product scope. Customer-level
-        identifiers are rejected.
-      </p>
-      <table>
-        <thead>
-          <tr>
-            <th>Period</th>
-            <th>Units</th>
-            <th>Quality</th>
-            <th>Freshness</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>2026-01</td>
-            <td>—</td>
-            <td>Awaiting import</td>
-            <td>Unknown</td>
-          </tr>
-        </tbody>
-      </table>
-    </main>
-  );
+  return <TxlineModulePage context="Workspace / Usage" module={usageModule} />;
 }

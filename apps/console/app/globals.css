@@ -286,9 +286,35 @@ a {
   gap: 20px;
 }
 
+.workspace-shell {
+  background: var(--bg);
+}
+
+.workspace-hero {
+  padding: 58px 0 18px;
+}
+
+.workspace-context {
+  margin: 18px 0 0;
+  color: var(--accent);
+  font-size: 0.92rem;
+  font-weight: 850;
+}
+
+.workspace-metrics {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.workspace-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 20px;
+}
+
 .queue-item,
 .risk-item,
-.check-item {
+.check-item,
+.record-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -299,8 +325,21 @@ a {
 
 .queue-item:first-child,
 .risk-item:first-child,
-.check-item:first-child {
+.check-item:first-child,
+.record-item:first-child {
   border-top: 0;
+}
+
+.record-list {
+  margin-top: 10px;
+}
+
+.record-item {
+  align-items: flex-start;
+}
+
+.record-item p {
+  margin: 6px 0 0;
 }
 
 .pill {
@@ -363,12 +402,14 @@ a {
 
 @media (max-width: 920px) {
   .hero,
-  .demo-layout {
+  .demo-layout,
+  .workspace-grid {
     grid-template-columns: 1fr;
   }
 
   .card-grid,
-  .loop-grid {
+  .loop-grid,
+  .workspace-metrics {
     grid-template-columns: 1fr;
   }
 

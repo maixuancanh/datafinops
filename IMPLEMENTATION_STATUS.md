@@ -67,6 +67,7 @@ Commercial web demo:
 
 - `/`: buyer-facing SaaS landing page for DataFinOps Commercial V1, explicitly positioned around TxLINE World Cup 2026 fixture coverage, odds/scores replay, governed savings proposals, and settlement proof readiness.
 - `/demo`: guided sandbox command center with synthetic World Cup fixture KPIs, TxLINE proposal queue, renewal risk, evidence checklist, and links into existing workspace modules.
+- Workspace module pages: `/portfolio`, `/scenarios`, `/proposals/demo-proposal-001`, `/savings`, `/renewals`, and `/usage` render concrete TxLINE World Cup 2026 sandbox workflows with KPIs, records, proof checks, and safe next actions.
 - Safety posture remains sandbox-only: no auth/billing/live-write/funded-wallet requirement and no real TxLINE token requirement for the demo.
 
 Acceptance evidence is archived under:
