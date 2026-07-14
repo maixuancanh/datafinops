@@ -93,6 +93,97 @@ export const demoModules = [
   },
 ] as const;
 
+export const demoWorkflowSteps = [
+  {
+    stage: '01',
+    title: 'Ingest World Cup coverage',
+    body: 'Load the synthetic World Cup 2026 fixture snapshot, TxLINE odds feed, score feed, latency tier, and entitlement baseline before any savings logic runs.',
+    metric: '104 fixture windows',
+    status: 'Coverage baseline locked',
+    href: '/portfolio',
+    current: '18 TxLINE feeds across live, near-live, replay, and archive tiers',
+    candidate: 'Same fixture coverage, with duplicate group-stage odds feeds isolated',
+    proofs: [
+      'Fixture snapshot hash 0x8c41…f9b2',
+      'Odds SSE replay attached',
+      'Score stream watermark 99.8%',
+    ],
+  },
+  {
+    stage: '02',
+    title: 'Detect spend problem',
+    body: 'Surface waste without hiding risk: duplicate odds feeds, stale low-latency windows, and sponsor-trigger changes that are unsafe without score proof.',
+    metric: '$2.7M opportunity',
+    status: '3 hard conflicts visible',
+    href: '/usage',
+    current: 'Every World Cup surface is paying for peak live tiers',
+    candidate: 'Replay-only windows and duplicate feeds are marked for review',
+    proofs: [
+      'Usage quality 99.8%',
+      'Sponsor trigger archive blocked',
+      'No customer identifiers required',
+    ],
+  },
+  {
+    stage: '03',
+    title: 'Run optimization scenario',
+    body: 'Compare current versus candidate feed tiers while checking fixture coverage, live odds replay, live scores replay, and settlement-critical requirements.',
+    metric: '$410K safe candidate',
+    status: 'Scenario verifier green',
+    href: '/scenarios',
+    current: 'Duplicate group-stage odds feeds stay active for all workspaces',
+    candidate: 'Consolidate duplicate odds feeds while keeping score and settlement proofs intact',
+    proofs: [
+      'Fixture coverage passes',
+      'Live odds replay passes',
+      'Sponsor-trigger removal fails and stays blocked',
+    ],
+  },
+  {
+    stage: '04',
+    title: 'Generate governed proposal',
+    body: 'Freeze the approved candidate into proposal WC26-2048 with material hash, replay window, approval graph, expiry, and signer separation.',
+    metric: '2 / 3 approvals',
+    status: 'Signer pending',
+    href: '/proposals/demo-proposal-001',
+    current: 'Candidate is still a forecast and cannot execute',
+    candidate:
+      'Proposal packet binds savings, fixture snapshot, policy, replay proof, and approval state',
+    proofs: ['Material hash 0xf204…91aa', 'Finance approval captured', 'Live-write disabled'],
+  },
+  {
+    stage: '05',
+    title: 'Validate proof pack',
+    body: 'Give finance, security, and settlement teams the evidence trail: fixture hash, odds replay, scores replay, validation proof, and settlement envelope.',
+    metric: '97% proof ready',
+    status: 'One settlement gap blocked',
+    href: '/savings',
+    current: 'Forecast savings are not mixed with realized savings',
+    candidate: 'Only closed periods with complete replay evidence can move to realized savings',
+    proofs: [
+      'Live odds SSE replay coverage',
+      'Live scores SSE replay coverage',
+      'On-chain/stat validation proof',
+    ],
+  },
+  {
+    stage: '06',
+    title: 'Decide next action',
+    body: 'Finish the demo with an operating decision: approve safe savings, watch renewal risk, or block changes that would break settlement evidence.',
+    metric: '$840K lock-in risk',
+    status: 'Decision ready',
+    href: '/renewals',
+    current: 'Renewals lock in spend before proof gaps are resolved',
+    candidate:
+      'Approve WC26-2048, triage renewal risk, and keep unsafe sponsor-trigger changes blocked',
+    proofs: [
+      'Approval-ready savings candidate',
+      'Renewal proof gaps visible',
+      'Unsafe settlement change blocked',
+    ],
+  },
+] as const;
+
 export const proposalQueue = [
   {
     id: 'WC26-2048',

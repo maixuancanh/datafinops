@@ -286,6 +286,131 @@ a {
   gap: 20px;
 }
 
+.workflow-section {
+  padding-top: 34px;
+}
+
+.workflow-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  margin-bottom: 20px;
+}
+
+.workflow-header p {
+  max-width: 680px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.workflow-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.workflow-controls button {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.workflow-progress {
+  height: 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.045);
+  margin-bottom: 18px;
+}
+
+.workflow-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--brand-strong);
+  transition: width 420ms ease;
+}
+
+.workflow-shell {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1fr);
+  gap: 18px;
+}
+
+.workflow-steps {
+  display: grid;
+  gap: 10px;
+}
+
+.workflow-step {
+  display: grid;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text);
+  cursor: pointer;
+  padding: 16px;
+  text-align: left;
+}
+
+.workflow-step.active {
+  border-color: rgba(125, 211, 252, 0.68);
+  background: rgba(56, 189, 248, 0.13);
+}
+
+.workflow-step span,
+.workflow-step small {
+  color: var(--brand);
+  font-weight: 850;
+}
+
+.workflow-panel {
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  padding: 26px;
+}
+
+.workflow-panel-top,
+.comparison-grid {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.workflow-panel h3 {
+  margin: 22px 0 0;
+  font-size: clamp(1.8rem, 3vw, 3.1rem);
+  line-height: 1;
+}
+
+.workflow-panel p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 22px 0;
+}
+
+.comparison-grid > div {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.045);
+  padding: 18px;
+}
+
+.workflow-proof-list {
+  margin-bottom: 22px;
+}
+
 .workspace-shell {
   background: var(--bg);
 }
@@ -403,7 +528,9 @@ a {
 @media (max-width: 920px) {
   .hero,
   .demo-layout,
-  .workspace-grid {
+  .workspace-grid,
+  .workflow-shell,
+  .comparison-grid {
     grid-template-columns: 1fr;
   }
 
@@ -414,10 +541,15 @@ a {
   }
 
   .section-header,
+  .workflow-header,
   .cta-band,
   .nav-inner {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .workflow-controls {
+    justify-content: flex-start;
   }
 
   .nav-links {
