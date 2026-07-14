@@ -1,15 +1,27 @@
+import { evidenceChecks, proposalQueue, renewalRisks } from '../commercial-demo-data';
 import {
-  demoModules,
-  demoWorkflowSteps,
-  evidenceChecks,
-  heroMetrics,
-  proposalQueue,
-  renewalRisks,
-  safetyClaims,
-} from '../commercial-demo-data';
+  buildLiveDemoModules,
+  buildLiveHeroMetrics,
+  buildLiveWorkflowSteps,
+  buildTxlineDataMode,
+  getTxlineLiveSnapshot,
+} from '../txline-live-data';
 import { DemoWorkflow } from './demo-workflow';
 
-export default function DemoPage() {
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+export default async function DemoPage() {
+  const txlineSnapshot = await getTxlineLiveSnapshot();
+  const metrics = buildLiveHeroMetrics(txlineSnapshot);
+  const workflowSteps = buildLiveWorkflowSteps(txlineSnapshot);
+  const modules = buildLiveDemoModules(txlineSnapshot);
+  const dataMode = buildTxlineDataMode(txlineSnapshot);
+  const safetyClaims =
+    txlineSnapshot.source === 'live'
+      ? ['TxLINE read-only snapshot', 'No funded wallet required', 'Live-write disabled by default']
+      : ['Synthetic fallback data', 'No funded wallet required', 'Live-write disabled by default'];
+
   return (
     <main className="site-shell">
       <header className="nav">
@@ -31,7 +43,7 @@ export default function DemoPage() {
       </header>
 
       <section className="container demo-hero">
-        <span className="eyebrow">Guided TxLINE sandbox · synthetic World Cup 2026 portfolio</span>
+        <span className="eyebrow">Guided TxLINE sandbox · World Cup 2026 portfolio</span>
         <h1 className="section-title">TxLINE World Cup 2026 spend command center</h1>
         <p className="lead">
           A buyer-facing walkthrough for sportsbook ops, fan apps, sponsor activations, and
@@ -39,19 +51,28 @@ export default function DemoPage() {
           proposals, renewal risk, and finance-grade proof packs.
         </p>
         <div className="safety-strip">
+          <span className={dataMode.pillClassName}>{dataMode.label}</span>
           {safetyClaims.map((claim) => (
             <span className="pill" key={claim}>
               {claim}
             </span>
           ))}
         </div>
+        <div
+          className={
+            txlineSnapshot.source === 'live' ? 'source-banner live' : 'source-banner fallback'
+          }
+        >
+          <strong>{dataMode.label}</strong>
+          <span>{dataMode.detail}</span>
+        </div>
       </section>
 
-      <DemoWorkflow steps={demoWorkflowSteps} />
+      <DemoWorkflow steps={workflowSteps} />
 
       <section className="container section">
         <div className="metric-grid">
-          {heroMetrics.map((metric) => (
+          {metrics.map((metric) => (
             <article className="metric-card" key={metric.label}>
               <div className="metric-value">{metric.value}</div>
               <div className="metric-label">
@@ -117,7 +138,7 @@ export default function DemoPage() {
           </p>
         </div>
         <div className="card-grid">
-          {demoModules.map((module) => (
+          {modules.map((module) => (
             <a className="module-card" href={module.href} key={module.title}>
               <div>
                 <span className="module-metric">{module.metric}</span>

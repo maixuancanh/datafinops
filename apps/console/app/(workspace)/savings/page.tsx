@@ -1,6 +1,22 @@
 import { TxlineModulePage } from '../txline-module-page';
-import { savingsModule } from '../txline-worldcup-modules';
+import {
+  buildLiveModules,
+  buildTxlineDataMode,
+  getTxlineLiveSnapshot,
+} from '../../txline-live-data';
 
-export default function SavingsPage() {
-  return <TxlineModulePage context="Workspace / Savings" module={savingsModule} />;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+export default async function SavingsPage() {
+  const snapshot = await getTxlineLiveSnapshot();
+  const modules = buildLiveModules(snapshot);
+
+  return (
+    <TxlineModulePage
+      context="Workspace / Savings"
+      dataMode={buildTxlineDataMode(snapshot)}
+      module={modules.savings}
+    />
+  );
 }

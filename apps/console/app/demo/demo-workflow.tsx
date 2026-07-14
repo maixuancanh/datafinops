@@ -2,9 +2,17 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-import type { demoWorkflowSteps } from '../commercial-demo-data';
-
-type WorkflowStep = (typeof demoWorkflowSteps)[number];
+export type WorkflowStep = {
+  stage: string;
+  title: string;
+  body: string;
+  metric: string;
+  status: string;
+  href: string;
+  current: string;
+  candidate: string;
+  proofs: ReadonlyArray<string>;
+};
 
 export function DemoWorkflow({ steps }: Readonly<{ steps: ReadonlyArray<WorkflowStep> }>) {
   const [activeIndex, setActiveIndex] = useState(0);
