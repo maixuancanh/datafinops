@@ -1,7 +1,7 @@
 # DataFinOps Implementation Status
 
-Updated: 2026-07-13
-Branch: `codex/txline-worldcup-positioning`
+Updated: 2026-07-14
+Branch: `codex/txline-live-read-api`
 Recent evidence commits: `6b82c03c`, `c09457a8`, `b5e24172`, `29bf8a1b`, `9dcb383e`, and `81a1f733`.
 Use `git log --oneline -- ideawithsol/datafinops` for the current HEAD-specific commit list.
 
@@ -11,6 +11,7 @@ Use `git log --oneline -- ideawithsol/datafinops` for the current HEAD-specific 
 - Code/build readiness: T001-T110 are implemented and verified with local and GitHub evidence.
 - Local runtime readiness: Docker-free Windows native runtime scripts and quickstart evidence exist for sandbox mode.
 - Deterministic demo readiness: sandbox demo probe evidence exists, and `apps/console` now has a TxLINE World Cup 2026 commercial landing page plus guided `/demo` sandbox walkthrough; this is not a production deployment claim.
+- TxLINE live-read readiness: server-side read adapter is implemented for fixture, odds, and score snapshots when `TXLINE_API_TOKEN` or `DATAFINOPS_TXLINE_API_TOKEN` is configured; local no-token runs show a visible synthetic fallback banner and do not prove upstream live data.
 - Staging deployment readiness: manifests are present but not deployed as a running public service.
 - Production/live integration readiness: not ready; live-write remains disabled.
 - Commercial/customer readiness: not ready; customer-specific rights, finance, security, and operating approvals remain external gates.
@@ -69,7 +70,8 @@ Commercial web demo:
 - `/demo`: guided sandbox command center with synthetic World Cup fixture KPIs, TxLINE proposal queue, renewal risk, evidence checklist, and links into existing workspace modules.
 - `/demo` workflow mode: an `Auto-run demo` control advances a six-step story from coverage ingestion through spend detection, optimization, governed proposal, proof validation, and final decision.
 - Workspace module pages: `/portfolio`, `/scenarios`, `/proposals/demo-proposal-001`, `/savings`, `/renewals`, and `/usage` render concrete TxLINE World Cup 2026 sandbox workflows with KPIs, records, proof checks, and safe next actions.
-- Safety posture remains sandbox-only: no auth/billing/live-write/funded-wallet requirement and no real TxLINE token requirement for the demo.
+- TxLINE live-read mode: set `TXLINE_API_TOKEN` or `DATAFINOPS_TXLINE_API_TOKEN` to an activated TxLINE API token; optional `TXLINE_API_ORIGIN` or `TXLINE_API_BASE_URL` selects mainnet/devnet host; optional `TXLINE_GUEST_JWT` can provide a pre-issued guest JWT.
+- Safety posture remains sandbox-only for write paths: no auth/billing/live-write/funded-wallet requirement, and no wallet signing/subscription/purchase/activation code path is added.
 
 Acceptance evidence is archived under:
 
@@ -85,7 +87,8 @@ Acceptance evidence is archived under:
 
 ## Active Safety Boundaries
 
-- Synthetic fixtures and unfunded public references only.
+- Synthetic fallback fixtures and unfunded public references only when TxLINE credentials are absent.
+- TxLINE live-read credentials, when configured, stay server-side and are not exposed to client components.
 - No private signing material or server-side signing.
 - No public deployment, production credential, funded wallet, real purchase, or live-write enablement.
 

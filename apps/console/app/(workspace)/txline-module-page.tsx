@@ -1,3 +1,4 @@
+import type { TxlineDataMode } from '../txline-live-data';
 import type { TxlineModule } from './txline-worldcup-modules';
 
 const statusClass = {
@@ -9,7 +10,8 @@ const statusClass = {
 export function TxlineModulePage({
   module,
   context,
-}: Readonly<{ module: TxlineModule; context: string }>) {
+  dataMode,
+}: Readonly<{ module: TxlineModule; context: string; dataMode: TxlineDataMode }>) {
   return (
     <main className="site-shell workspace-shell">
       <header className="nav">
@@ -36,9 +38,17 @@ export function TxlineModulePage({
         <p className="lead">{module.lead}</p>
         <div className="safety-strip">
           <span className="pill">TxLINE World Cup 2026 sandbox</span>
-          <span className="pill">No real TxLINE token</span>
+          <span className={dataMode.pillClassName}>{dataMode.label}</span>
           <span className="pill">No funded wallet</span>
           <span className="pill">Live-write disabled</span>
+        </div>
+        <div
+          className={
+            dataMode.label === 'Live TxLINE API' ? 'source-banner live' : 'source-banner fallback'
+          }
+        >
+          <strong>{dataMode.label}</strong>
+          <span>{dataMode.detail}</span>
         </div>
       </section>
 

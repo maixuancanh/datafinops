@@ -1,6 +1,22 @@
 import { TxlineModulePage } from '../txline-module-page';
-import { scenariosModule } from '../txline-worldcup-modules';
+import {
+  buildLiveModules,
+  buildTxlineDataMode,
+  getTxlineLiveSnapshot,
+} from '../../txline-live-data';
 
-export default function ScenariosPage() {
-  return <TxlineModulePage context="Workspace / Scenarios" module={scenariosModule} />;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+export default async function ScenariosPage() {
+  const snapshot = await getTxlineLiveSnapshot();
+  const modules = buildLiveModules(snapshot);
+
+  return (
+    <TxlineModulePage
+      context="Workspace / Scenarios"
+      dataMode={buildTxlineDataMode(snapshot)}
+      module={modules.scenarios}
+    />
+  );
 }

@@ -1,6 +1,22 @@
 import { TxlineModulePage } from '../txline-module-page';
-import { portfolioModule } from '../txline-worldcup-modules';
+import {
+  buildLiveModules,
+  buildTxlineDataMode,
+  getTxlineLiveSnapshot,
+} from '../../txline-live-data';
 
-export default function PortfolioPage() {
-  return <TxlineModulePage context="Workspace / Portfolio" module={portfolioModule} />;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+export default async function PortfolioPage() {
+  const snapshot = await getTxlineLiveSnapshot();
+  const modules = buildLiveModules(snapshot);
+
+  return (
+    <TxlineModulePage
+      context="Workspace / Portfolio"
+      dataMode={buildTxlineDataMode(snapshot)}
+      module={modules.portfolio}
+    />
+  );
 }
