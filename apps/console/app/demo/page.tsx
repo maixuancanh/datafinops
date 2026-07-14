@@ -1,11 +1,13 @@
 import {
   demoModules,
+  demoWorkflowSteps,
   evidenceChecks,
   heroMetrics,
   proposalQueue,
   renewalRisks,
   safetyClaims,
 } from '../commercial-demo-data';
+import { DemoWorkflow } from './demo-workflow';
 
 export default function DemoPage() {
   return (
@@ -44,6 +46,8 @@ export default function DemoPage() {
           ))}
         </div>
       </section>
+
+      <DemoWorkflow steps={demoWorkflowSteps} />
 
       <section className="container section">
         <div className="metric-grid">
@@ -104,12 +108,12 @@ export default function DemoPage() {
         <div className="section-header">
           <div>
             <span className="eyebrow">TxLINE launch points</span>
-            <h2 className="section-title">Open the World Cup product surfaces buyers ask about.</h2>
+            <h2 className="section-title">Drill into the modules behind the workflow.</h2>
           </div>
           <p>
-            Each module links to an existing sandbox workspace page, so the demo feels like a real
-            TxLINE product without requiring live customer data, production tokens, or funded
-            wallets.
+            These module pages support the guided story above. Use them when a buyer wants to
+            inspect the portfolio baseline, scenario math, proposal packet, savings evidence,
+            renewal risk, or usage metering in detail.
           </p>
         </div>
         <div className="card-grid">

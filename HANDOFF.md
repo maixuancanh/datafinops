@@ -13,6 +13,7 @@ The console app also includes a sellable sandbox web demo, now positioned specif
 
 - `/`: commercial SaaS landing page for TxLINE World Cup 2026 fixture coverage, odds/scores replay, governed savings proposals, and settlement proof readiness.
 - `/demo`: guided sandbox command center linking into portfolio, scenarios, proposals, savings, renewals, usage, and administration through a World Cup fixture/feed/settlement operating story.
+- `/demo` now includes a complete guided workflow with an `Auto-run demo` button that advances through coverage ingestion, spend detection, optimization, proposal generation, proof validation, and decision.
 - The main `/demo` launch cards now open concrete TxLINE World Cup module pages instead of placeholders: portfolio baseline, optimization scenarios, governed proposal review, replay-backed savings, renewal radar, and usage/metering.
 - Demo copy explicitly states sandbox-only, no real TxLINE token required, no funded wallet required, replay proofs are synthetic, and live-write disabled.
 
